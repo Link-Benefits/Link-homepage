@@ -2055,7 +2055,8 @@ async function readRenewal(file) {
   let pages;
   try {
     const lib = await loadPdfJs();
-    const pdf = await lib.getDocument({ data: new Uint8Array(await file.arrayBuffer()) }).promise;
+    // isEvalSupported: false closes CVE-2024-4367 (script injection through a crafted font) in pdf.js < 4.2.67.
+    const pdf = await lib.getDocument({ data: new Uint8Array(await file.arrayBuffer()), isEvalSupported: false }).promise;
     pages = await pdfPages(pdf);
   } catch (e) {
     upShow(`<p class="up-warn">${e && e.message === 'lib' ? 'The PDF reader did not load. Check your connection and try again.' : `Could not open ${esc(file.name)}. If it is password-protected, save an unlocked copy and try again.`}</p>`);
