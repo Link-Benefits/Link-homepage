@@ -151,7 +151,11 @@ select.ctl{padding-right:8px}
 .col.empty{display:flex;align-items:center;background:transparent;border:1.5px dashed var(--line-strong);box-shadow:none;min-height:240px}
 .slot{display:grid;gap:8px;width:100%}
 .slot .hint{margin:0;font-size:13px;color:var(--muted)}
-.fine{margin:0;font-size:13px;color:var(--muted);max-width:110ch}
+.fine{display:grid;gap:8px;padding:14px 18px;border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:var(--r);background:var(--surface);box-shadow:var(--card-shadow);font-size:13.5px;color:var(--muted)}
+.fine p{margin:0;max-width:125ch}
+.fine b{color:var(--ink-strong)}
+.fine a,.sub a{color:var(--accent);font-weight:700;text-underline-offset:3px}
+.sub{margin:4px 0 0;font-size:14px;color:var(--muted)}
 
 /* full list */
 .l-head{display:grid;gap:12px;margin-bottom:12px}
@@ -241,6 +245,7 @@ select.sm{height:36px;font-size:14px}
       <div>
         <p class="eyebrow">Priority Health · Small Group · 2027 rate relativity</p>
         <h1>Renewal alternatives</h1>
+        <p class="sub">Estimates based on Priority Health's <a href="https://www.priorityhealth.com/agent/center/group/small/agent-resources-library/resources-to-help-you-sell" target="_blank" rel="noopener">2027 Small Group Relativity Grids</a></p>
       </div>
     </div>
     <div class="actions">
@@ -302,7 +307,10 @@ select.sm{height:36px;font-size:14px}
     <div id="scenBody"></div>
   </section>
 
-  <p class="fine">Percent changes come from Priority Health's 2027 Small Business rate relativity grid, which the carrier rounds to the whole percent, so dollar figures are estimates applied to each current plan's renewal premium. HMO and POS plans can be compared with each other: those changes (shown to one decimal) combine the HMO grid with each POS plan's filed 2027 POS-to-HMO rate factor, which runs from +7.8% to +9.6% by plan and is the same in every county. PPO plans compare only with PPO plans, because the PPO gap to HMO varies by region and plan. Plan design is in-network, single / family. Partners plans show Tier 1, with Tier 2 beneath where it differs. Coinsurance is the member's share.</p>
+  <aside class="fine" aria-label="How these numbers are estimated">
+    <p><b>Estimates only, not a quote.</b> Every % and $ change on this page is an estimate based on Priority Health's <a href="https://www.priorityhealth.com/agent/center/group/small/agent-resources-library/resources-to-help-you-sell" target="_blank" rel="noopener">2027 Small Group Relativity Grids</a> (Priority Health agent login), the carrier's published percentage change in premium when a group switches from one plan to another. It is applied to the renewal premium you enter. The grid rounds to whole percents, so dollar amounts are approximate. Actual premiums come only from a Priority Health quote.</p>
+    <p>HMO and POS plans can be compared with each other: those changes (shown to one decimal) combine the HMO grid with each POS plan's filed 2027 POS-to-HMO rate factor, which runs from +7.8% to +9.6% by plan and is the same in every county. PPO plans compare only with PPO plans, because the PPO gap to HMO varies by region and plan. Plan design is in-network, single / family. Partners plans show Tier 1, with Tier 2 beneath where it differs. Coinsurance is the member's share.</p>
+  </aside>
 
   <section class="panel" aria-labelledby="ladderTitle" id="ladderPanel">
     <div class="l-head">
@@ -368,6 +376,11 @@ let state; // loaded at the bottom, once every helper load() relies on exists
 // ==core== (pure: no DOM; also exercised by the local PDF/Excel harness)
 const MINUS = '−';
 const LOGO_PNG = 'data:image/png;base64,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'; // Link Benefits logo, from the Team Portal (400 x 111)
+const GRID_NAME = 'Priority Health 2027 Small Group Relativity Grids';
+// PH posts the 2027 grids only in its agent resources library (agent login); no public PDF exists
+const GRID_URL = 'https://www.priorityhealth.com/agent/center/group/small/agent-resources-library/resources-to-help-you-sell';
+const ESTIMATE_NOTE = `Estimates only, not a quote. Every change is an estimate based on the ${GRID_NAME}, the carrier's published percentage change in premium when a group switches plans, applied to the renewal premium entered. The grid rounds to whole percents, so dollar amounts are approximate. Actual premiums come only from a Priority Health quote.`;
+const SOURCE_NOTE = `Source: ${GRID_NAME} (Priority Health agent resources library; agent login)`;
 function usd(n, d = 2) {
   return n.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: d, maximumFractionDigits: d });
 }
@@ -507,14 +520,15 @@ function buildPdf(m, jsPDF) {
   const hy = '-';
   const DOT = '  ·  ';
   const multi = m.sets.length > 1;
+  const NOTE_HEAD = 'ESTIMATES ONLY, NOT A QUOTE';
   const NOTES = [
-    "Premium changes use Priority Health's 2027 Small Business rate relativity grid: the percentage change in 2027 premium when switching from a current plan to an alternative plan in the same network. The carrier publishes whole-percent figures, so dollar amounts are estimates applied to each renewal premium shown; final premiums are confirmed by the carrier's quote." +
+    `Every change shown is an estimate based on the ${GRID_NAME}, the carrier's published percentage change in premium when a group switches from one plan to another, applied to the renewal premium shown. The grid rounds to whole percents, so dollar amounts are approximate; actual premiums come only from a Priority Health quote.` +
       (m.cross ? " HMO-to-POS and POS-to-HMO changes (shown to one decimal) combine the HMO grid with each POS plan's filed 2027 POS-to-HMO rate factor, which is the same in every rating area." : ''),
     "Plan design is in-network, shown single / family. Coinsurance is the member's share. Partners plans show Tier 1 first, with Tier 2 beneath where it differs."
   ];
   font('normal', 7.3);
   const noteLines = NOTES.map(p => doc.splitTextToSize(p, W - 2 * M));
-  const notesH = noteLines.reduce((a, ls) => a + ls.length * 9.2 + 3, 0);
+  const notesH = 11 + noteLines.reduce((a, ls) => a + ls.length * 9.2 + 3, 0);
   const tableLimit = H - 36 - notesH - 16;
 
   // The logo only when Link Benefits prepared it; anyone else gets a clean, unbranded page.
@@ -551,6 +565,10 @@ function buildPdf(m, jsPDF) {
   function notes(bottom) {
     font('normal', 7.3); color(C.muted);
     let ny = Math.max(bottom + 20, H - 36 - notesH);
+    font('bold', 7.3); color(C.accent);
+    doc.text(NOTE_HEAD, M, ny, { charSpace: 0.8 });
+    ny += 11;
+    font('normal', 7.3); color(C.muted);
     for (const ls of noteLines) { doc.text(ls, M, ny); ny += ls.length * 9.2 + 3; }
   }
 
@@ -899,7 +917,12 @@ function buildPdf(m, jsPDF) {
     stroke(C.line); doc.setLineWidth(0.5); doc.line(M, H - 28, W - M, H - 28);
     font('normal', 7.3); color(C.muted);
     doc.text(m.prep ? `Prepared by ${m.prep}` : 'Priority Health 2027 small group alternatives', M, H - 16);
-    doc.text(`Source: Priority Health 2027 Small Business rate relativity grid${pages > 1 ? `${DOT}Page ${p} of ${pages}` : ''}`, W - M, H - 16, { align: 'right' });
+    const src = `Source: ${GRID_NAME}`;
+    const pg = pages > 1 ? `${DOT}Page ${p} of ${pages}` : '';
+    const wPg = pg ? doc.getTextWidth(pg) : 0;
+    color(C.accent);
+    doc.textWithLink(src, W - M - wPg - doc.getTextWidth(src), H - 16, { url: GRID_URL });
+    if (pg) { color(C.muted); doc.text(pg, W - M - wPg, H - 16); }
   }
   return doc.output('arraybuffer');
 }
@@ -917,6 +940,7 @@ function buildXlsx(m, XLSX) {
   const intro = sub => [['2027 Renewal Plan Alternatives'], [`Priority Health Small Group · ${sub}`], [],
     ['Group', m.group], ['Effective', m.eff], ['Prepared by', m.prep], ['Generated', m.generated], []];
   const typeOf = c => [c.d.metal, ...c.badges].join(' · ');
+  const linkSource = (ws, r) => { const cell = ws[XLSX.utils.encode_cell({ r, c: 0 })]; if (cell) cell.l = { Target: GRID_URL, Tooltip: GRID_NAME }; };
 
   if (multi && m.scenarios.length) {
     const sc = m.scenarios;
@@ -936,8 +960,12 @@ function buildXlsx(m, XLSX) {
     add(['Annual change vs. renewal', '', ...sc.map(c => round2(c.dm * 12))], SCUR, 2);
     add(['Change vs. renewal (%)', '', ...sc.map(c => c.pct / 100)], '+0.0%;-0.0%;0.0%', 2);
     add([]);
-    add(["Each current plan's members move together to the plan chosen for it. Per-plan changes come from Priority Health's 2027 Small Business rate relativity grid (whole-percent figures); dollar amounts are estimates."]);
+    add([ESTIMATE_NOTE]);
+    add(["Each current plan's members move together to the plan chosen for it; scenario totals add those projected premiums."]);
+    const srcRow = S.length;
+    add([SOURCE_NOTE]);
     const ws = XLSX.utils.aoa_to_sheet(S);
+    linkSource(ws, srcRow);
     zs.forEach(([r, z, from]) => { for (let c = from; c <= sc.length + 1; c++) fmt(ws, r, c, z); });
     ws['!cols'] = [{ wch: 58 }, { wch: 16 }, ...sc.map(() => ({ wch: 46 }))];
     XLSX.utils.book_append_sheet(wb, ws, 'Scenarios');
@@ -957,8 +985,12 @@ function buildXlsx(m, XLSX) {
     const totalRow = A.length;
     A.push(['Total current renewal', '', '', '', '', '', round2(m.totalMonthly), round2(m.totalMonthly * 12)]);
     A.push([]);
-    A.push(["Each current plan is compared only with its own alternatives. Percent changes come from Priority Health's 2027 Small Business rate relativity grid (whole-percent figures); HMO-to-POS changes (one decimal) add each POS plan's filed POS-to-HMO factor. Dollar amounts are estimates."]);
+    A.push([ESTIMATE_NOTE]);
+    A.push(["Each current plan is compared only with its own alternatives. HMO-to-POS changes (one decimal) add each POS plan's filed POS-to-HMO factor."]);
+    const srcRow = A.length;
+    A.push([SOURCE_NOTE]);
     const ws = XLSX.utils.aoa_to_sheet(A);
+    linkSource(ws, srcRow);
     numRows.forEach(r => { fmt(ws, r, 5, SPCT); fmt(ws, r, 6, CUR); fmt(ws, r, 7, CUR); fmt(ws, r, 8, SCUR); fmt(ws, r, 9, SCUR); });
     fmt(ws, totalRow, 6, CUR); fmt(ws, totalRow, 7, CUR);
     ws['!cols'] = [{ wch: 13 }, { wch: 13 }, { wch: 50 }, { wch: 9 }, { wch: 26 }, { wch: 16 }, { wch: 16 }, { wch: 16 }, { wch: 15 }, { wch: 15 }, { wch: 26 }, { wch: 30 }];
@@ -985,20 +1017,24 @@ function buildXlsx(m, XLSX) {
       if (s.cols.some(c => c.design[k].v2)) row([`   Tier 2 · ${f[0]}`, ...s.cols.map(c => c.design[k].v2 || '')]);
     });
     row([]);
-    row(["Premium changes use Priority Health's 2027 Small Business rate relativity grid (whole-percent figures). Dollar amounts are estimates applied to the renewal premium; final premiums are confirmed by the carrier's quote."]);
+    row([ESTIMATE_NOTE]);
     row(["Plan design is in-network. Coinsurance is the member's share. Partners plans show Tier 1, with Tier 2 on the following line where it differs."]);
+    const srcRow = A.length;
+    row([SOURCE_NOTE]);
     const ws = XLSX.utils.aoa_to_sheet(A);
+    linkSource(ws, srcRow);
     fmts.forEach(([r, z]) => { for (let c = 1; c <= n; c++) fmt(ws, r, c, z); });
     ws['!cols'] = [{ wch: 36 }, ...Array(n).fill({ wch: 34 })];
     XLSX.utils.book_append_sheet(wb, ws, multi ? `Plan ${s.n} - Comparison` : 'Comparison');
 
     const head = ['Plan', 'Network', 'Metal', 'Type', 'New for 2027', 'Change vs. current', 'Est. monthly premium', 'Monthly change', 'Annual change', 'Deductible (single / family)', 'Coinsurance', 'Out-of-pocket max (single / family)', 'Primary care', 'Specialist'];
-    const B = [[`Every ${s.allNets.join(' and ')} plan vs. ${s.base} · renewal ${usd(s.monthly)} / month`], [], head];
+    const B = [[`Every ${s.allNets.join(' and ')} plan vs. ${s.base} · renewal ${usd(s.monthly)} / month`], [ESTIMATE_NOTE], head];
     for (const p of s.all) {
       const typ = [p.d.family === 'Classic' ? 'Standard' : p.d.family, p.d.partners].filter(Boolean).join(' · ');
       B.push([p.name + (p.name === s.base ? '  (current)' : ''), p.net, p.d.metal, typ, p.d.isNew ? 'Yes' : '', p.q.p / 100, round2(p.q.m), round2(p.q.dm), round2(p.q.dy), ...p.design.map(r => r.v1)]);
     }
     const ws2 = XLSX.utils.aoa_to_sheet(B);
+    linkSource(ws2, 1);
     for (let r = 3; r < B.length; r++) { fmt(ws2, r, 5, SPCT); fmt(ws2, r, 6, CUR); fmt(ws2, r, 7, SCUR); fmt(ws2, r, 8, SCUR); }
     ws2['!cols'] = [{ wch: 50 }, { wch: 9 }, { wch: 10 }, { wch: 26 }, { wch: 12 }, { wch: 16 }, { wch: 20 }, { wch: 16 }, { wch: 16 }, { wch: 26 }, { wch: 12 }, { wch: 30 }, { wch: 14 }, { wch: 14 }];
     XLSX.utils.book_append_sheet(wb, ws2, `${multi ? `Plan ${s.n} - ` : ''}All ${s.allNets.join(' + ')} plans`);
