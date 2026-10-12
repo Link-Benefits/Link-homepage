@@ -224,6 +224,28 @@ select.sm{height:36px;font-size:14px}
 .stbl tr.chg td span{font-size:13px}
 .stbl td.best-col{background:color-mix(in srgb,var(--save-soft) 60%,transparent)}
 .stbl tfoot td.best-col{background:var(--save-soft)}
+/* start from a renewal */
+.upload{display:grid;gap:12px;padding:18px 22px;border:1.5px dashed var(--line-strong);border-radius:var(--r);background:var(--surface);transition:border-color .2s ease,background-color .2s ease}
+.upload.drag{border-color:var(--accent);background:var(--accent-soft)}
+.up-main{display:flex;flex-wrap:wrap;align-items:center;gap:12px 18px}
+.up-ico{display:grid;place-items:center;flex:none;width:44px;height:44px;border-radius:12px;background:var(--accent-soft);color:var(--accent)}
+.up-ico svg{width:22px;height:22px}
+.up-text{flex:1 1 320px;min-width:0}
+.up-text h2{font-size:17px;font-weight:600;margin:0 0 2px}
+.up-text p{margin:0;font-size:14px;color:var(--muted)}
+.up-btn{flex:none}
+#renewalFile:focus-visible+.up-btn{outline:2px solid var(--accent);outline-offset:2px}
+.up-result{display:grid;gap:8px;padding-top:12px;border-top:1px solid var(--line);font-size:14px}
+.up-result p{margin:0}
+.up-list{margin:0;padding:0;list-style:none;display:grid;gap:6px}
+.up-list li{display:flex;flex-wrap:wrap;gap:2px 12px;align-items:baseline;padding:8px 12px;border-radius:var(--rc);background:var(--surface-2)}
+.up-list .nm{font-weight:700;color:var(--ink-strong)}
+.up-list .from{color:var(--muted);font-size:13px}
+.up-warn{color:var(--rise)}
+.up-busy::before{content:"";display:inline-block;width:12px;height:12px;margin-right:8px;vertical-align:-1px;border:2px solid var(--accent-tint);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.up-busy::before{animation:none}}
+.set-title .from{flex-basis:100%;font-family:var(--font-body);font-size:13px;font-weight:400;color:var(--muted)}
 .empty-scen{margin:0;padding:18px;border:1.5px dashed var(--line-strong);border-radius:var(--r);color:var(--muted);text-align:center}
 .combo{position:relative;min-width:0}
 .combo input{padding-right:30px;text-overflow:ellipsis}
@@ -267,6 +289,19 @@ select.sm{height:36px;font-size:14px}
     <span>These are sample figures. Pick your group's current plans and enter each renewal premium.</span>
     <button class="linkbtn" id="clearExample" type="button">Start a new group</button>
   </div>
+
+  <section class="upload" id="uploadZone" aria-labelledby="uploadTitle">
+    <div class="up-main">
+      <div class="up-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M12 17v-6m0 0-2.5 2.5M12 11l2.5 2.5"/></svg></div>
+      <div class="up-text">
+        <h2 id="uploadTitle">Start from a renewal</h2>
+        <p>Drop a Priority Health renewal package (PDF) here, or choose the file. It fills in the group, each renewal plan and its monthly premium. <span id="upPrivacy">The file is read in your browser and is not uploaded anywhere.</span></p>
+      </div>
+      <input id="renewalFile" type="file" accept="application/pdf,.pdf" class="sr">
+      <label class="btn primary up-btn" for="renewalFile">Choose renewal PDF</label>
+    </div>
+    <div class="up-result" id="upResult" role="status" aria-live="polite" hidden></div>
+  </section>
 
   <section class="panel" aria-label="Group details">
     <div class="inputs">
@@ -353,7 +388,7 @@ select.sm{height:36px;font-size:14px}
 const DATA = {"grids":{"HMO":{"plans":["PriorityHMO Platinum P251","PriorityHMO Platinum","PriorityHMO Platinum P47","PriorityHMO Platinum - Southeast MI Partners","PriorityHMO Platinum - West MI Partners (Kent)","PriorityHMO Platinum P20 - Southeast MI Partners","PriorityHMO Platinum P47 - Southeast MI Partners","PriorityHMO Platinum P20 - West MI Partners (Kent)","PriorityHMO Platinum P47 - West MI Partners (Kent)","PriorityHMO Gold G121","PriorityHMO Gold G50","PriorityHMO Gold G10","PriorityHMO Gold G15","PriorityHMO Gold G301","PriorityHMO Gold G20","PriorityAssure HMO Gold G18","PriorityHMO Gold G25","PriorityHMO Gold G10 - Southeast MI Partners","PriorityHSA HMO Gold G251","PriorityHMO Gold G10 - West MI Partners (Kent)","PriorityHSA HMO Gold G17","PriorityHRA HMO Gold G2512","PriorityHMO Gold G15 - Southeast MI Partners","PriorityHMO Gold G15 - West MI Partners (Kent)","PriorityHMO Gold G20 - Southeast MI Partners","PriorityHMO Gold G20 - West MI Partners (Kent)","PriorityHMO Silver S30","PriorityHMO Gold G25 - Southeast MI Partners","PriorityHSA HMO Gold G351","PriorityHMO Gold G25 - West MI Partners (Kent)","PriorityHMO Silver S38","PriorityHMO Silver S50","PriorityHSA HMO Silver S40","PriorityHMO Silver S48","PriorityHSA HMO Silver S25","PriorityHSA HMO Gold G17 - Southeast MI Partners","PriorityHSA HMO Gold G17 - West MI Partners (Kent)","PriorityHSA HMO Silver S47","PriorityHMO Silver S38 - Southeast MI Partners","PriorityAssure HMO Silver S40","PriorityHSA HMO Silver S35","PriorityHMO Silver S38 - West MI Partners (Kent)","PriorityHSA HMO Silver S571","PriorityAssure HMO Silver S50","PriorityHMO Silver S30 - Southeast MI Partners","PriorityHMO Bronze B85","PriorityHMO Silver S30 - West MI Partners (Kent)","PriorityHSA HMO Silver S25 - Southeast MI Partners","PriorityHSA HMO Silver S25 - West MI Partners (Kent)","PriorityHSA HMO Silver S40 - Southeast MI Partners","PriorityHSA HMO Silver S40 - West MI Partners (Kent)","PriorityAssure HMO Bronze B99","PriorityHSA HMO Bronze B85"],"matrix":[[0,-1,-4,-8,-9,-10,-11,-12,-12,-14,-16,-17,-19,-21,-21,-21,-22,-24,-24,-25,-25,-25,-26,-26,-27,-28,-28,-29,-29,-29,-30,-30,-31,-31,-32,-32,-32,-34,-34,-34,-35,-35,-35,-36,-37,-37,-38,-39,-39,-41,-41,-43,-45],[1,0,-3,-6,-8,-9,-10,-11,-11,-13,-15,-16,-18,-20,-20,-20,-22,-23,-24,-24,-24,-24,-25,-26,-26,-27,-27,-28,-28,-29,-29,-29,-30,-31,-31,-31,-32,-33,-33,-33,-34,-35,-35,-35,-36,-37,-37,-38,-38,-40,-41,-42,-45],[5,3,0,-3,-5,-6,-7,-8,-9,-10,-12,-13,-15,-17,-17,-18,-19,-20,-21,-21,-21,-22,-22,-23,-24,-25,-25,-25,-26,-26,-26,-27,-28,-28,-29,-29,-29,-31,-31,-31,-32,-32,-33,-33,-34,-35,-35,-36,-36,-38,-39,-40,-43],[8,7,3,0,-2,-3,-4,-4,-5,-7,-9,-10,-12,-14,-14,-15,-16,-17,-18,-18,-19,-19,-20,-20,-21,-22,-22,-23,-23,-24,-24,-24,-25,-26,-26,-27,-27,-28,-28,-29,-30,-30,-30,-31,-32,-32,-32,-34,-34,-36,-36,-38,-41],[10,9,6,2,0,-1,-1,-2,-3,-5,-7,-8,-10,-13,-13,-13,-14,-16,-17,-17,-17,-17,-18,-19,-20,-21,-21,-21,-21,-22,-22,-22,-24,-24,-25,-25,-25,-27,-27,-27,-28,-29,-29,-29,-30,-31,-31,-32,-33,-35,-35,-37,-40],[11,10,6,3,1,0,-1,-2,-3,-4,-7,-8,-10,-12,-12,-13,-14,-15,-16,-16,-16,-17,-17,-18,-19,-20,-20,-21,-21,-22,-22,-22,-23,-24,-24,-25,-25,-26,-27,-27,-28,-28,-28,-29,-30,-30,-31,-32,-32,-34,-35,-36,-39],[12,11,7,4,2,1,0,-1,-2,-3,-6,-7,-9,-11,-11,-12,-13,-14,-15,-15,-16,-16,-17,-18,-18,-19,-19,-20,-20,-21,-21,-21,-22,-23,-24,-24,-24,-26,-26,-26,-27,-27,-28,-28,-29,-30,-30,-31,-32,-34,-34,-36,-39],[13,12,8,5,2,2,1,0,-1,-2,-5,-6,-8,-10,-10,-11,-12,-14,-15,-15,-15,-15,-16,-17,-18,-19,-19,-19,-19,-20,-20,-21,-22,-22,-23,-23,-23,-25,-25,-26,-27,-27,-27,-28,-29,-29,-29,-31,-31,-33,-34,-35,-38],[14,13,9,6,3,3,2,1,0,-1,-4,-5,-7,-10,-10,-10,-11,-13,-14,-14,-14,-14,-15,-16,-17,-18,-18,-18,-19,-19,-20,-20,-21,-22,-22,-23,-23,-24,-24,-25,-26,-26,-26,-27,-28,-29,-29,-30,-30,-32,-33,-34,-38],[16,15,11,7,5,4,3,2,1,0,-3,-4,-6,-8,-8,-9,-10,-12,-12,-13,-13,-13,-14,-15,-16,-17,-17,-17,-17,-18,-18,-19,-20,-21,-21,-22,-22,-23,-23,-24,-25,-25,-25,-26,-27,-28,-28,-29,-29,-31,-32,-33,-37],[19,18,14,10,8,7,6,5,4,3,0,-1,-3,-6,-6,-6,-8,-9,-10,-10,-10,-11,-11,-12,-13,-14,-14,-15,-15,-16,-16,-16,-17,-18,-19,-19,-19,-21,-21,-22,-23,-23,-23,-24,-25,-25,-25,-27,-27,-29,-30,-32,-35],[20,19,15,11,9,8,7,6,5,4,1,0,-3,-5,-5,-5,-7,-8,-9,-9,-9,-10,-11,-12,-12,-13,-14,-14,-14,-15,-15,-16,-17,-18,-18,-19,-19,-20,-21,-21,-22,-22,-22,-23,-24,-25,-25,-26,-27,-29,-29,-31,-34],[23,22,18,14,12,11,10,9,8,6,3,3,0,-2,-2,-3,-4,-6,-7,-7,-7,-8,-8,-9,-10,-11,-11,-12,-12,-13,-13,-13,-15,-15,-16,-16,-17,-18,-18,-19,-20,-20,-20,-21,-22,-23,-23,-24,-25,-27,-28,-29,-33],[26,25,21,17,14,14,13,12,11,9,6,5,2,0,0,-1,-2,-4,-5,-5,-5,-5,-6,-7,-8,-9,-9,-10,-10,-11,-11,-11,-13,-13,-14,-14,-15,-16,-17,-17,-18,-18,-19,-19,-20,-21,-21,-22,-23,-25,-26,-28,-31],[26,25,21,17,14,14,13,12,11,9,6,5,2,0,0,-1,-2,-4,-5,-5,-5,-5,-6,-7,-8,-9,-9,-10,-10,-11,-11,-11,-13,-13,-14,-14,-14,-16,-16,-17,-18,-18,-19,-19,-20,-21,-21,-22,-23,-25,-26,-27,-31],[27,26,22,17,15,14,13,12,11,10,6,6,3,1,1,0,-2,-3,-4,-4,-4,-5,-6,-7,-7,-9,-9,-9,-10,-10,-11,-11,-12,-13,-14,-14,-14,-16,-16,-17,-18,-18,-18,-19,-20,-21,-21,-22,-23,-25,-25,-27,-31],[29,28,23,19,17,16,15,14,13,11,8,7,5,2,2,2,0,-2,-3,-3,-3,-3,-4,-5,-6,-7,-7,-8,-8,-9,-9,-9,-11,-11,-12,-13,-13,-15,-15,-15,-16,-16,-17,-17,-19,-19,-19,-21,-21,-23,-24,-26,-30],[31,30,25,21,19,18,17,16,15,13,10,9,6,4,4,3,2,0,-1,-1,-1,-2,-3,-4,-5,-6,-6,-6,-7,-8,-8,-8,-9,-10,-11,-11,-11,-13,-13,-14,-15,-15,-15,-16,-17,-18,-18,-19,-20,-22,-23,-25,-28],[32,31,27,22,20,19,18,17,16,14,11,10,7,5,5,4,3,1,0,0,0,-1,-2,-3,-4,-5,-5,-5,-6,-7,-7,-7,-8,-9,-10,-10,-10,-12,-12,-13,-14,-14,-15,-15,-17,-17,-17,-19,-19,-21,-22,-24,-28],[32,31,27,22,20,19,18,17,16,14,11,10,7,5,5,4,3,1,0,0,0,-1,-1,-3,-3,-5,-5,-5,-6,-7,-7,-7,-8,-9,-10,-10,-10,-12,-12,-13,-14,-14,-15,-15,-17,-17,-17,-19,-19,-21,-22,-24,-28],[33,31,27,23,20,19,18,17,16,15,11,10,8,5,5,5,3,1,0,0,0,-1,-1,-2,-3,-4,-5,-5,-5,-6,-7,-7,-8,-9,-10,-10,-10,-12,-12,-13,-14,-14,-14,-15,-16,-17,-17,-18,-19,-21,-22,-24,-28],[34,32,28,24,21,20,19,18,17,15,12,11,8,6,6,5,4,2,1,1,1,0,-1,-2,-3,-4,-4,-4,-5,-6,-6,-6,-8,-8,-9,-10,-10,-12,-12,-12,-13,-14,-14,-14,-16,-16,-17,-18,-19,-21,-22,-23,-27],[34,33,29,24,22,21,20,19,18,16,13,12,9,6,6,6,4,3,2,1,1,1,0,-1,-2,-3,-3,-4,-4,-5,-5,-6,-7,-8,-8,-9,-9,-11,-11,-12,-13,-13,-13,-14,-15,-16,-16,-17,-18,-20,-21,-23,-27],[36,34,30,26,23,22,21,20,19,17,14,13,10,8,8,7,5,4,3,3,2,2,1,0,-1,-2,-2,-3,-3,-4,-4,-5,-6,-7,-7,-8,-8,-10,-10,-11,-12,-12,-12,-13,-14,-15,-15,-16,-17,-19,-20,-22,-26],[37,36,31,27,24,24,22,21,20,18,15,14,11,9,9,8,6,5,4,4,3,3,2,1,0,-1,-1,-2,-2,-3,-3,-4,-5,-6,-7,-7,-7,-9,-9,-10,-11,-11,-11,-12,-14,-14,-14,-16,-16,-19,-19,-21,-25],[39,37,33,28,26,25,24,23,22,20,17,16,13,10,10,9,8,6,5,5,5,4,3,2,1,0,0,-1,-1,-2,-2,-2,-4,-5,-5,-6,-6,-8,-8,-9,-10,-10,-10,-11,-12,-13,-13,-15,-15,-18,-18,-20,-24],[39,38,33,29,26,25,24,23,22,20,17,16,13,10,10,10,8,6,5,5,5,4,4,2,1,0,0,0,-1,-2,-2,-2,-4,-4,-5,-6,-6,-8,-8,-8,-10,-10,-10,-11,-12,-13,-13,-14,-15,-17,-18,-20,-24],[40,38,34,29,27,26,25,24,22,21,17,16,13,11,11,10,8,7,6,6,5,5,4,3,2,1,0,0,0,-1,-2,-2,-3,-4,-5,-5,-5,-7,-8,-8,-9,-9,-10,-10,-12,-12,-13,-14,-15,-17,-18,-20,-24],[40,39,34,30,27,26,25,24,23,21,18,17,14,11,11,11,9,7,6,6,6,5,4,3,2,1,1,0,0,-1,-1,-1,-3,-4,-4,-5,-5,-7,-7,-8,-9,-9,-9,-10,-12,-12,-12,-14,-14,-17,-18,-19,-23],[42,40,36,31,28,28,26,25,24,22,19,18,15,12,12,12,10,8,7,7,7,6,5,4,3,2,2,1,1,0,0,0,-2,-3,-4,-4,-4,-6,-6,-7,-8,-8,-9,-9,-11,-11,-11,-13,-14,-16,-17,-19,-23],[42,40,36,31,29,28,27,26,24,23,19,18,15,12,12,12,10,8,7,7,7,6,6,4,3,2,2,2,1,0,0,0,-2,-3,-3,-4,-4,-6,-6,-7,-8,-8,-8,-9,-11,-11,-11,-13,-13,-16,-17,-18,-22],[42,41,36,32,29,28,27,26,25,23,19,18,15,13,13,12,10,9,8,7,7,7,6,5,4,2,2,2,1,0,0,0,-1,-2,-3,-4,-4,-6,-6,-6,-8,-8,-8,-9,-10,-11,-11,-12,-13,-16,-16,-18,-22],[45,43,38,34,31,30,29,28,26,25,21,20,17,14,14,14,12,10,9,9,9,8,7,6,5,4,4,3,3,2,2,1,0,-1,-2,-2,-2,-4,-4,-5,-6,-6,-7,-7,-9,-10,-10,-11,-12,-14,-15,-17,-21],[46,44,39,35,32,31,30,29,28,26,22,21,18,15,15,15,13,11,10,10,10,9,8,7,6,5,5,4,4,3,3,2,1,0,-1,-1,-1,-4,-4,-4,-6,-6,-6,-7,-8,-9,-9,-10,-11,-14,-14,-16,-20],[47,45,41,36,33,32,31,30,29,27,23,22,19,16,16,16,14,12,11,11,11,10,9,8,7,6,6,5,5,4,3,3,2,1,0,0,-1,-3,-3,-3,-5,-5,-5,-6,-7,-8,-8,-10,-10,-13,-14,-16,-20],[48,46,41,37,34,33,32,31,29,27,24,23,20,17,17,16,14,13,12,11,11,11,10,9,8,6,6,6,5,4,4,4,2,1,1,0,0,-2,-2,-3,-4,-4,-5,-5,-7,-8,-8,-9,-10,-12,-13,-15,-19],[48,46,41,37,34,33,32,31,29,28,24,23,20,17,17,16,15,13,12,12,11,11,10,9,8,6,6,6,5,4,4,4,2,1,1,0,0,-2,-2,-3,-4,-4,-5,-5,-7,-8,-8,-9,-10,-12,-13,-15,-19],[51,49,45,40,37,36,35,34,32,30,27,26,22,20,20,19,17,15,14,14,14,13,12,11,10,9,9,8,8,7,6,6,5,4,3,2,2,0,0,-1,-2,-2,-3,-3,-5,-5,-6,-7,-8,-10,-11,-13,-18],[51,50,45,40,37,36,35,34,32,31,27,26,23,20,20,19,17,15,14,14,14,13,13,11,10,9,9,8,8,7,7,6,5,4,3,2,2,0,0,-1,-2,-2,-2,-3,-5,-5,-5,-7,-8,-10,-11,-13,-17],[52,50,46,41,38,37,36,35,33,31,28,27,23,20,20,20,18,16,15,15,15,14,13,12,11,9,9,9,8,7,7,7,5,4,4,3,3,1,1,0,-1,-2,-2,-3,-4,-5,-5,-7,-7,-10,-11,-13,-17],[54,53,48,43,40,39,38,37,35,33,29,28,25,22,22,22,20,18,17,17,16,16,15,14,12,11,11,10,10,9,9,8,7,6,5,5,4,2,2,1,0,0,0,-1,-3,-3,-4,-5,-6,-8,-9,-11,-16],[55,53,48,43,40,39,38,37,35,33,30,29,25,22,22,22,20,18,17,17,16,16,15,14,13,11,11,10,10,9,9,9,7,6,5,5,5,2,2,2,0,0,0,-1,-3,-3,-3,-5,-6,-8,-9,-11,-16],[55,53,48,43,40,40,38,37,36,34,30,29,26,23,23,22,20,18,17,17,17,16,15,14,13,12,11,11,10,9,9,9,7,6,5,5,5,3,2,2,0,0,0,-1,-2,-3,-3,-5,-6,-8,-9,-11,-15],[56,54,49,44,41,41,39,38,37,35,31,30,27,24,24,23,21,19,18,18,18,17,16,15,14,12,12,12,11,10,10,10,8,7,6,6,6,3,3,3,1,1,1,0,-2,-2,-2,-4,-5,-7,-8,-10,-15],[59,57,52,47,44,43,42,40,39,37,33,32,29,26,26,25,23,21,20,20,20,19,18,17,16,14,14,14,13,12,12,12,10,9,8,8,7,5,5,4,3,3,2,2,0,-1,-1,-2,-3,-6,-7,-9,-13],[60,58,53,48,45,44,43,41,40,38,34,33,30,27,27,26,24,22,21,21,20,20,19,18,16,15,15,14,14,13,13,12,11,10,9,8,8,6,6,5,4,3,3,2,1,0,0,-2,-3,-5,-6,-8,-13],[60,58,53,48,45,44,43,42,40,38,34,33,30,27,27,26,24,22,21,21,21,20,19,18,17,15,15,14,14,13,13,12,11,10,9,8,8,6,6,5,4,4,3,2,1,0,0,-2,-3,-5,-6,-8,-13],[63,61,56,50,47,46,45,44,42,40,36,35,32,29,29,28,26,24,23,23,23,22,21,20,19,17,17,16,16,15,15,14,13,12,11,10,10,8,8,7,5,5,5,4,2,2,2,0,-1,-3,-4,-7,-11],[64,62,57,52,49,48,46,45,44,42,38,37,33,30,30,29,27,25,24,24,24,23,22,21,20,18,18,17,17,16,16,15,14,13,12,11,11,9,9,8,6,6,6,5,3,3,3,1,0,-3,-4,-6,-10],[69,67,61,56,53,52,50,49,48,46,41,40,37,33,33,33,31,29,27,27,27,26,25,24,23,21,21,21,20,19,19,18,17,16,15,14,14,12,11,11,9,9,9,8,6,5,5,4,3,0,-1,-3,-8],[70,68,63,57,54,53,52,51,49,47,43,42,38,35,35,34,32,30,29,29,28,27,27,25,24,23,22,22,21,20,20,20,18,17,16,15,15,13,13,12,10,10,10,9,7,7,6,5,4,1,0,-2,-7],[74,72,67,61,58,57,55,54,52,50,46,45,41,38,38,37,35,33,32,31,31,30,30,28,27,25,25,25,24,23,23,22,21,20,19,18,18,15,15,15,13,13,12,12,10,9,9,7,6,3,2,0,-5],[83,81,75,69,66,65,63,62,60,58,54,52,49,45,45,44,42,40,38,38,38,37,36,35,33,32,32,31,30,29,29,29,27,26,25,24,24,21,21,20,19,19,18,17,15,15,14,13,12,9,8,5,0]]},"POS":{"plans":["PriorityPOS Platinum P251","PriorityPOS Platinum P47","PriorityPOS Gold G121","PriorityPOS Gold G50","PriorityPOS Gold G10","PriorityPOS Gold G15","PriorityPOS Gold G20","PriorityPOS Gold G301","PriorityPOS Gold G25","PriorityPOS Gold G10 - Southeast MI Partners","PriorityPOS Gold G10 - West MI Partners (Kent)","PriorityHSA POS Gold G17","PriorityHSA POS Gold G251","PriorityHRA POS Gold G2512","PriorityHSA POS Gold G351","PriorityPOS Silver S30","PriorityPOS Silver S38","PriorityPOS Silver S50","PriorityHSA POS Silver S40","PriorityPOS Silver S48","PriorityHSA POS Silver S25","PriorityHSA POS Silver S47","PriorityHSA POS Silver S35","PriorityHSA POS Silver S571","PriorityHSA POS Bronze B85"],"matrix":[[0,-4,-14,-16,-17,-19,-21,-21,-23,-23,-24,-24,-24,-25,-28,-28,-30,-30,-31,-32,-32,-34,-35,-36,-45],[4,0,-10,-12,-13,-16,-18,-18,-20,-20,-21,-21,-21,-22,-25,-25,-27,-27,-28,-29,-29,-31,-32,-33,-43],[16,12,0,-2,-3,-6,-8,-9,-10,-10,-12,-12,-12,-13,-17,-17,-18,-19,-20,-21,-21,-23,-25,-25,-36],[19,14,2,0,-1,-4,-6,-7,-8,-8,-10,-10,-10,-11,-15,-15,-17,-17,-18,-19,-19,-22,-23,-24,-35],[20,15,3,1,0,-3,-5,-6,-7,-8,-9,-9,-9,-10,-14,-14,-16,-16,-17,-18,-18,-21,-22,-23,-34],[23,18,6,4,3,0,-3,-3,-5,-5,-7,-7,-7,-8,-12,-12,-14,-14,-15,-16,-16,-19,-20,-21,-33],[26,21,9,6,5,3,0,-1,-2,-3,-4,-4,-5,-6,-9,-9,-11,-12,-13,-14,-14,-17,-18,-19,-31],[27,22,9,7,6,3,1,0,-2,-2,-4,-4,-4,-5,-9,-9,-11,-11,-12,-13,-13,-16,-18,-18,-30],[29,24,11,9,8,5,2,2,0,0,-2,-2,-2,-3,-7,-7,-9,-10,-11,-12,-12,-15,-16,-17,-29],[30,25,12,9,8,5,3,2,0,0,-2,-2,-2,-3,-7,-7,-9,-10,-10,-11,-11,-14,-16,-17,-29],[32,27,14,11,10,7,4,4,2,2,0,0,0,-1,-5,-5,-7,-8,-9,-10,-10,-13,-14,-15,-28],[32,27,14,11,10,7,4,4,2,2,0,0,0,-1,-5,-5,-7,-8,-9,-10,-10,-13,-14,-15,-28],[32,27,14,11,10,7,5,4,2,2,0,0,0,-1,-5,-5,-7,-8,-9,-10,-10,-13,-14,-15,-28],[34,29,15,13,12,9,6,5,4,3,1,1,1,0,-4,-4,-6,-7,-8,-9,-9,-12,-13,-14,-27],[39,34,20,17,16,13,10,10,8,7,6,6,5,4,0,0,-2,-3,-4,-5,-5,-8,-10,-10,-24],[39,34,20,17,16,13,10,10,8,8,6,6,5,4,0,0,-2,-3,-4,-5,-5,-8,-9,-10,-24],[42,37,23,20,19,16,13,12,10,10,8,8,8,7,2,2,0,-1,-2,-3,-3,-6,-8,-8,-22],[43,38,23,21,20,16,13,13,11,11,9,9,8,7,3,3,1,0,-1,-2,-2,-5,-7,-8,-22],[45,39,25,22,21,18,15,14,12,12,10,10,9,8,4,4,2,1,0,-1,-1,-4,-6,-7,-21],[46,41,26,23,22,19,16,15,13,13,11,11,11,9,5,5,3,2,1,0,0,-3,-5,-6,-20],[46,41,26,23,22,19,16,15,13,13,11,11,11,10,5,5,3,2,1,0,0,-3,-5,-6,-20],[51,46,30,27,26,23,20,19,17,17,15,15,14,13,9,8,6,6,4,3,3,0,-2,-3,-17],[54,48,33,30,29,25,22,21,19,19,17,17,16,15,11,10,8,8,6,5,5,2,0,-1,-16],[55,49,34,31,30,26,23,22,20,20,18,18,17,16,12,11,9,8,7,6,6,3,1,0,-15],[83,76,57,54,52,48,45,44,41,41,39,38,38,37,31,31,28,28,26,25,25,21,19,18,0]]},"PPO":{"plans":["PriorityPPO Platinum P251","PriorityPPO Platinum P47","PriorityPPO Gold G121","PriorityPPO Gold G50","PriorityPPO Gold G10","PriorityPPO Gold G15","PriorityPPO Gold G20","PriorityHSA PPO Gold G17","PriorityHSA PPO Gold G251","PriorityPPO Silver S30","PriorityPPO Silver S38","PriorityHSA PPO Silver S25","PriorityHSA PPO Silver S35","PriorityHSA PPO Bronze B85"],"matrix":[[0,-4,-14,-16,-17,-19,-21,-24,-24,-29,-30,-32,-33,-43],[4,0,-10,-13,-13,-16,-18,-21,-21,-26,-28,-30,-31,-40],[16,11,0,-3,-4,-6,-9,-12,-12,-17,-19,-22,-23,-34],[19,14,3,0,-1,-4,-6,-10,-10,-15,-17,-19,-21,-32],[20,15,4,1,0,-3,-5,-9,-9,-14,-16,-19,-20,-31],[24,19,7,4,3,0,-3,-6,-6,-12,-14,-16,-18,-29],[27,22,10,7,6,3,0,-4,-4,-9,-12,-14,-15,-27],[32,27,14,11,10,7,4,0,0,-6,-8,-11,-12,-24],[32,27,14,11,10,7,4,0,0,-6,-8,-11,-12,-24],[40,35,21,18,17,13,10,6,6,0,-2,-5,-7,-20],[43,38,24,21,20,16,13,9,9,2,0,-3,-4,-18],[48,42,28,24,23,20,16,12,12,5,3,0,-1,-15],[50,44,30,26,25,21,18,14,14,7,4,2,0,-14],[74,68,50,46,45,41,37,32,32,24,21,18,16,0]]}},"designs":{"PriorityHMO Platinum P251":{"metal":"Platinum","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":250,"dedFam":500,"coins":"0%","oop":6500,"oopFam":13000,"pcp":"$15","spec":"$45"}]},"PriorityHMO Platinum":{"metal":"Platinum","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":0,"dedFam":0,"coins":"0%","oop":5700,"oopFam":11400,"pcp":"$15","spec":"$35"}]},"PriorityHMO Platinum P47":{"metal":"Platinum","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":475,"dedFam":950,"coins":"10%","oop":3750,"oopFam":7500,"pcp":"$15","spec":"$50"}]},"PriorityHMO Platinum - Southeast MI Partners":{"metal":"Platinum","family":"Classic","partners":"Southeast MI Partners","isNew":false,"tiers":[{"tier":"1","ded":0,"dedFam":0,"coins":"0%","oop":5700,"oopFam":11400,"pcp":"$15","spec":"$35"},{"tier":"2","ded":500,"dedFam":1000,"coins":"0%","oop":5700,"oopFam":11400,"pcp":"$45","spec":"$105"}]},"PriorityHMO Platinum - West MI Partners (Kent)":{"metal":"Platinum","family":"Classic","partners":"West MI Partners","isNew":false,"tiers":[{"tier":"1","ded":0,"dedFam":0,"coins":"0%","oop":5700,"oopFam":11400,"pcp":"$15","spec":"$35"},{"tier":"2","ded":500,"dedFam":1000,"coins":"0%","oop":5700,"oopFam":11400,"pcp":"$45","spec":"$105"}]},"PriorityHMO Platinum P20 - Southeast MI Partners":{"metal":"Platinum","family":"Classic","partners":"Southeast MI Partners","isNew":false,"tiers":[{"tier":"1","ded":200,"dedFam":400,"coins":"10%","oop":4600,"oopFam":9200,"pcp":"$15","spec":"$45"},{"tier":"2","ded":600,"dedFam":1200,"coins":"40%","oop":4600,"oopFam":9200,"pcp":"$45","spec":"$135"}]},"PriorityHMO Platinum P47 - Southeast MI Partners":{"metal":"Platinum","family":"Classic","partners":"Southeast MI Partners","isNew":false,"tiers":[{"tier":"1","ded":475,"dedFam":950,"coins":"10%","oop":3750,"oopFam":7500,"pcp":"$15","spec":"$50"},{"tier":"2","ded":1425,"dedFam":2850,"coins":"40%","oop":3750,"oopFam":7500,"pcp":"$45","spec":"$150"}]},"PriorityHMO Platinum P20 - West MI Partners (Kent)":{"metal":"Platinum","family":"Classic","partners":"West MI Partners","isNew":false,"tiers":[{"tier":"1","ded":200,"dedFam":400,"coins":"10%","oop":4600,"oopFam":9200,"pcp":"$15","spec":"$45"},{"tier":"2","ded":600,"dedFam":1200,"coins":"40%","oop":4600,"oopFam":9200,"pcp":"$45","spec":"$135"}]},"PriorityHMO Platinum P47 - West MI Partners (Kent)":{"metal":"Platinum","family":"Classic","partners":"West MI Partners","isNew":false,"tiers":[{"tier":"1","ded":475,"dedFam":950,"coins":"10%","oop":3750,"oopFam":7500,"pcp":"$15","spec":"$50"},{"tier":"2","ded":1425,"dedFam":2850,"coins":"40%","oop":3750,"oopFam":7500,"pcp":"$45","spec":"$150"}]},"PriorityHMO Gold G121":{"metal":"Gold","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":1200,"dedFam":2400,"coins":"0%","oop":9100,"oopFam":18200,"pcp":"$30","spec":"$70"}]},"PriorityHMO Gold G50":{"metal":"Gold","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":500,"dedFam":1000,"coins":"20%","oop":9800,"oopFam":19600,"pcp":"$30","spec":"$60"}]},"PriorityHMO Gold G10":{"metal":"Gold","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":1000,"dedFam":2000,"coins":"20%","oop":9000,"oopFam":18000,"pcp":"$20","spec":"$60"}]},"PriorityHMO Gold G15":{"metal":"Gold","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":1500,"dedFam":3000,"coins":"20%","oop":9400,"oopFam":18800,"pcp":"$20","spec":"$60"}]},"PriorityHMO Gold G301":{"metal":"Gold","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":3000,"dedFam":6000,"coins":"0%","oop":9200,"oopFam":18400,"pcp":"$30","spec":"$65"}]},"PriorityHMO Gold G20":{"metal":"Gold","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":2000,"dedFam":4000,"coins":"20%","oop":9000,"oopFam":18000,"pcp":"$20","spec":"$60"}]},"PriorityAssure HMO Gold G18":{"metal":"Gold","family":"Assure","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":1800,"dedFam":3600,"coins":"10%","oop":6800,"oopFam":13600,"pcp":"$15","spec":"Coins"}]},"PriorityHMO Gold G25":{"metal":"Gold","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":2500,"dedFam":5000,"coins":"20%","oop":9400,"oopFam":18800,"pcp":"$20","spec":"$60"}]},"PriorityHMO Gold G10 - Southeast MI Partners":{"metal":"Gold","family":"Classic","partners":"Southeast MI Partners","isNew":false,"tiers":[{"tier":"1","ded":1000,"dedFam":2000,"coins":"20%","oop":8700,"oopFam":17400,"pcp":"$20","spec":"$60"},{"tier":"2","ded":4000,"dedFam":8000,"coins":"40%","oop":8700,"oopFam":17400,"pcp":"$60","spec":"$180"}]},"PriorityHSA HMO Gold G251":{"metal":"Gold","family":"HSA","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":2500,"dedFam":5000,"coins":"0%","oop":6500,"oopFam":13000,"pcp":"Coins","spec":"Coins"}]},"PriorityHMO Gold G10 - West MI Partners (Kent)":{"metal":"Gold","family":"Classic","partners":"West MI Partners","isNew":false,"tiers":[{"tier":"1","ded":1000,"dedFam":2000,"coins":"20%","oop":8700,"oopFam":17400,"pcp":"$20","spec":"$60"},{"tier":"2","ded":4000,"dedFam":8000,"coins":"40%","oop":8700,"oopFam":17400,"pcp":"$60","spec":"$180"}]},"PriorityHSA HMO Gold G17":{"metal":"Gold","family":"HSA","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":1750,"dedFam":3500,"coins":"20%","oop":5000,"oopFam":10000,"pcp":"Coins","spec":"Coins"}]},"PriorityHRA HMO Gold G2512":{"metal":"Gold","family":"HRA","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":2500,"dedFam":5000,"coins":"30%","oop":8900,"oopFam":17800,"pcp":"$30","spec":"$65"}]},"PriorityHMO Gold G15 - Southeast MI Partners":{"metal":"Gold","family":"Classic","partners":"Southeast MI Partners","isNew":false,"tiers":[{"tier":"1","ded":1500,"dedFam":3000,"coins":"20%","oop":9200,"oopFam":18400,"pcp":"$20","spec":"$60"},{"tier":"2","ded":5500,"dedFam":11000,"coins":"40%","oop":9200,"oopFam":18400,"pcp":"$60","spec":"$180"}]},"PriorityHMO Gold G15 - West MI Partners (Kent)":{"metal":"Gold","family":"Classic","partners":"West MI Partners","isNew":false,"tiers":[{"tier":"1","ded":1500,"dedFam":3000,"coins":"20%","oop":9200,"oopFam":18400,"pcp":"$20","spec":"$60"},{"tier":"2","ded":5500,"dedFam":11000,"coins":"40%","oop":9200,"oopFam":18400,"pcp":"$60","spec":"$180"}]},"PriorityHMO Gold G20 - Southeast MI Partners":{"metal":"Gold","family":"Classic","partners":"Southeast MI Partners","isNew":false,"tiers":[{"tier":"1","ded":2000,"dedFam":4000,"coins":"20%","oop":8400,"oopFam":16800,"pcp":"$20","spec":"$60"},{"tier":"2","ded":7000,"dedFam":14000,"coins":"50%","oop":8400,"oopFam":16800,"pcp":"$60","spec":"$180"}]},"PriorityHMO Gold G20 - West MI Partners (Kent)":{"metal":"Gold","family":"Classic","partners":"West MI Partners","isNew":false,"tiers":[{"tier":"1","ded":2000,"dedFam":4000,"coins":"20%","oop":8400,"oopFam":16800,"pcp":"$20","spec":"$60"},{"tier":"2","ded":7000,"dedFam":14000,"coins":"50%","oop":8400,"oopFam":16800,"pcp":"$60","spec":"$180"}]},"PriorityHMO Silver S30":{"metal":"Silver","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":3050,"dedFam":6100,"coins":"30%","oop":10700,"oopFam":21400,"pcp":"$45","spec":"$95"}]},"PriorityHMO Gold G25 - Southeast MI Partners":{"metal":"Gold","family":"Classic","partners":"Southeast MI Partners","isNew":false,"tiers":[{"tier":"1","ded":2500,"dedFam":5000,"coins":"20%","oop":8600,"oopFam":17200,"pcp":"$20","spec":"$60"},{"tier":"2","ded":7500,"dedFam":15000,"coins":"50%","oop":8600,"oopFam":17200,"pcp":"$60","spec":"$180"}]},"PriorityHSA HMO Gold G351":{"metal":"Gold","family":"HSA","partners":null,"isNew":true,"tiers":[{"tier":null,"ded":3500,"dedFam":7000,"coins":"0%","oop":4000,"oopFam":8000,"pcp":"Coins","spec":"Coins"}]},"PriorityHMO Gold G25 - West MI Partners (Kent)":{"metal":"Gold","family":"Classic","partners":"West MI Partners","isNew":false,"tiers":[{"tier":"1","ded":2500,"dedFam":5000,"coins":"20%","oop":8600,"oopFam":17200,"pcp":"$20","spec":"$60"},{"tier":"2","ded":7500,"dedFam":15000,"coins":"50%","oop":8600,"oopFam":17200,"pcp":"$60","spec":"$180"}]},"PriorityHMO Silver S38":{"metal":"Silver","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":3800,"dedFam":7600,"coins":"30%","oop":10800,"oopFam":21600,"pcp":"$45","spec":"$95"}]},"PriorityHMO Silver S50":{"metal":"Silver","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":5000,"dedFam":10000,"coins":"10%","oop":10950,"oopFam":21900,"pcp":"$45","spec":"$95"}]},"PriorityHSA HMO Silver S40":{"metal":"Silver","family":"HSA","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":4000,"dedFam":8000,"coins":"10%","oop":8700,"oopFam":17400,"pcp":"Coins","spec":"Coins"}]},"PriorityHMO Silver S48":{"metal":"Silver","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":4800,"dedFam":9600,"coins":"30%","oop":10700,"oopFam":21400,"pcp":"$50","spec":"$95"}]},"PriorityHSA HMO Silver S25":{"metal":"Silver","family":"HSA","partners":null,"isNew":true,"tiers":[{"tier":null,"ded":2550,"dedFam":5100,"coins":"30%","oop":8700,"oopFam":17400,"pcp":"Coins","spec":"Coins"}]},"PriorityHSA HMO Gold G17 - Southeast MI Partners":{"metal":"Gold","family":"HSA","partners":"Southeast MI Partners","isNew":false,"tiers":[{"tier":"1","ded":1750,"dedFam":3500,"coins":"20%","oop":5000,"oopFam":10000,"pcp":"Coins","spec":"Coins"},{"tier":"2","ded":5250,"dedFam":10500,"coins":"50%","oop":8500,"oopFam":17000,"pcp":"Coins","spec":"Coins"}]},"PriorityHSA HMO Gold G17 - West MI Partners (Kent)":{"metal":"Gold","family":"HSA","partners":"West MI Partners","isNew":false,"tiers":[{"tier":"1","ded":1750,"dedFam":3500,"coins":"20%","oop":5000,"oopFam":10000,"pcp":"Coins","spec":"Coins"},{"tier":"2","ded":5250,"dedFam":10500,"coins":"50%","oop":8500,"oopFam":17000,"pcp":"Coins","spec":"Coins"}]},"PriorityHSA HMO Silver S47":{"metal":"Silver","family":"HSA","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":4700,"dedFam":9400,"coins":"10%","oop":8700,"oopFam":17400,"pcp":"Coins","spec":"Coins"}]},"PriorityHMO Silver S38 - Southeast MI Partners":{"metal":"Silver","family":"Classic","partners":"Southeast MI Partners","isNew":false,"tiers":[{"tier":"1","ded":3800,"dedFam":7600,"coins":"30%","oop":10800,"oopFam":21600,"pcp":"$45","spec":"$95"},{"tier":"2","ded":9500,"dedFam":19000,"coins":"50%","oop":10800,"oopFam":21600,"pcp":"$135","spec":"$250"}]},"PriorityAssure HMO Silver S40":{"metal":"Silver","family":"Assure","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":4000,"dedFam":8000,"coins":"30%","oop":9500,"oopFam":19000,"pcp":"$30","spec":"Coins"}]},"PriorityHSA HMO Silver S35":{"metal":"Silver","family":"HSA","partners":null,"isNew":true,"tiers":[{"tier":null,"ded":3500,"dedFam":7000,"coins":"30%","oop":8700,"oopFam":17400,"pcp":"Coins","spec":"Coins"}]},"PriorityHMO Silver S38 - West MI Partners (Kent)":{"metal":"Silver","family":"Classic","partners":"West MI Partners","isNew":false,"tiers":[{"tier":"1","ded":3800,"dedFam":7600,"coins":"30%","oop":10800,"oopFam":21600,"pcp":"$45","spec":"$95"},{"tier":"2","ded":9500,"dedFam":19000,"coins":"50%","oop":10800,"oopFam":21600,"pcp":"$135","spec":"$250"}]},"PriorityHSA HMO Silver S571":{"metal":"Silver","family":"HSA","partners":null,"isNew":true,"tiers":[{"tier":null,"ded":5700,"dedFam":11400,"coins":"0%","oop":8700,"oopFam":17400,"pcp":"Coins","spec":"Coins"}]},"PriorityAssure HMO Silver S50":{"metal":"Silver","family":"Assure","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":5000,"dedFam":10000,"coins":"30%","oop":9500,"oopFam":19000,"pcp":"$20","spec":"Coins"}]},"PriorityHMO Silver S30 - Southeast MI Partners":{"metal":"Silver","family":"Classic","partners":"Southeast MI Partners","isNew":true,"tiers":[{"tier":"1","ded":3800,"dedFam":7600,"coins":"30%","oop":9800,"oopFam":19600,"pcp":"$45","spec":"$95"},{"tier":"2","ded":8500,"dedFam":17000,"coins":"50%","oop":9800,"oopFam":19600,"pcp":"$135","spec":"$210"}]},"PriorityHMO Bronze B85":{"metal":"Bronze","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":8500,"dedFam":17000,"coins":"30%","oop":11500,"oopFam":23000,"pcp":"$85","spec":"$115"}]},"PriorityHMO Silver S30 - West MI Partners (Kent)":{"metal":"Silver","family":"Classic","partners":"West MI Partners","isNew":true,"tiers":[{"tier":"1","ded":3800,"dedFam":7600,"coins":"30%","oop":9800,"oopFam":19600,"pcp":"$45","spec":"$95"},{"tier":"2","ded":8500,"dedFam":17000,"coins":"50%","oop":9800,"oopFam":19600,"pcp":"$135","spec":"$210"}]},"PriorityHSA HMO Silver S25 - Southeast MI Partners":{"metal":"Silver","family":"HSA","partners":"Southeast MI Partners","isNew":true,"tiers":[{"tier":"1","ded":2550,"dedFam":5100,"coins":"30%","oop":8700,"oopFam":17400,"pcp":"Coins","spec":"Coins"},{"tier":"2","ded":7650,"dedFam":15300,"coins":"50%","oop":8700,"oopFam":17400,"pcp":"Coins","spec":"Coins"}]},"PriorityHSA HMO Silver S25 - West MI Partners (Kent)":{"metal":"Silver","family":"HSA","partners":"West MI Partners","isNew":true,"tiers":[{"tier":"1","ded":2550,"dedFam":5100,"coins":"30%","oop":8700,"oopFam":17400,"pcp":"Coins","spec":"Coins"},{"tier":"2","ded":7650,"dedFam":15300,"coins":"50%","oop":8700,"oopFam":17400,"pcp":"Coins","spec":"Coins"}]},"PriorityHSA HMO Silver S40 - Southeast MI Partners":{"metal":"Silver","family":"HSA","partners":"Southeast MI Partners","isNew":false,"tiers":[{"tier":"1","ded":4000,"dedFam":8000,"coins":"10%","oop":8700,"oopFam":17400,"pcp":"Coins","spec":"Coins"},{"tier":"2","ded":8000,"dedFam":16000,"coins":"50%","oop":8700,"oopFam":17400,"pcp":"Coins","spec":"Coins"}]},"PriorityHSA HMO Silver S40 - West MI Partners (Kent)":{"metal":"Silver","family":"HSA","partners":"West MI Partners","isNew":false,"tiers":[{"tier":"1","ded":4000,"dedFam":8000,"coins":"10%","oop":8700,"oopFam":17400,"pcp":"Coins","spec":"Coins"},{"tier":"2","ded":8000,"dedFam":16000,"coins":"50%","oop":8700,"oopFam":17400,"pcp":"Coins","spec":"Coins"}]},"PriorityAssure HMO Bronze B99":{"metal":"Bronze","family":"Assure","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":9900,"dedFam":19800,"coins":"0%","oop":9900,"oopFam":19800,"pcp":"$40","spec":"Coins"}]},"PriorityHSA HMO Bronze B85":{"metal":"Bronze","family":"HSA","partners":null,"isNew":true,"tiers":[{"tier":null,"ded":8500,"dedFam":17000,"coins":"0%","oop":8500,"oopFam":17000,"pcp":"0%","spec":"0%"}]},"PriorityPOS Platinum P251":{"metal":"Platinum","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":250,"dedFam":500,"coins":"0%","oop":6500,"oopFam":13000,"pcp":"$15","spec":"$45"}]},"PriorityPOS Platinum P47":{"metal":"Platinum","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":475,"dedFam":950,"coins":"10%","oop":3750,"oopFam":7500,"pcp":"$15","spec":"$50"}]},"PriorityPOS Gold G121":{"metal":"Gold","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":1200,"dedFam":2400,"coins":"0%","oop":9100,"oopFam":18200,"pcp":"$30","spec":"$70"}]},"PriorityPOS Gold G50":{"metal":"Gold","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":500,"dedFam":1000,"coins":"20%","oop":9800,"oopFam":19600,"pcp":"$30","spec":"$60"}]},"PriorityPOS Gold G10":{"metal":"Gold","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":1000,"dedFam":2000,"coins":"20%","oop":9000,"oopFam":18000,"pcp":"$20","spec":"$60"}]},"PriorityPOS Gold G15":{"metal":"Gold","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":1500,"dedFam":3000,"coins":"20%","oop":9400,"oopFam":18800,"pcp":"$20","spec":"$60"}]},"PriorityPOS Gold G20":{"metal":"Gold","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":2000,"dedFam":4000,"coins":"20%","oop":9000,"oopFam":18000,"pcp":"$20","spec":"$60"}]},"PriorityPOS Gold G301":{"metal":"Gold","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":3000,"dedFam":6000,"coins":"0%","oop":9200,"oopFam":18400,"pcp":"$30","spec":"$65"}]},"PriorityPOS Gold G25":{"metal":"Gold","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":2500,"dedFam":5000,"coins":"20%","oop":9400,"oopFam":18800,"pcp":"$20","spec":"$60"}]},"PriorityPOS Gold G10 - Southeast MI Partners":{"metal":"Gold","family":"Classic","partners":"Southeast MI Partners","isNew":false,"tiers":[{"tier":"1","ded":1000,"dedFam":2000,"coins":"20%","oop":9000,"oopFam":18000,"pcp":"$20","spec":"$60"},{"tier":"2","ded":4000,"dedFam":8000,"coins":"40%","oop":9000,"oopFam":18000,"pcp":"$60","spec":"$180"}]},"PriorityPOS Gold G10 - West MI Partners (Kent)":{"metal":"Gold","family":"Classic","partners":"West MI Partners","isNew":false,"tiers":[{"tier":"1","ded":1000,"dedFam":2000,"coins":"20%","oop":9000,"oopFam":18000,"pcp":"$20","spec":"$60"},{"tier":"2","ded":4000,"dedFam":8000,"coins":"40%","oop":9000,"oopFam":18000,"pcp":"$60","spec":"$180"}]},"PriorityHSA POS Gold G17":{"metal":"Gold","family":"HSA","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":1750,"dedFam":3500,"coins":"20%","oop":5000,"oopFam":10000,"pcp":"Coins","spec":"Coins"}]},"PriorityHSA POS Gold G251":{"metal":"Gold","family":"HSA","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":2500,"dedFam":5000,"coins":"0%","oop":6500,"oopFam":13000,"pcp":"Coins","spec":"Coins"}]},"PriorityHRA POS Gold G2512":{"metal":"Gold","family":"HRA","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":2500,"dedFam":5000,"coins":"30%","oop":8900,"oopFam":17800,"pcp":"$30","spec":"$65"}]},"PriorityHSA POS Gold G351":{"metal":"Gold","family":"HSA","partners":null,"isNew":true,"tiers":[{"tier":null,"ded":3500,"dedFam":7000,"coins":"0%","oop":4000,"oopFam":8000,"pcp":"Coins","spec":"Coins"}]},"PriorityPOS Silver S30":{"metal":"Silver","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":3050,"dedFam":6100,"coins":"30%","oop":10700,"oopFam":21400,"pcp":"$45","spec":"$95"}]},"PriorityPOS Silver S38":{"metal":"Silver","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":3800,"dedFam":7600,"coins":"30%","oop":10800,"oopFam":21600,"pcp":"$45","spec":"$95"}]},"PriorityPOS Silver S50":{"metal":"Silver","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":5000,"dedFam":10000,"coins":"10%","oop":10950,"oopFam":21900,"pcp":"$45","spec":"$95"}]},"PriorityHSA POS Silver S40":{"metal":"Silver","family":"HSA","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":4000,"dedFam":8000,"coins":"10%","oop":8700,"oopFam":17400,"pcp":"Coins","spec":"Coins"}]},"PriorityPOS Silver S48":{"metal":"Silver","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":4800,"dedFam":9600,"coins":"30%","oop":10700,"oopFam":21400,"pcp":"$50","spec":"$95"}]},"PriorityHSA POS Silver S25":{"metal":"Silver","family":"HSA","partners":null,"isNew":true,"tiers":[{"tier":null,"ded":2550,"dedFam":5100,"coins":"30%","oop":8700,"oopFam":17400,"pcp":"Coins","spec":"Coins"}]},"PriorityHSA POS Silver S47":{"metal":"Silver","family":"HSA","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":4700,"dedFam":9400,"coins":"10%","oop":8700,"oopFam":17400,"pcp":"Coins","spec":"Coins"}]},"PriorityHSA POS Silver S35":{"metal":"Silver","family":"HSA","partners":null,"isNew":true,"tiers":[{"tier":null,"ded":3500,"dedFam":7000,"coins":"30%","oop":8700,"oopFam":17400,"pcp":"Coins","spec":"Coins"}]},"PriorityHSA POS Silver S571":{"metal":"Silver","family":"HSA","partners":null,"isNew":true,"tiers":[{"tier":null,"ded":5700,"dedFam":11400,"coins":"0%","oop":8700,"oopFam":17400,"pcp":"Coins","spec":"Coins"}]},"PriorityHSA POS Bronze B85":{"metal":"Bronze","family":"HSA","partners":null,"isNew":true,"tiers":[{"tier":null,"ded":8500,"dedFam":17000,"coins":"0%","oop":8500,"oopFam":17000,"pcp":"0%","spec":"0%"}]},"PriorityPPO Platinum P251":{"metal":"Platinum","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":250,"dedFam":500,"coins":"0%","oop":6500,"oopFam":13000,"pcp":"$15","spec":"$45"}]},"PriorityPPO Platinum P47":{"metal":"Platinum","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":475,"dedFam":950,"coins":"10%","oop":3750,"oopFam":7500,"pcp":"$15","spec":"$50"}]},"PriorityPPO Gold G121":{"metal":"Gold","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":1200,"dedFam":2400,"coins":"0%","oop":9100,"oopFam":18200,"pcp":"$30","spec":"$70"}]},"PriorityPPO Gold G50":{"metal":"Gold","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":500,"dedFam":1000,"coins":"20%","oop":9800,"oopFam":19600,"pcp":"$30","spec":"$60"}]},"PriorityPPO Gold G10":{"metal":"Gold","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":1000,"dedFam":2000,"coins":"20%","oop":9000,"oopFam":18000,"pcp":"$20","spec":"$60"}]},"PriorityPPO Gold G15":{"metal":"Gold","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":1500,"dedFam":3000,"coins":"20%","oop":9400,"oopFam":18800,"pcp":"$20","spec":"$60"}]},"PriorityPPO Gold G20":{"metal":"Gold","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":2000,"dedFam":4000,"coins":"20%","oop":9000,"oopFam":18000,"pcp":"$20","spec":"$60"}]},"PriorityHSA PPO Gold G17":{"metal":"Gold","family":"HSA","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":1750,"dedFam":3500,"coins":"20%","oop":5000,"oopFam":10000,"pcp":"Coins","spec":"Coins"}]},"PriorityHSA PPO Gold G251":{"metal":"Gold","family":"HSA","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":2500,"dedFam":5000,"coins":"0%","oop":6500,"oopFam":13000,"pcp":"Coins","spec":"Coins"}]},"PriorityPPO Silver S30":{"metal":"Silver","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":3050,"dedFam":6100,"coins":"30%","oop":10700,"oopFam":21400,"pcp":"$45","spec":"$95"}]},"PriorityPPO Silver S38":{"metal":"Silver","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":3800,"dedFam":7600,"coins":"30%","oop":10800,"oopFam":21600,"pcp":"$45","spec":"$95"}]},"PriorityHSA PPO Silver S25":{"metal":"Silver","family":"HSA","partners":null,"isNew":true,"tiers":[{"tier":null,"ded":2550,"dedFam":5100,"coins":"30%","oop":8700,"oopFam":17400,"pcp":"Coins","spec":"Coins"}]},"PriorityHSA PPO Silver S35":{"metal":"Silver","family":"HSA","partners":null,"isNew":true,"tiers":[{"tier":null,"ded":3500,"dedFam":7000,"coins":"30%","oop":8700,"oopFam":17400,"pcp":"Coins","spec":"Coins"}]},"PriorityHSA PPO Bronze B85":{"metal":"Bronze","family":"HSA","partners":null,"isNew":true,"tiers":[{"tier":null,"ded":8500,"dedFam":17000,"coins":"0%","oop":8500,"oopFam":17000,"pcp":"0%","spec":"0%"}]}},"posFactor":{"PriorityPOS Platinum P251":1.08432,"PriorityPOS Platinum P47":1.08981,"PriorityPOS Gold G121":1.08144,"PriorityPOS Gold G50":1.08932,"PriorityPOS Gold G10":1.08761,"PriorityPOS Gold G15":1.08592,"PriorityPOS Gold G20":1.08443,"PriorityPOS Gold G301":1.07816,"PriorityPOS Gold G25":1.08295,"PriorityPOS Gold G10 - Southeast MI Partners":1.09599,"PriorityPOS Gold G10 - West MI Partners (Kent)":1.08959,"PriorityHSA POS Gold G17":1.09067,"PriorityHSA POS Gold G251":1.08449,"PriorityHRA POS Gold G2512":1.08318,"PriorityHSA POS Gold G351":1.09319,"PriorityPOS Silver S30":1.08227,"PriorityPOS Silver S38":1.08087,"PriorityPOS Silver S50":1.07761,"PriorityHSA POS Silver S40":1.08195,"PriorityPOS Silver S48":1.07932,"PriorityHSA POS Silver S25":1.0879,"PriorityHSA POS Silver S47":1.08245,"PriorityHSA POS Silver S35":1.08669,"PriorityHSA POS Silver S571":1.08197,"PriorityHSA POS Bronze B85":1.08692}};
 const NETS = ['HMO', 'POS', 'PPO'];
 const MAX_OPTIONS = 4;
-const MAX_SETS = 3;
+const MAX_SETS = 4;
 const MAX_SCEN = 4;
 const KEY = 'ph27-renewal-alternatives-v2';
 const KEY_V1 = 'ph27-renewal-alternatives-v1';
@@ -684,15 +719,16 @@ function buildPdf(m, jsPDF) {
   }
 
   function summaryPage() {
-    mast(`PRIORITY HEALTH${DOT}SMALL GROUP${DOT}${m.nets.join(' + ')} PLANS${DOT}SUMMARY`);
+    const eyebrow = `PRIORITY HEALTH${DOT}SMALL GROUP${DOT}${m.nets.join(' + ')} PLANS${DOT}SUMMARY`;
+    mast(eyebrow);
     facts([
       ['CURRENT PLANS', String(m.sets.length), 120],
       ['TOTAL RENEWAL PREMIUM', `${usd(m.totalMonthly)} / month`, 180],
       ['ANNUAL', `${usd(m.totalMonthly * 12)} / year`, 180],
     ]);
     const TC = [
-      { label: 'PLAN', w: 212, al: 'left' },
-      { label: 'METAL / TYPE', w: 98, al: 'left' },
+      { label: 'PLAN', w: 242, al: 'left' },
+      { label: 'METAL / TYPE', w: 68, al: 'left' },
       { label: 'CHANGE', w: 48, al: 'right' },
       { label: 'MONTHLY PREMIUM', w: 84, al: 'right' },
       { label: 'MONTHLY CHANGE', w: 80, al: 'right' },
@@ -713,39 +749,52 @@ function buildPdf(m, jsPDF) {
 
     const top = 166;
     const headH = 20;
-    // build rows
+    // The Partners region is already in the plan name, so the type column keeps to metal + plan family.
+    const typeOf = c => [c.d.metal, ...c.badges.filter(b => b === 'HSA' || b === 'HRA' || b === 'Assure')].join(DOT);
     const rows = [];
     m.sets.forEach(s => {
       rows.push({ group: `CURRENT PLAN ${s.n}${DOT}${s.net}` });
       s.cols.forEach((c, i) => rows.push({ s, c, cur: i === 0 }));
     });
-    let bottom;
-    for (const [pad, gH] of [[10, 22], [7, 19], [4, 16], [2, 14]]) {
+    const sizeRows = (pad, gH) => {
       for (const r of rows) {
         if (r.group) { r.h = gH; continue; }
         font(r.cur ? 'bold' : 'normal', 9);
         r.nameLines = doc.splitTextToSize(r.c.name, TC[0].w - 8);
         font('normal', 7.8);
-        r.typeLines = doc.splitTextToSize([r.c.d.metal, ...r.c.badges].join(DOT), TC[1].w - 8);
+        r.typeLines = doc.splitTextToSize(typeOf(r.c), TC[1].w - 8);
         r.h = Math.max(r.nameLines.length * 11, r.typeLines.length * 9.5) + pad;
       }
-      bottom = top + headH + rows.reduce((a, r) => a + r.h, 0);
-      if (bottom <= tableLimit) break;
-    }
-    // header
-    TC.forEach(c => {
-      font('bold', 6.5); color(C.muted);
-      if (c.al === 'right') doc.text(c.label, c.x + c.w - 6, top + 12, { align: 'right', charSpace: 0.6 });
-      else doc.text(c.label, c.x + (c === TC[0] ? 0 : 6), top + 12, { charSpace: 0.6 });
-    });
-    stroke(C.rule); doc.setLineWidth(1); doc.line(M, top + headH, M + tableW, top + headH);
-    let y = top + headH;
-    for (const r of rows) {
+      return top + headH + rows.reduce((t, r) => t + r.h, 0);
+    };
+    // Tightest spacing that fits on one page; if none does, comfortable spacing over two pages.
+    const SPACING = [[10, 22], [7, 19], [4, 16], [2, 14]];
+    const fit = SPACING.find(([pad, gH]) => sizeRows(pad, gH) <= tableLimit);
+    if (!fit) sizeRows(...SPACING[1]);
+    const header = yTop => {
+      TC.forEach(c => {
+        font('bold', 6.5); color(C.muted);
+        if (c.al === 'right') doc.text(c.label, c.x + c.w - 6, yTop + 12, { align: 'right', charSpace: 0.6 });
+        else doc.text(c.label, c.x + (c === TC[0] ? 0 : 6), yTop + 12, { charSpace: 0.6 });
+      });
+      stroke(C.rule); doc.setLineWidth(1); doc.line(M, yTop + headH, M + tableW, yTop + headH);
+      return yTop + headH;
+    };
+    let y = header(top);
+    rows.forEach((r, i) => {
+      // a current plan's heading never sits alone at the foot of a page
+      const need = r.group && rows[i + 1] ? r.h + rows[i + 1].h : r.h;
+      if (y + need > tableLimit) {
+        notes(y);
+        doc.addPage('letter', 'landscape');
+        mast(`${eyebrow} (CONTINUED)`);
+        y = header(110);
+      }
       if (r.group) {
         font('bold', 6.8); color(C.accent);
         doc.text(r.group, M, y + r.h * 0.7, { charSpace: 1.1 });
         y += r.h;
-        continue;
+        return;
       }
       if (r.cur) { fill(C.tint); doc.rect(M, y, tableW, r.h, 'F'); }
       const base = y + r.h / 2 + 3.2 - (r.nameLines.length - 1) * 5.5;
@@ -753,7 +802,7 @@ function buildPdf(m, jsPDF) {
       const tb = y + r.h / 2 + 2.8 - (r.typeLines.length - 1) * 4.75;
       r.typeLines.forEach((ln, k) => tx(TC[1], ln, tb + k * 9.5, { s: 7.8, c: C.muted }));
       const mid = y + r.h / 2 + 3.2;
-      const q = r.c.q, t0 = r.c.design;
+      const q = r.c.q;
       if (r.cur) {
         tx(TC[2], 'Renewal', mid, { s: 8.5, c: C.muted });
         tx(TC[3], usd(q.m), mid, { b: true });
@@ -770,8 +819,8 @@ function buildPdf(m, jsPDF) {
       tx(TC[7], d0(tier1.oop), mid, { s: 8.5 });
       y += r.h;
       stroke(C.line); doc.setLineWidth(0.5); doc.line(M, y, M + tableW, y);
-    }
-    notes(bottom);
+    });
+    notes(y);
   }
 
   function scenarioPage() {
@@ -1041,6 +1090,96 @@ function buildXlsx(m, XLSX) {
   });
   return XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
 }
+// ---- renewal package reader: pdf.js text items in, renewal plans out (no DOM) ----
+// Grid names match whatever spelling the package uses: same words in any order, "(Kent)" optional.
+const planKey = n => String(n).toLowerCase().replace(/\(kent\)/g, '').split(/[^a-z0-9]+/).filter(Boolean).sort().join(' ');
+const GRID_BY_KEY = new Map(Object.keys(NET_OF).map(n => [planKey(n), n]));
+// One page of pdf.js items -> rows (top to bottom) of cells (left to right); touching runs merge.
+function textRows(items) {
+  const cells = items.map(i => ({ s: String(i.str || '').replace(/ /g, ' ').replace(/\s+/g, ' '), x: i.transform[4], y: i.transform[5], w: i.width || 0 }))
+    .filter(c => c.s.trim());
+  cells.sort((a, b) => b.y - a.y || a.x - b.x);
+  const rows = [];
+  for (const c of cells) {
+    let r = rows.find(row => Math.abs(row.y - c.y) <= 3);
+    if (!r) rows.push(r = { y: c.y, cells: [] });
+    r.cells.push(c);
+  }
+  rows.sort((a, b) => b.y - a.y);
+  for (const r of rows) {
+    r.cells.sort((a, b) => a.x - b.x);
+    const merged = [];
+    for (const c of r.cells) {
+      const last = merged[merged.length - 1];
+      const gap = last ? c.x - (last.x + last.w) : Infinity;
+      if (last && gap < 4 && gap > -2) { last.s += (gap < 1 ? '' : ' ') + c.s; last.w = c.x + c.w - last.x; } else merged.push({ ...c });
+    }
+    r.cells = merged.map(c => ({ s: c.s.trim(), cx: c.x + c.w / 2 }));
+  }
+  return rows;
+}
+const rowsText = rows => rows.map(r => r.cells.map(c => c.s).join('  ')).join('\n');
+const isCensusPage = rows => rows.some(r => r.cells.some(c => c.s === 'Name') && r.cells.some(c => c.s === 'Age'));
+function parseRenewal(pages) {
+  const MONEY = /^\$\s?([\d,]+\.\d{2})$/, PCT = /^(-?[\d.]+)\s?%$/, HEAD = /^(current|renewal) plan$/i, PLAN = /^Priority/i;
+  const nearest = (cols, cx) => cols.reduce((b, c) => (Math.abs(c.cx - cx) < Math.abs(b.cx - cx) ? c : b));
+  const found = new Map(), rates = new Map();
+  let group = '', eff = '';
+  for (const rows of pages) {
+    const text = rowsText(rows);
+    if (!group) { const g = text.match(/Proposal for:\s*([^\n]+)/i) || text.match(/Group name:\s*([^\n]+)/i); if (g) group = g[1].trim(); }
+    if (!eff) { const e = text.match(/Effective date:?\s*(\d{1,2}\/\d{1,2}\/\d{4})/i); if (e) eff = e[1]; }
+    // "Total Rate change" row: one % per renewal plan, under that plan's name
+    const totalRow = rows.find(r => /^total rate change$/i.test(r.cells[0] ? r.cells[0].s : ''));
+    if (totalRow) {
+      const heads = rows.filter(r => r.y > totalRow.y && r.cells.some(c => PLAN.test(c.s)));
+      const headRow = heads[heads.length - 1];
+      if (headRow) {
+        const cols = headRow.cells.filter(c => PLAN.test(c.s));
+        for (const c of totalRow.cells.slice(1)) { const m = c.s.match(PCT); if (m) rates.set(planKey(nearest(cols, c.cx).s), +m[1]); }
+      }
+    }
+    // Plan comparison: "Current Plan" / "Renewal Plan" headers -> plan names -> "Monthly premium", matched by column
+    const h = rows.findIndex(r => r.cells.some(c => HEAD.test(c.s)));
+    if (h < 0) continue;
+    const cols = rows[h].cells.filter(c => HEAD.test(c.s)).map(c => ({ role: /^renewal/i.test(c.s) ? 'renewal' : 'current', cx: c.cx }));
+    const after = rows.slice(h + 1);
+    const nameRow = after.find(r => r.cells.some(c => /Priority/.test(c.s)));
+    const premRow = after.find(r => /^monthly premium$/i.test(r.cells[0] ? r.cells[0].s : ''));
+    if (!nameRow || !premRow) continue;
+    const names = new Map(), amts = new Map();
+    for (const c of nameRow.cells) { const m = c.s.match(/Priority\S*.*$/); if (m) names.set(nearest(cols, c.cx), m[0]); }
+    for (const c of premRow.cells.slice(1)) { const m = c.s.match(MONEY); if (m) amts.set(nearest(cols, c.cx), +m[1].replace(/,/g, '')); }
+    cols.forEach((col, i) => {
+      if (col.role !== 'renewal' || !names.has(col) || !amts.has(col)) return;
+      const cur = i > 0 && cols[i - 1].role === 'current' ? cols[i - 1] : null;
+      const raw = names.get(col), key = planKey(raw) + '|' + amts.get(col);
+      if (!found.has(key)) found.set(key, { raw, monthly: amts.get(col), fromPlan: cur && names.get(cur) || '', fromMonthly: cur && amts.has(cur) ? amts.get(cur) : null });
+    });
+  }
+  return finishRenewal({ group, eff, rows: [...found.values()], rates });
+}
+// Shared by the reader and the Claude fallback: map names onto the grid and sanity-check each plan.
+function finishRenewal({ group, eff, rows, rates }) {
+  const plans = [], unmatched = [], warnings = [];
+  for (const p of rows) {
+    const plan = GRID_BY_KEY.get(planKey(p.raw));
+    if (!plan) { unmatched.push(p.raw); continue; }
+    const rateChange = rates && rates.has(planKey(p.raw)) ? rates.get(planKey(p.raw)) : null;
+    if (rateChange != null && p.fromMonthly) {
+      const implied = (p.monthly / p.fromMonthly - 1) * 100;
+      if (Math.abs(implied - rateChange) > 0.6) warnings.push(`${plan}: premiums imply ${sPct1(implied)} but the package says ${sPct1(rateChange)}. Check the renewal premium.`);
+    }
+    plans.push({ ...p, plan, rateChange });
+  }
+  if (unmatched.length) warnings.push(`Not in the 2027 grid, so left out: ${unmatched.join(', ')}.`);
+  return { group, eff, plans, warnings };
+}
+async function pdfPages(pdf) {
+  const pages = [];
+  for (let i = 1; i <= pdf.numPages; i++) pages.push(textRows((await (await pdf.getPage(i)).getTextContent()).items));
+  return pages;
+}
 // ==/core==
 
 /* ---------- page ---------- */
@@ -1063,7 +1202,8 @@ function sanitize(s) {
     .map((x, k) => {
       const options = [...new Set((x.options || []).filter(o => NET_OF[o] && reachable(x.net, o) && o !== x.base))].slice(0, MAX_OPTIONS);
       if (x.id != null) idMap[x.id] = k + 1;
-      return { id: k + 1, net: x.net, base: x.base, premium: +x.premium > 0 ? +x.premium : 0, options };
+      const from = x.from && typeof x.from.plan === 'string' && x.from.plan ? { plan: x.from.plan.slice(0, 90), monthly: +x.from.monthly > 0 ? +x.from.monthly : null } : null;
+      return { id: k + 1, net: x.net, base: x.base, premium: +x.premium > 0 ? +x.premium : 0, options, from };
     });
   if (!out.sets.length) return null;
   out.scenarios = (Array.isArray(s.scenarios) ? s.scenarios : []).slice(0, MAX_SCEN).map((sc, i) => {
@@ -1145,7 +1285,7 @@ function setHtml(s, k) {
   const prem = s.premium ? s.premium.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '';
   return `<section class="set" aria-labelledby="set-title-${s.id}">
     <div class="set-head">
-      <h2 class="set-title" id="set-title-${s.id}">Current plan ${k + 1}<small id="count-${s.id}">${s.options.length} of ${MAX_OPTIONS} options</small></h2>
+      <h2 class="set-title" id="set-title-${s.id}">Current plan ${k + 1}<small id="count-${s.id}">${s.options.length} of ${MAX_OPTIONS} options</small>${fromHtml(s)}</h2>
       <div class="field f-snet">
         <span class="lbl" id="net-lbl-${s.id}">Network</span>
         <div class="seg" role="group" aria-labelledby="net-lbl-${s.id}">${NETS.map(n => `<button type="button" data-set="${s.id}" data-net="${n}" aria-pressed="${n === s.net}">${n}</button>`).join('')}</div>
@@ -1168,6 +1308,11 @@ function setHtml(s, k) {
   </section>`;
 }
 
+function fromHtml(s) {
+  if (!s.from) return '';
+  const chg = s.from.monthly && monthlyOf(s) > 0 ? ` (${sPct1((monthlyOf(s) / s.from.monthly - 1) * 100)} at renewal)` : '';
+  return `<span class="from">Renews from ${esc(s.from.plan)}${s.from.monthly ? ` at ${usd(s.from.monthly)} / mo` : ''}${chg}</span>`;
+}
 function renderShared() {
   if (document.activeElement !== $('#group')) $('#group').value = state.group;
   if (document.activeElement !== $('#prep')) $('#prep').value = state.prep;
@@ -1377,6 +1522,7 @@ function undoNewGroup() {
   if (!undoSnap) return;
   state = undoSnap; undoSnap = null;
   render();
+  $('#upResult').hidden = true;
   say('Restored the previous group.');
 }
 function toggleOption(s, name) {
@@ -1433,7 +1579,7 @@ document.addEventListener('click', e => {
     if (i >= 0) { const [gone] = state.scenarios.splice(i, 1); touched(); renderScenarios(); renderTotals(); persist(); say(`Removed scenario "${gone.name || 'Scenario'}".`); }
   }
   else if (t.id === 'clearExample' || t.id === 'newGroup') newGroup();
-  else if (t.id === 'undoBtn') undoNewGroup();
+  else if (t.id === 'undoBtn' || t.id === 'upUndo') undoNewGroup();
   else if ('toggleDesign' in t.dataset) { state.showDesign = !state.showDesign; render(); }
   else if (t.id === 'pdfBtn') doExport('pdf');
   else if (t.id === 'xlsBtn') doExport('xlsx');
@@ -1604,6 +1750,115 @@ document.addEventListener('keydown', e => {
     if (next) next.focus(); else t.blur();
   }
 });
+
+/* ---------- start from a renewal ---------- */
+const PDFJS = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/';
+let pdfjsReady = null;
+function loadPdfJs() {
+  if (window.pdfjsLib && window.pdfjsWorker) return Promise.resolve(window.pdfjsLib);
+  const add = src => new Promise((ok, bad) => {
+    const el = document.createElement('script');
+    el.src = src; el.onload = ok; el.onerror = () => bad(new Error('lib'));
+    document.head.append(el);
+  });
+  // The worker script, loaded as a plain script, lets pdf.js run on the page (no worker fetch needed).
+  pdfjsReady = pdfjsReady || add(PDFJS + 'pdf.min.js').then(() => add(PDFJS + 'pdf.worker.min.js')).then(() => {
+    window.pdfjsLib.GlobalWorkerOptions.workerSrc = PDFJS + 'pdf.worker.min.js';
+    return window.pdfjsLib;
+  });
+  pdfjsReady.catch(() => { pdfjsReady = null; });
+  return pdfjsReady;
+}
+let sampleCap = null;
+function sampleFn() {
+  if (!window.claude || typeof window.claude.use !== 'function') return Promise.resolve(null);
+  if (!sampleCap) sampleCap = window.claude.use('sample');
+  return sampleCap;
+}
+// Fallback only: send Claude the plan pages as text — never the census pages (names and ages).
+async function readWithClaude(pages) {
+  const sample = await sampleFn();
+  if (!sample) return null;
+  const keep = pages.filter(rows => !isCensusPage(rows) && /premium|rate change|renewal plan|current plan/i.test(rowsText(rows)));
+  if (!keep.length) return null;
+  const text = keep.map(rowsText).join('\n\n----- next page -----\n\n').slice(0, 60000);
+  const prompt = 'Below is text extracted from a Priority Health small group renewal package (a PDF). ' +
+    'Find each plan the group is renewing. Reply with only JSON in this shape:\n' +
+    '{"group": "group name or null", "effectiveDate": "M/D/YYYY or null", "plans": [{"currentPlan": "plan name or null", "renewalPlan": "plan name", "currentMonthly": 1234.56, "renewalMonthly": 1234.56}]}\n' +
+    'Rules: one entry per renewal plan (a group has 1 to 4). renewalMonthly is that renewal plan\'s total MONTHLY premium with taxes and fees, as a plain number. ' +
+    'currentMonthly is the matching current plan\'s monthly premium, or null. Copy plan names exactly as printed. If you cannot find a renewal premium, return "plans": [].\n\nTEXT:\n' + text;
+  const data = await sample.json(prompt, { modelTier: 'default' });
+  const rows = (data && Array.isArray(data.plans) ? data.plans : [])
+    .filter(x => x && x.renewalPlan && +x.renewalMonthly > 0)
+    .map(x => ({ raw: String(x.renewalPlan), monthly: round2(+x.renewalMonthly), fromPlan: x.currentPlan ? String(x.currentPlan) : '', fromMonthly: +x.currentMonthly > 0 ? round2(+x.currentMonthly) : null }));
+  return finishRenewal({ group: data && data.group ? String(data.group) : '', eff: data && data.effectiveDate ? String(data.effectiveDate) : '', rows, rates: null });
+}
+const isoDate = mdy => { const m = String(mdy || '').match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/); return m ? `${m[3]}-${m[1].padStart(2, '0')}-${m[2].padStart(2, '0')}` : ''; };
+function upShow(html) { const el = $('#upResult'); el.innerHTML = html; el.hidden = false; }
+async function readRenewal(file) {
+  if (!file) return;
+  if (!/\.pdf$/i.test(file.name) && file.type !== 'application/pdf') { upShow('<p class="up-warn">Choose the renewal package PDF.</p>'); return; }
+  upShow(`<p class="up-busy">Reading ${esc(file.name)}…</p>`);
+  let pages;
+  try {
+    const lib = await loadPdfJs();
+    const pdf = await lib.getDocument({ data: new Uint8Array(await file.arrayBuffer()) }).promise;
+    pages = await pdfPages(pdf);
+  } catch (e) {
+    upShow(`<p class="up-warn">${e && e.message === 'lib' ? 'The PDF reader did not load. Check your connection and try again.' : `Could not open ${esc(file.name)}. If it is password-protected, save an unlocked copy and try again.`}</p>`);
+    return;
+  }
+  let res = parseRenewal(pages), how = 'reader';
+  if (!res.plans.length) {
+    if (await sampleFn()) {
+      upShow('<p class="up-busy">The standard layout was not found, so Claude is reading the plan pages (the census pages are not sent)…</p>');
+      try { res = (await readWithClaude(pages)) || res; how = 'claude'; } catch (e) {
+        const code = e && e.code;
+        upShow(`<p class="up-warn">${code === 'not_granted' || code === 'sampling_disabled' ? 'Claude was not allowed to read the file.' : code === 'rate_limited' ? 'Claude is busy right now. Try again in a minute.' : 'Claude could not read this file.'} Enter the plans by hand below.</p>`);
+        return;
+      }
+    }
+  }
+  if (!res.plans.length) {
+    upShow(`<p class="up-warn">No renewal plans with monthly premiums were found in ${esc(file.name)}. ${res.warnings.map(esc).join(' ')} Enter the plans by hand below.</p>`);
+    return;
+  }
+  applyRenewal(res, file.name, how);
+}
+function applyRenewal(res, fileName, how) {
+  undoSnap = clone(state);
+  const plans = res.plans.slice(0, MAX_SETS);
+  const extra = res.plans.length - plans.length;
+  state = Object.assign(clone(state), {
+    group: res.group || state.group, eff: isoDate(res.eff) || state.eff, period: 'mo',
+    example: false, active: 0, scenarios: [],
+    sets: plans.map((p, i) => ({ id: i + 1, net: NET_OF[p.plan], base: p.plan, premium: round2(p.monthly), options: [],
+      from: p.fromPlan ? { plan: p.fromPlan, monthly: p.fromMonthly } : null }))
+  });
+  ui.q = ''; $('#q').value = '';
+  render();
+  const items = plans.map(p => `<li><span class="nm">${esc(p.plan)}</span><b>${usd(p.monthly)} / mo</b>` +
+    (p.fromPlan ? `<span class="from">renewing from ${esc(p.fromPlan)}${p.fromMonthly ? ` at ${usd(p.fromMonthly)}` : ''}${p.fromMonthly ? ` (${sPct1((p.monthly / p.fromMonthly - 1) * 100)})` : ''}</span>` : '') + '</li>').join('');
+  const warn = [...res.warnings, extra > 0 ? `${extra} more plan${extra > 1 ? 's' : ''} found than the ${MAX_SETS} this tool holds; the first ${MAX_SETS} were used.` : '']
+    .filter(Boolean).map(w => `<p class="up-warn">${esc(w)}</p>`).join('');
+  upShow(`<p><b>${esc(fileName)}</b>${res.group ? ` · ${esc(res.group)}` : ''}${res.eff ? ` · effective ${esc(res.eff)}` : ''}</p>
+    <ul class="up-list">${items}</ul>${warn}
+    <p class="from">${how === 'claude' ? 'Claude read the plan pages; the census pages were not sent.' : 'Read in your browser; nothing was uploaded.'} Filled in below, so check the premiums against the package. <button type="button" class="linkbtn" id="upUndo">Undo</button></p>`);
+  say(`Filled in ${plans.length} renewal plan${plans.length > 1 ? 's' : ''} from ${fileName}.`, false, true);
+  const next = document.querySelector('#board-1 input[data-kind="slot"]');
+  if (next) { next.closest('.set').scrollIntoView({ block: 'start', behavior: 'smooth' }); next.focus({ preventScroll: true }); }
+}
+$('#renewalFile').addEventListener('change', e => { const f = e.target.files && e.target.files[0]; e.target.value = ''; readRenewal(f); });
+(() => {
+  const zone = $('#uploadZone');
+  const on = e => { e.preventDefault(); zone.classList.add('drag'); };
+  const off = () => zone.classList.remove('drag');
+  zone.addEventListener('dragenter', on);
+  zone.addEventListener('dragover', on);
+  zone.addEventListener('dragleave', e => { if (!zone.contains(e.relatedTarget)) off(); });
+  zone.addEventListener('drop', e => { e.preventDefault(); off(); const f = e.dataTransfer && e.dataTransfer.files[0]; readRenewal(f); });
+})();
+sampleFn().then(sample => { if (sample) $('#upPrivacy').textContent = 'The file is read in your browser. Only if its layout is unusual does Claude read the plan pages, and never the census pages.'; });
 
 /* ---------- downloads ---------- */
 let dlCap = null;
