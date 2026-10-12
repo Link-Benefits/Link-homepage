@@ -8,7 +8,7 @@
   --bg:#f8fafc; --surface:#ffffff; --surface-2:#f1f5f9; --ink:#334155; --ink-strong:#1e293b; --muted:#64748b; --muted-2:#94a3b8;
   --line:#e2e8f0; --line-strong:#cbd5e1;
   --accent:#088f32; --accent-strong:#055d20; --grad-end:#055d20; --accent-ink:#ffffff; --accent-soft:#f0fdf4; --accent-tint:#dcfce7; --glow:rgba(8,143,50,.20);
-  --save:#055d20; --save-fill:#088f32; --save-soft:#f0fdf4; --rise:#dc2626; --rise-fill:#ef4444; --rise-soft:#fee2e2;
+  --save:#055d20; --save-fill:#088f32; --save-soft:#f0fdf4; --rise:#dc2626; --rise-fill:#ef4444; --rise-soft:#fee2e2; --rise-line:#f3b4b4;
   --platinum:#8E9BA8; --gold:#C3972B; --silver:#B6C0C9; --bronze:#A5643A;
   --logo-bg:#ffffff;
   --card-shadow:0 4px 12px -2px rgba(0,0,0,.08),0 2px 4px -2px rgba(0,0,0,.05);
@@ -24,7 +24,7 @@
     --bg:#0f172a; --surface:#1e293b; --surface-2:#273449; --ink:#e2e8f0; --ink-strong:#f8fafc; --muted:#94a3b8; --muted-2:#64748b;
     --line:#334155; --line-strong:#475569;
     --accent:#22a352; --accent-strong:#4ade80; --grad-end:#15803d; --accent-ink:#ffffff; --accent-soft:rgba(8,143,50,.16); --accent-tint:rgba(8,143,50,.28); --glow:rgba(34,163,82,.30);
-    --save:#4ade80; --save-fill:#22a352; --save-soft:rgba(8,143,50,.16); --rise:#f87171; --rise-fill:#ef4444; --rise-soft:rgba(239,68,68,.16);
+    --save:#4ade80; --save-fill:#22a352; --save-soft:rgba(8,143,50,.16); --rise:#f87171; --rise-fill:#ef4444; --rise-soft:rgba(239,68,68,.16); --rise-line:rgba(239,68,68,.4);
     --platinum:#AEB9C4; --gold:#D8AE45; --silver:#8995A1; --bronze:#C47F4F;
     --logo-bg:#ffffff;
     --card-shadow:0 4px 12px -2px rgba(0,0,0,.4); --pop-shadow:0 8px 20px -4px rgba(0,0,0,.55);
@@ -36,7 +36,7 @@
   --bg:#0f172a; --surface:#1e293b; --surface-2:#273449; --ink:#e2e8f0; --ink-strong:#f8fafc; --muted:#94a3b8; --muted-2:#64748b;
   --line:#334155; --line-strong:#475569;
   --accent:#22a352; --accent-strong:#4ade80; --grad-end:#15803d; --accent-ink:#ffffff; --accent-soft:rgba(8,143,50,.16); --accent-tint:rgba(8,143,50,.28); --glow:rgba(34,163,82,.30);
-  --save:#4ade80; --save-fill:#22a352; --save-soft:rgba(8,143,50,.16); --rise:#f87171; --rise-fill:#ef4444; --rise-soft:rgba(239,68,68,.16);
+  --save:#4ade80; --save-fill:#22a352; --save-soft:rgba(8,143,50,.16); --rise:#f87171; --rise-fill:#ef4444; --rise-soft:rgba(239,68,68,.16); --rise-line:rgba(239,68,68,.4);
   --platinum:#AEB9C4; --gold:#D8AE45; --silver:#8995A1; --bronze:#C47F4F;
   --logo-bg:#ffffff;
   --card-shadow:0 4px 12px -2px rgba(0,0,0,.4); --pop-shadow:0 8px 20px -4px rgba(0,0,0,.55);
@@ -129,6 +129,9 @@ select.ctl{padding-right:8px}
 .chip.net{background:var(--ink-strong);border-color:var(--ink-strong);color:var(--surface)}
 .metal::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--m);margin-right:5px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.18)}
 .c-prem{padding-block:14px 10px}
+.plabel{display:block;margin-bottom:2px;font-family:var(--font-display);font-size:10.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.est-banner{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline;padding:12px 16px;border-radius:var(--r);background:var(--rise-soft);border:1px solid var(--rise-line);border-left:5px solid var(--rise);color:var(--ink);font-size:14px}
+.est-banner b{font-family:var(--font-display);font-weight:700;color:var(--rise);letter-spacing:.01em}
 .big{font-family:var(--font-display);color:var(--ink-strong);font-size:25px;font-weight:600;font-variant-numeric:tabular-nums;letter-spacing:-.01em;line-height:1.1}
 .per{font-size:13px;color:var(--muted);margin-left:3px}
 .yr{display:block;margin-top:2px;font-size:13.5px;color:var(--muted);font-variant-numeric:tabular-nums}
@@ -267,7 +270,7 @@ select.sm{height:36px;font-size:14px}
       <div>
         <p class="eyebrow">Priority Health · Small Group · 2027 rate relativity</p>
         <h1>Renewal alternatives</h1>
-        <p class="sub">Estimates based on Priority Health's <a href="https://www.priorityhealth.com/agent/center/group/small/agent-resources-library/resources-to-help-you-sell" target="_blank" rel="noopener">2027 Small Group Relativity Grids</a></p>
+        <p class="sub">Estimates based on Priority Health's <a href="https://home.link-benefits.com/renewal-alternatives/2027-small-group-relativity-grids.pdf" target="_blank" rel="noopener">2027 Small Group Relativity Grids (PDF)</a></p>
       </div>
     </div>
     <div class="actions">
@@ -283,6 +286,8 @@ select.sm{height:36px;font-size:14px}
       <p class="status" role="status" aria-live="polite"><span id="status"></span> <button class="linkbtn" id="undoBtn" type="button" hidden>Undo</button></p>
     </div>
   </header>
+
+  <div class="est-banner" role="note"><b>Estimates only. Not a quote.</b><span>Every premium and change here is a rounded estimate from Priority Health's relativity grid, for discussion only. Actual premiums come only from a Priority Health quote.</span></div>
 
   <div class="note" id="exampleNote" hidden>
     <b>Example</b>
@@ -342,9 +347,9 @@ select.sm{height:36px;font-size:14px}
     <div id="scenBody"></div>
   </section>
 
-  <aside class="fine" aria-label="How these numbers are estimated">
-    <p><b>Estimates only, not a quote.</b> Every % and $ change on this page is an estimate based on Priority Health's <a href="https://www.priorityhealth.com/agent/center/group/small/agent-resources-library/resources-to-help-you-sell" target="_blank" rel="noopener">2027 Small Group Relativity Grids</a> (Priority Health agent login), the carrier's published percentage change in premium when a group switches from one plan to another. It is applied to the renewal premium you enter. The grid rounds to whole percents, so dollar amounts are approximate. Actual premiums come only from a Priority Health quote.</p>
-    <p>HMO and POS plans can be compared with each other: those changes (shown to one decimal) combine the HMO grid with each POS plan's filed 2027 POS-to-HMO rate factor, which runs from +7.8% to +9.6% by plan and is the same in every county. PPO plans compare only with PPO plans, because the PPO gap to HMO varies by region and plan. Plan design is in-network, single / family. Partners plans show Tier 1, with Tier 2 beneath where it differs. Coinsurance is the member's share.</p>
+  <aside class="fine" aria-label="Disclaimer: estimates only">
+    <p><b>Estimates only. Not a quote.</b> These figures are rounded estimates for discussion only. They are not a quote, an offer of coverage, or a guarantee of rates or benefits. Each percentage comes from Priority Health's <a href="https://home.link-benefits.com/renewal-alternatives/2027-small-group-relativity-grids.pdf" target="_blank" rel="noopener">2027 Small Group Relativity Grids (PDF)</a>, the carrier's published change in premium when a group switches plans, and is applied to the renewal premium entered; percentages are rounded to whole numbers and dollars to the nearest dollar. Actual premiums, plan availability and eligibility are set only by Priority Health through a formal quote, underwriting and final enrollment, and can differ from these estimates. Plan designs shown are summaries; each plan's Summary of Benefits and Coverage and plan documents govern. Link Benefits does not guarantee that actual premiums or benefits will match these estimates.</p>
+    <p>HMO and POS plans can be compared with each other: those changes combine the HMO grid with each POS plan's filed 2027 POS-to-HMO rate factor, which runs from +8% to +10% by plan and is the same in every county. PPO plans compare only with PPO plans, because the PPO gap to HMO varies by region and plan. Plan design is in-network, single / family. Partners plans show Tier 1, with Tier 2 beneath where it differs. Coinsurance is the member's share.</p>
   </aside>
 
   <section class="panel" aria-labelledby="ladderTitle" id="ladderPanel">
@@ -370,9 +375,9 @@ select.sm{height:36px;font-size:14px}
         <thead><tr>
           <th scope="col">Plan</th>
           <th scope="col">Premium vs. current</th>
-          <th scope="col" class="num">Change</th>
+          <th scope="col" class="num">Est. change</th>
           <th scope="col" class="num">Est. monthly premium</th>
-          <th scope="col" class="num">Monthly change</th>
+          <th scope="col" class="num">Est. monthly change</th>
           <th scope="col" class="num">Deductible</th>
           <th scope="col"><span class="sr">Compare</span></th>
         </tr></thead>
@@ -383,7 +388,6 @@ select.sm{height:36px;font-size:14px}
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script>
 const DATA = {"grids":{"HMO":{"plans":["PriorityHMO Platinum P251","PriorityHMO Platinum","PriorityHMO Platinum P47","PriorityHMO Platinum - Southeast MI Partners","PriorityHMO Platinum - West MI Partners (Kent)","PriorityHMO Platinum P20 - Southeast MI Partners","PriorityHMO Platinum P47 - Southeast MI Partners","PriorityHMO Platinum P20 - West MI Partners (Kent)","PriorityHMO Platinum P47 - West MI Partners (Kent)","PriorityHMO Gold G121","PriorityHMO Gold G50","PriorityHMO Gold G10","PriorityHMO Gold G15","PriorityHMO Gold G301","PriorityHMO Gold G20","PriorityAssure HMO Gold G18","PriorityHMO Gold G25","PriorityHMO Gold G10 - Southeast MI Partners","PriorityHSA HMO Gold G251","PriorityHMO Gold G10 - West MI Partners (Kent)","PriorityHSA HMO Gold G17","PriorityHRA HMO Gold G2512","PriorityHMO Gold G15 - Southeast MI Partners","PriorityHMO Gold G15 - West MI Partners (Kent)","PriorityHMO Gold G20 - Southeast MI Partners","PriorityHMO Gold G20 - West MI Partners (Kent)","PriorityHMO Silver S30","PriorityHMO Gold G25 - Southeast MI Partners","PriorityHSA HMO Gold G351","PriorityHMO Gold G25 - West MI Partners (Kent)","PriorityHMO Silver S38","PriorityHMO Silver S50","PriorityHSA HMO Silver S40","PriorityHMO Silver S48","PriorityHSA HMO Silver S25","PriorityHSA HMO Gold G17 - Southeast MI Partners","PriorityHSA HMO Gold G17 - West MI Partners (Kent)","PriorityHSA HMO Silver S47","PriorityHMO Silver S38 - Southeast MI Partners","PriorityAssure HMO Silver S40","PriorityHSA HMO Silver S35","PriorityHMO Silver S38 - West MI Partners (Kent)","PriorityHSA HMO Silver S571","PriorityAssure HMO Silver S50","PriorityHMO Silver S30 - Southeast MI Partners","PriorityHMO Bronze B85","PriorityHMO Silver S30 - West MI Partners (Kent)","PriorityHSA HMO Silver S25 - Southeast MI Partners","PriorityHSA HMO Silver S25 - West MI Partners (Kent)","PriorityHSA HMO Silver S40 - Southeast MI Partners","PriorityHSA HMO Silver S40 - West MI Partners (Kent)","PriorityAssure HMO Bronze B99","PriorityHSA HMO Bronze B85"],"matrix":[[0,-1,-4,-8,-9,-10,-11,-12,-12,-14,-16,-17,-19,-21,-21,-21,-22,-24,-24,-25,-25,-25,-26,-26,-27,-28,-28,-29,-29,-29,-30,-30,-31,-31,-32,-32,-32,-34,-34,-34,-35,-35,-35,-36,-37,-37,-38,-39,-39,-41,-41,-43,-45],[1,0,-3,-6,-8,-9,-10,-11,-11,-13,-15,-16,-18,-20,-20,-20,-22,-23,-24,-24,-24,-24,-25,-26,-26,-27,-27,-28,-28,-29,-29,-29,-30,-31,-31,-31,-32,-33,-33,-33,-34,-35,-35,-35,-36,-37,-37,-38,-38,-40,-41,-42,-45],[5,3,0,-3,-5,-6,-7,-8,-9,-10,-12,-13,-15,-17,-17,-18,-19,-20,-21,-21,-21,-22,-22,-23,-24,-25,-25,-25,-26,-26,-26,-27,-28,-28,-29,-29,-29,-31,-31,-31,-32,-32,-33,-33,-34,-35,-35,-36,-36,-38,-39,-40,-43],[8,7,3,0,-2,-3,-4,-4,-5,-7,-9,-10,-12,-14,-14,-15,-16,-17,-18,-18,-19,-19,-20,-20,-21,-22,-22,-23,-23,-24,-24,-24,-25,-26,-26,-27,-27,-28,-28,-29,-30,-30,-30,-31,-32,-32,-32,-34,-34,-36,-36,-38,-41],[10,9,6,2,0,-1,-1,-2,-3,-5,-7,-8,-10,-13,-13,-13,-14,-16,-17,-17,-17,-17,-18,-19,-20,-21,-21,-21,-21,-22,-22,-22,-24,-24,-25,-25,-25,-27,-27,-27,-28,-29,-29,-29,-30,-31,-31,-32,-33,-35,-35,-37,-40],[11,10,6,3,1,0,-1,-2,-3,-4,-7,-8,-10,-12,-12,-13,-14,-15,-16,-16,-16,-17,-17,-18,-19,-20,-20,-21,-21,-22,-22,-22,-23,-24,-24,-25,-25,-26,-27,-27,-28,-28,-28,-29,-30,-30,-31,-32,-32,-34,-35,-36,-39],[12,11,7,4,2,1,0,-1,-2,-3,-6,-7,-9,-11,-11,-12,-13,-14,-15,-15,-16,-16,-17,-18,-18,-19,-19,-20,-20,-21,-21,-21,-22,-23,-24,-24,-24,-26,-26,-26,-27,-27,-28,-28,-29,-30,-30,-31,-32,-34,-34,-36,-39],[13,12,8,5,2,2,1,0,-1,-2,-5,-6,-8,-10,-10,-11,-12,-14,-15,-15,-15,-15,-16,-17,-18,-19,-19,-19,-19,-20,-20,-21,-22,-22,-23,-23,-23,-25,-25,-26,-27,-27,-27,-28,-29,-29,-29,-31,-31,-33,-34,-35,-38],[14,13,9,6,3,3,2,1,0,-1,-4,-5,-7,-10,-10,-10,-11,-13,-14,-14,-14,-14,-15,-16,-17,-18,-18,-18,-19,-19,-20,-20,-21,-22,-22,-23,-23,-24,-24,-25,-26,-26,-26,-27,-28,-29,-29,-30,-30,-32,-33,-34,-38],[16,15,11,7,5,4,3,2,1,0,-3,-4,-6,-8,-8,-9,-10,-12,-12,-13,-13,-13,-14,-15,-16,-17,-17,-17,-17,-18,-18,-19,-20,-21,-21,-22,-22,-23,-23,-24,-25,-25,-25,-26,-27,-28,-28,-29,-29,-31,-32,-33,-37],[19,18,14,10,8,7,6,5,4,3,0,-1,-3,-6,-6,-6,-8,-9,-10,-10,-10,-11,-11,-12,-13,-14,-14,-15,-15,-16,-16,-16,-17,-18,-19,-19,-19,-21,-21,-22,-23,-23,-23,-24,-25,-25,-25,-27,-27,-29,-30,-32,-35],[20,19,15,11,9,8,7,6,5,4,1,0,-3,-5,-5,-5,-7,-8,-9,-9,-9,-10,-11,-12,-12,-13,-14,-14,-14,-15,-15,-16,-17,-18,-18,-19,-19,-20,-21,-21,-22,-22,-22,-23,-24,-25,-25,-26,-27,-29,-29,-31,-34],[23,22,18,14,12,11,10,9,8,6,3,3,0,-2,-2,-3,-4,-6,-7,-7,-7,-8,-8,-9,-10,-11,-11,-12,-12,-13,-13,-13,-15,-15,-16,-16,-17,-18,-18,-19,-20,-20,-20,-21,-22,-23,-23,-24,-25,-27,-28,-29,-33],[26,25,21,17,14,14,13,12,11,9,6,5,2,0,0,-1,-2,-4,-5,-5,-5,-5,-6,-7,-8,-9,-9,-10,-10,-11,-11,-11,-13,-13,-14,-14,-15,-16,-17,-17,-18,-18,-19,-19,-20,-21,-21,-22,-23,-25,-26,-28,-31],[26,25,21,17,14,14,13,12,11,9,6,5,2,0,0,-1,-2,-4,-5,-5,-5,-5,-6,-7,-8,-9,-9,-10,-10,-11,-11,-11,-13,-13,-14,-14,-14,-16,-16,-17,-18,-18,-19,-19,-20,-21,-21,-22,-23,-25,-26,-27,-31],[27,26,22,17,15,14,13,12,11,10,6,6,3,1,1,0,-2,-3,-4,-4,-4,-5,-6,-7,-7,-9,-9,-9,-10,-10,-11,-11,-12,-13,-14,-14,-14,-16,-16,-17,-18,-18,-18,-19,-20,-21,-21,-22,-23,-25,-25,-27,-31],[29,28,23,19,17,16,15,14,13,11,8,7,5,2,2,2,0,-2,-3,-3,-3,-3,-4,-5,-6,-7,-7,-8,-8,-9,-9,-9,-11,-11,-12,-13,-13,-15,-15,-15,-16,-16,-17,-17,-19,-19,-19,-21,-21,-23,-24,-26,-30],[31,30,25,21,19,18,17,16,15,13,10,9,6,4,4,3,2,0,-1,-1,-1,-2,-3,-4,-5,-6,-6,-6,-7,-8,-8,-8,-9,-10,-11,-11,-11,-13,-13,-14,-15,-15,-15,-16,-17,-18,-18,-19,-20,-22,-23,-25,-28],[32,31,27,22,20,19,18,17,16,14,11,10,7,5,5,4,3,1,0,0,0,-1,-2,-3,-4,-5,-5,-5,-6,-7,-7,-7,-8,-9,-10,-10,-10,-12,-12,-13,-14,-14,-15,-15,-17,-17,-17,-19,-19,-21,-22,-24,-28],[32,31,27,22,20,19,18,17,16,14,11,10,7,5,5,4,3,1,0,0,0,-1,-1,-3,-3,-5,-5,-5,-6,-7,-7,-7,-8,-9,-10,-10,-10,-12,-12,-13,-14,-14,-15,-15,-17,-17,-17,-19,-19,-21,-22,-24,-28],[33,31,27,23,20,19,18,17,16,15,11,10,8,5,5,5,3,1,0,0,0,-1,-1,-2,-3,-4,-5,-5,-5,-6,-7,-7,-8,-9,-10,-10,-10,-12,-12,-13,-14,-14,-14,-15,-16,-17,-17,-18,-19,-21,-22,-24,-28],[34,32,28,24,21,20,19,18,17,15,12,11,8,6,6,5,4,2,1,1,1,0,-1,-2,-3,-4,-4,-4,-5,-6,-6,-6,-8,-8,-9,-10,-10,-12,-12,-12,-13,-14,-14,-14,-16,-16,-17,-18,-19,-21,-22,-23,-27],[34,33,29,24,22,21,20,19,18,16,13,12,9,6,6,6,4,3,2,1,1,1,0,-1,-2,-3,-3,-4,-4,-5,-5,-6,-7,-8,-8,-9,-9,-11,-11,-12,-13,-13,-13,-14,-15,-16,-16,-17,-18,-20,-21,-23,-27],[36,34,30,26,23,22,21,20,19,17,14,13,10,8,8,7,5,4,3,3,2,2,1,0,-1,-2,-2,-3,-3,-4,-4,-5,-6,-7,-7,-8,-8,-10,-10,-11,-12,-12,-12,-13,-14,-15,-15,-16,-17,-19,-20,-22,-26],[37,36,31,27,24,24,22,21,20,18,15,14,11,9,9,8,6,5,4,4,3,3,2,1,0,-1,-1,-2,-2,-3,-3,-4,-5,-6,-7,-7,-7,-9,-9,-10,-11,-11,-11,-12,-14,-14,-14,-16,-16,-19,-19,-21,-25],[39,37,33,28,26,25,24,23,22,20,17,16,13,10,10,9,8,6,5,5,5,4,3,2,1,0,0,-1,-1,-2,-2,-2,-4,-5,-5,-6,-6,-8,-8,-9,-10,-10,-10,-11,-12,-13,-13,-15,-15,-18,-18,-20,-24],[39,38,33,29,26,25,24,23,22,20,17,16,13,10,10,10,8,6,5,5,5,4,4,2,1,0,0,0,-1,-2,-2,-2,-4,-4,-5,-6,-6,-8,-8,-8,-10,-10,-10,-11,-12,-13,-13,-14,-15,-17,-18,-20,-24],[40,38,34,29,27,26,25,24,22,21,17,16,13,11,11,10,8,7,6,6,5,5,4,3,2,1,0,0,0,-1,-2,-2,-3,-4,-5,-5,-5,-7,-8,-8,-9,-9,-10,-10,-12,-12,-13,-14,-15,-17,-18,-20,-24],[40,39,34,30,27,26,25,24,23,21,18,17,14,11,11,11,9,7,6,6,6,5,4,3,2,1,1,0,0,-1,-1,-1,-3,-4,-4,-5,-5,-7,-7,-8,-9,-9,-9,-10,-12,-12,-12,-14,-14,-17,-18,-19,-23],[42,40,36,31,28,28,26,25,24,22,19,18,15,12,12,12,10,8,7,7,7,6,5,4,3,2,2,1,1,0,0,0,-2,-3,-4,-4,-4,-6,-6,-7,-8,-8,-9,-9,-11,-11,-11,-13,-14,-16,-17,-19,-23],[42,40,36,31,29,28,27,26,24,23,19,18,15,12,12,12,10,8,7,7,7,6,6,4,3,2,2,2,1,0,0,0,-2,-3,-3,-4,-4,-6,-6,-7,-8,-8,-8,-9,-11,-11,-11,-13,-13,-16,-17,-18,-22],[42,41,36,32,29,28,27,26,25,23,19,18,15,13,13,12,10,9,8,7,7,7,6,5,4,2,2,2,1,0,0,0,-1,-2,-3,-4,-4,-6,-6,-6,-8,-8,-8,-9,-10,-11,-11,-12,-13,-16,-16,-18,-22],[45,43,38,34,31,30,29,28,26,25,21,20,17,14,14,14,12,10,9,9,9,8,7,6,5,4,4,3,3,2,2,1,0,-1,-2,-2,-2,-4,-4,-5,-6,-6,-7,-7,-9,-10,-10,-11,-12,-14,-15,-17,-21],[46,44,39,35,32,31,30,29,28,26,22,21,18,15,15,15,13,11,10,10,10,9,8,7,6,5,5,4,4,3,3,2,1,0,-1,-1,-1,-4,-4,-4,-6,-6,-6,-7,-8,-9,-9,-10,-11,-14,-14,-16,-20],[47,45,41,36,33,32,31,30,29,27,23,22,19,16,16,16,14,12,11,11,11,10,9,8,7,6,6,5,5,4,3,3,2,1,0,0,-1,-3,-3,-3,-5,-5,-5,-6,-7,-8,-8,-10,-10,-13,-14,-16,-20],[48,46,41,37,34,33,32,31,29,27,24,23,20,17,17,16,14,13,12,11,11,11,10,9,8,6,6,6,5,4,4,4,2,1,1,0,0,-2,-2,-3,-4,-4,-5,-5,-7,-8,-8,-9,-10,-12,-13,-15,-19],[48,46,41,37,34,33,32,31,29,28,24,23,20,17,17,16,15,13,12,12,11,11,10,9,8,6,6,6,5,4,4,4,2,1,1,0,0,-2,-2,-3,-4,-4,-5,-5,-7,-8,-8,-9,-10,-12,-13,-15,-19],[51,49,45,40,37,36,35,34,32,30,27,26,22,20,20,19,17,15,14,14,14,13,12,11,10,9,9,8,8,7,6,6,5,4,3,2,2,0,0,-1,-2,-2,-3,-3,-5,-5,-6,-7,-8,-10,-11,-13,-18],[51,50,45,40,37,36,35,34,32,31,27,26,23,20,20,19,17,15,14,14,14,13,13,11,10,9,9,8,8,7,7,6,5,4,3,2,2,0,0,-1,-2,-2,-2,-3,-5,-5,-5,-7,-8,-10,-11,-13,-17],[52,50,46,41,38,37,36,35,33,31,28,27,23,20,20,20,18,16,15,15,15,14,13,12,11,9,9,9,8,7,7,7,5,4,4,3,3,1,1,0,-1,-2,-2,-3,-4,-5,-5,-7,-7,-10,-11,-13,-17],[54,53,48,43,40,39,38,37,35,33,29,28,25,22,22,22,20,18,17,17,16,16,15,14,12,11,11,10,10,9,9,8,7,6,5,5,4,2,2,1,0,0,0,-1,-3,-3,-4,-5,-6,-8,-9,-11,-16],[55,53,48,43,40,39,38,37,35,33,30,29,25,22,22,22,20,18,17,17,16,16,15,14,13,11,11,10,10,9,9,9,7,6,5,5,5,2,2,2,0,0,0,-1,-3,-3,-3,-5,-6,-8,-9,-11,-16],[55,53,48,43,40,40,38,37,36,34,30,29,26,23,23,22,20,18,17,17,17,16,15,14,13,12,11,11,10,9,9,9,7,6,5,5,5,3,2,2,0,0,0,-1,-2,-3,-3,-5,-6,-8,-9,-11,-15],[56,54,49,44,41,41,39,38,37,35,31,30,27,24,24,23,21,19,18,18,18,17,16,15,14,12,12,12,11,10,10,10,8,7,6,6,6,3,3,3,1,1,1,0,-2,-2,-2,-4,-5,-7,-8,-10,-15],[59,57,52,47,44,43,42,40,39,37,33,32,29,26,26,25,23,21,20,20,20,19,18,17,16,14,14,14,13,12,12,12,10,9,8,8,7,5,5,4,3,3,2,2,0,-1,-1,-2,-3,-6,-7,-9,-13],[60,58,53,48,45,44,43,41,40,38,34,33,30,27,27,26,24,22,21,21,20,20,19,18,16,15,15,14,14,13,13,12,11,10,9,8,8,6,6,5,4,3,3,2,1,0,0,-2,-3,-5,-6,-8,-13],[60,58,53,48,45,44,43,42,40,38,34,33,30,27,27,26,24,22,21,21,21,20,19,18,17,15,15,14,14,13,13,12,11,10,9,8,8,6,6,5,4,4,3,2,1,0,0,-2,-3,-5,-6,-8,-13],[63,61,56,50,47,46,45,44,42,40,36,35,32,29,29,28,26,24,23,23,23,22,21,20,19,17,17,16,16,15,15,14,13,12,11,10,10,8,8,7,5,5,5,4,2,2,2,0,-1,-3,-4,-7,-11],[64,62,57,52,49,48,46,45,44,42,38,37,33,30,30,29,27,25,24,24,24,23,22,21,20,18,18,17,17,16,16,15,14,13,12,11,11,9,9,8,6,6,6,5,3,3,3,1,0,-3,-4,-6,-10],[69,67,61,56,53,52,50,49,48,46,41,40,37,33,33,33,31,29,27,27,27,26,25,24,23,21,21,21,20,19,19,18,17,16,15,14,14,12,11,11,9,9,9,8,6,5,5,4,3,0,-1,-3,-8],[70,68,63,57,54,53,52,51,49,47,43,42,38,35,35,34,32,30,29,29,28,27,27,25,24,23,22,22,21,20,20,20,18,17,16,15,15,13,13,12,10,10,10,9,7,7,6,5,4,1,0,-2,-7],[74,72,67,61,58,57,55,54,52,50,46,45,41,38,38,37,35,33,32,31,31,30,30,28,27,25,25,25,24,23,23,22,21,20,19,18,18,15,15,15,13,13,12,12,10,9,9,7,6,3,2,0,-5],[83,81,75,69,66,65,63,62,60,58,54,52,49,45,45,44,42,40,38,38,38,37,36,35,33,32,32,31,30,29,29,29,27,26,25,24,24,21,21,20,19,19,18,17,15,15,14,13,12,9,8,5,0]]},"POS":{"plans":["PriorityPOS Platinum P251","PriorityPOS Platinum P47","PriorityPOS Gold G121","PriorityPOS Gold G50","PriorityPOS Gold G10","PriorityPOS Gold G15","PriorityPOS Gold G20","PriorityPOS Gold G301","PriorityPOS Gold G25","PriorityPOS Gold G10 - Southeast MI Partners","PriorityPOS Gold G10 - West MI Partners (Kent)","PriorityHSA POS Gold G17","PriorityHSA POS Gold G251","PriorityHRA POS Gold G2512","PriorityHSA POS Gold G351","PriorityPOS Silver S30","PriorityPOS Silver S38","PriorityPOS Silver S50","PriorityHSA POS Silver S40","PriorityPOS Silver S48","PriorityHSA POS Silver S25","PriorityHSA POS Silver S47","PriorityHSA POS Silver S35","PriorityHSA POS Silver S571","PriorityHSA POS Bronze B85"],"matrix":[[0,-4,-14,-16,-17,-19,-21,-21,-23,-23,-24,-24,-24,-25,-28,-28,-30,-30,-31,-32,-32,-34,-35,-36,-45],[4,0,-10,-12,-13,-16,-18,-18,-20,-20,-21,-21,-21,-22,-25,-25,-27,-27,-28,-29,-29,-31,-32,-33,-43],[16,12,0,-2,-3,-6,-8,-9,-10,-10,-12,-12,-12,-13,-17,-17,-18,-19,-20,-21,-21,-23,-25,-25,-36],[19,14,2,0,-1,-4,-6,-7,-8,-8,-10,-10,-10,-11,-15,-15,-17,-17,-18,-19,-19,-22,-23,-24,-35],[20,15,3,1,0,-3,-5,-6,-7,-8,-9,-9,-9,-10,-14,-14,-16,-16,-17,-18,-18,-21,-22,-23,-34],[23,18,6,4,3,0,-3,-3,-5,-5,-7,-7,-7,-8,-12,-12,-14,-14,-15,-16,-16,-19,-20,-21,-33],[26,21,9,6,5,3,0,-1,-2,-3,-4,-4,-5,-6,-9,-9,-11,-12,-13,-14,-14,-17,-18,-19,-31],[27,22,9,7,6,3,1,0,-2,-2,-4,-4,-4,-5,-9,-9,-11,-11,-12,-13,-13,-16,-18,-18,-30],[29,24,11,9,8,5,2,2,0,0,-2,-2,-2,-3,-7,-7,-9,-10,-11,-12,-12,-15,-16,-17,-29],[30,25,12,9,8,5,3,2,0,0,-2,-2,-2,-3,-7,-7,-9,-10,-10,-11,-11,-14,-16,-17,-29],[32,27,14,11,10,7,4,4,2,2,0,0,0,-1,-5,-5,-7,-8,-9,-10,-10,-13,-14,-15,-28],[32,27,14,11,10,7,4,4,2,2,0,0,0,-1,-5,-5,-7,-8,-9,-10,-10,-13,-14,-15,-28],[32,27,14,11,10,7,5,4,2,2,0,0,0,-1,-5,-5,-7,-8,-9,-10,-10,-13,-14,-15,-28],[34,29,15,13,12,9,6,5,4,3,1,1,1,0,-4,-4,-6,-7,-8,-9,-9,-12,-13,-14,-27],[39,34,20,17,16,13,10,10,8,7,6,6,5,4,0,0,-2,-3,-4,-5,-5,-8,-10,-10,-24],[39,34,20,17,16,13,10,10,8,8,6,6,5,4,0,0,-2,-3,-4,-5,-5,-8,-9,-10,-24],[42,37,23,20,19,16,13,12,10,10,8,8,8,7,2,2,0,-1,-2,-3,-3,-6,-8,-8,-22],[43,38,23,21,20,16,13,13,11,11,9,9,8,7,3,3,1,0,-1,-2,-2,-5,-7,-8,-22],[45,39,25,22,21,18,15,14,12,12,10,10,9,8,4,4,2,1,0,-1,-1,-4,-6,-7,-21],[46,41,26,23,22,19,16,15,13,13,11,11,11,9,5,5,3,2,1,0,0,-3,-5,-6,-20],[46,41,26,23,22,19,16,15,13,13,11,11,11,10,5,5,3,2,1,0,0,-3,-5,-6,-20],[51,46,30,27,26,23,20,19,17,17,15,15,14,13,9,8,6,6,4,3,3,0,-2,-3,-17],[54,48,33,30,29,25,22,21,19,19,17,17,16,15,11,10,8,8,6,5,5,2,0,-1,-16],[55,49,34,31,30,26,23,22,20,20,18,18,17,16,12,11,9,8,7,6,6,3,1,0,-15],[83,76,57,54,52,48,45,44,41,41,39,38,38,37,31,31,28,28,26,25,25,21,19,18,0]]},"PPO":{"plans":["PriorityPPO Platinum P251","PriorityPPO Platinum P47","PriorityPPO Gold G121","PriorityPPO Gold G50","PriorityPPO Gold G10","PriorityPPO Gold G15","PriorityPPO Gold G20","PriorityHSA PPO Gold G17","PriorityHSA PPO Gold G251","PriorityPPO Silver S30","PriorityPPO Silver S38","PriorityHSA PPO Silver S25","PriorityHSA PPO Silver S35","PriorityHSA PPO Bronze B85"],"matrix":[[0,-4,-14,-16,-17,-19,-21,-24,-24,-29,-30,-32,-33,-43],[4,0,-10,-13,-13,-16,-18,-21,-21,-26,-28,-30,-31,-40],[16,11,0,-3,-4,-6,-9,-12,-12,-17,-19,-22,-23,-34],[19,14,3,0,-1,-4,-6,-10,-10,-15,-17,-19,-21,-32],[20,15,4,1,0,-3,-5,-9,-9,-14,-16,-19,-20,-31],[24,19,7,4,3,0,-3,-6,-6,-12,-14,-16,-18,-29],[27,22,10,7,6,3,0,-4,-4,-9,-12,-14,-15,-27],[32,27,14,11,10,7,4,0,0,-6,-8,-11,-12,-24],[32,27,14,11,10,7,4,0,0,-6,-8,-11,-12,-24],[40,35,21,18,17,13,10,6,6,0,-2,-5,-7,-20],[43,38,24,21,20,16,13,9,9,2,0,-3,-4,-18],[48,42,28,24,23,20,16,12,12,5,3,0,-1,-15],[50,44,30,26,25,21,18,14,14,7,4,2,0,-14],[74,68,50,46,45,41,37,32,32,24,21,18,16,0]]}},"designs":{"PriorityHMO Platinum P251":{"metal":"Platinum","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":250,"dedFam":500,"coins":"0%","oop":6500,"oopFam":13000,"pcp":"$15","spec":"$45"}]},"PriorityHMO Platinum":{"metal":"Platinum","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":0,"dedFam":0,"coins":"0%","oop":5700,"oopFam":11400,"pcp":"$15","spec":"$35"}]},"PriorityHMO Platinum P47":{"metal":"Platinum","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":475,"dedFam":950,"coins":"10%","oop":3750,"oopFam":7500,"pcp":"$15","spec":"$50"}]},"PriorityHMO Platinum - Southeast MI Partners":{"metal":"Platinum","family":"Classic","partners":"Southeast MI Partners","isNew":false,"tiers":[{"tier":"1","ded":0,"dedFam":0,"coins":"0%","oop":5700,"oopFam":11400,"pcp":"$15","spec":"$35"},{"tier":"2","ded":500,"dedFam":1000,"coins":"0%","oop":5700,"oopFam":11400,"pcp":"$45","spec":"$105"}]},"PriorityHMO Platinum - West MI Partners (Kent)":{"metal":"Platinum","family":"Classic","partners":"West MI Partners","isNew":false,"tiers":[{"tier":"1","ded":0,"dedFam":0,"coins":"0%","oop":5700,"oopFam":11400,"pcp":"$15","spec":"$35"},{"tier":"2","ded":500,"dedFam":1000,"coins":"0%","oop":5700,"oopFam":11400,"pcp":"$45","spec":"$105"}]},"PriorityHMO Platinum P20 - Southeast MI Partners":{"metal":"Platinum","family":"Classic","partners":"Southeast MI Partners","isNew":false,"tiers":[{"tier":"1","ded":200,"dedFam":400,"coins":"10%","oop":4600,"oopFam":9200,"pcp":"$15","spec":"$45"},{"tier":"2","ded":600,"dedFam":1200,"coins":"40%","oop":4600,"oopFam":9200,"pcp":"$45","spec":"$135"}]},"PriorityHMO Platinum P47 - Southeast MI Partners":{"metal":"Platinum","family":"Classic","partners":"Southeast MI Partners","isNew":false,"tiers":[{"tier":"1","ded":475,"dedFam":950,"coins":"10%","oop":3750,"oopFam":7500,"pcp":"$15","spec":"$50"},{"tier":"2","ded":1425,"dedFam":2850,"coins":"40%","oop":3750,"oopFam":7500,"pcp":"$45","spec":"$150"}]},"PriorityHMO Platinum P20 - West MI Partners (Kent)":{"metal":"Platinum","family":"Classic","partners":"West MI Partners","isNew":false,"tiers":[{"tier":"1","ded":200,"dedFam":400,"coins":"10%","oop":4600,"oopFam":9200,"pcp":"$15","spec":"$45"},{"tier":"2","ded":600,"dedFam":1200,"coins":"40%","oop":4600,"oopFam":9200,"pcp":"$45","spec":"$135"}]},"PriorityHMO Platinum P47 - West MI Partners (Kent)":{"metal":"Platinum","family":"Classic","partners":"West MI Partners","isNew":false,"tiers":[{"tier":"1","ded":475,"dedFam":950,"coins":"10%","oop":3750,"oopFam":7500,"pcp":"$15","spec":"$50"},{"tier":"2","ded":1425,"dedFam":2850,"coins":"40%","oop":3750,"oopFam":7500,"pcp":"$45","spec":"$150"}]},"PriorityHMO Gold G121":{"metal":"Gold","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":1200,"dedFam":2400,"coins":"0%","oop":9100,"oopFam":18200,"pcp":"$30","spec":"$70"}]},"PriorityHMO Gold G50":{"metal":"Gold","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":500,"dedFam":1000,"coins":"20%","oop":9800,"oopFam":19600,"pcp":"$30","spec":"$60"}]},"PriorityHMO Gold G10":{"metal":"Gold","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":1000,"dedFam":2000,"coins":"20%","oop":9000,"oopFam":18000,"pcp":"$20","spec":"$60"}]},"PriorityHMO Gold G15":{"metal":"Gold","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":1500,"dedFam":3000,"coins":"20%","oop":9400,"oopFam":18800,"pcp":"$20","spec":"$60"}]},"PriorityHMO Gold G301":{"metal":"Gold","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":3000,"dedFam":6000,"coins":"0%","oop":9200,"oopFam":18400,"pcp":"$30","spec":"$65"}]},"PriorityHMO Gold G20":{"metal":"Gold","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":2000,"dedFam":4000,"coins":"20%","oop":9000,"oopFam":18000,"pcp":"$20","spec":"$60"}]},"PriorityAssure HMO Gold G18":{"metal":"Gold","family":"Assure","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":1800,"dedFam":3600,"coins":"10%","oop":6800,"oopFam":13600,"pcp":"$15","spec":"Coins"}]},"PriorityHMO Gold G25":{"metal":"Gold","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":2500,"dedFam":5000,"coins":"20%","oop":9400,"oopFam":18800,"pcp":"$20","spec":"$60"}]},"PriorityHMO Gold G10 - Southeast MI Partners":{"metal":"Gold","family":"Classic","partners":"Southeast MI Partners","isNew":false,"tiers":[{"tier":"1","ded":1000,"dedFam":2000,"coins":"20%","oop":8700,"oopFam":17400,"pcp":"$20","spec":"$60"},{"tier":"2","ded":4000,"dedFam":8000,"coins":"40%","oop":8700,"oopFam":17400,"pcp":"$60","spec":"$180"}]},"PriorityHSA HMO Gold G251":{"metal":"Gold","family":"HSA","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":2500,"dedFam":5000,"coins":"0%","oop":6500,"oopFam":13000,"pcp":"Coins","spec":"Coins"}]},"PriorityHMO Gold G10 - West MI Partners (Kent)":{"metal":"Gold","family":"Classic","partners":"West MI Partners","isNew":false,"tiers":[{"tier":"1","ded":1000,"dedFam":2000,"coins":"20%","oop":8700,"oopFam":17400,"pcp":"$20","spec":"$60"},{"tier":"2","ded":4000,"dedFam":8000,"coins":"40%","oop":8700,"oopFam":17400,"pcp":"$60","spec":"$180"}]},"PriorityHSA HMO Gold G17":{"metal":"Gold","family":"HSA","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":1750,"dedFam":3500,"coins":"20%","oop":5000,"oopFam":10000,"pcp":"Coins","spec":"Coins"}]},"PriorityHRA HMO Gold G2512":{"metal":"Gold","family":"HRA","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":2500,"dedFam":5000,"coins":"30%","oop":8900,"oopFam":17800,"pcp":"$30","spec":"$65"}]},"PriorityHMO Gold G15 - Southeast MI Partners":{"metal":"Gold","family":"Classic","partners":"Southeast MI Partners","isNew":false,"tiers":[{"tier":"1","ded":1500,"dedFam":3000,"coins":"20%","oop":9200,"oopFam":18400,"pcp":"$20","spec":"$60"},{"tier":"2","ded":5500,"dedFam":11000,"coins":"40%","oop":9200,"oopFam":18400,"pcp":"$60","spec":"$180"}]},"PriorityHMO Gold G15 - West MI Partners (Kent)":{"metal":"Gold","family":"Classic","partners":"West MI Partners","isNew":false,"tiers":[{"tier":"1","ded":1500,"dedFam":3000,"coins":"20%","oop":9200,"oopFam":18400,"pcp":"$20","spec":"$60"},{"tier":"2","ded":5500,"dedFam":11000,"coins":"40%","oop":9200,"oopFam":18400,"pcp":"$60","spec":"$180"}]},"PriorityHMO Gold G20 - Southeast MI Partners":{"metal":"Gold","family":"Classic","partners":"Southeast MI Partners","isNew":false,"tiers":[{"tier":"1","ded":2000,"dedFam":4000,"coins":"20%","oop":8400,"oopFam":16800,"pcp":"$20","spec":"$60"},{"tier":"2","ded":7000,"dedFam":14000,"coins":"50%","oop":8400,"oopFam":16800,"pcp":"$60","spec":"$180"}]},"PriorityHMO Gold G20 - West MI Partners (Kent)":{"metal":"Gold","family":"Classic","partners":"West MI Partners","isNew":false,"tiers":[{"tier":"1","ded":2000,"dedFam":4000,"coins":"20%","oop":8400,"oopFam":16800,"pcp":"$20","spec":"$60"},{"tier":"2","ded":7000,"dedFam":14000,"coins":"50%","oop":8400,"oopFam":16800,"pcp":"$60","spec":"$180"}]},"PriorityHMO Silver S30":{"metal":"Silver","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":3050,"dedFam":6100,"coins":"30%","oop":10700,"oopFam":21400,"pcp":"$45","spec":"$95"}]},"PriorityHMO Gold G25 - Southeast MI Partners":{"metal":"Gold","family":"Classic","partners":"Southeast MI Partners","isNew":false,"tiers":[{"tier":"1","ded":2500,"dedFam":5000,"coins":"20%","oop":8600,"oopFam":17200,"pcp":"$20","spec":"$60"},{"tier":"2","ded":7500,"dedFam":15000,"coins":"50%","oop":8600,"oopFam":17200,"pcp":"$60","spec":"$180"}]},"PriorityHSA HMO Gold G351":{"metal":"Gold","family":"HSA","partners":null,"isNew":true,"tiers":[{"tier":null,"ded":3500,"dedFam":7000,"coins":"0%","oop":4000,"oopFam":8000,"pcp":"Coins","spec":"Coins"}]},"PriorityHMO Gold G25 - West MI Partners (Kent)":{"metal":"Gold","family":"Classic","partners":"West MI Partners","isNew":false,"tiers":[{"tier":"1","ded":2500,"dedFam":5000,"coins":"20%","oop":8600,"oopFam":17200,"pcp":"$20","spec":"$60"},{"tier":"2","ded":7500,"dedFam":15000,"coins":"50%","oop":8600,"oopFam":17200,"pcp":"$60","spec":"$180"}]},"PriorityHMO Silver S38":{"metal":"Silver","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":3800,"dedFam":7600,"coins":"30%","oop":10800,"oopFam":21600,"pcp":"$45","spec":"$95"}]},"PriorityHMO Silver S50":{"metal":"Silver","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":5000,"dedFam":10000,"coins":"10%","oop":10950,"oopFam":21900,"pcp":"$45","spec":"$95"}]},"PriorityHSA HMO Silver S40":{"metal":"Silver","family":"HSA","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":4000,"dedFam":8000,"coins":"10%","oop":8700,"oopFam":17400,"pcp":"Coins","spec":"Coins"}]},"PriorityHMO Silver S48":{"metal":"Silver","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":4800,"dedFam":9600,"coins":"30%","oop":10700,"oopFam":21400,"pcp":"$50","spec":"$95"}]},"PriorityHSA HMO Silver S25":{"metal":"Silver","family":"HSA","partners":null,"isNew":true,"tiers":[{"tier":null,"ded":2550,"dedFam":5100,"coins":"30%","oop":8700,"oopFam":17400,"pcp":"Coins","spec":"Coins"}]},"PriorityHSA HMO Gold G17 - Southeast MI Partners":{"metal":"Gold","family":"HSA","partners":"Southeast MI Partners","isNew":false,"tiers":[{"tier":"1","ded":1750,"dedFam":3500,"coins":"20%","oop":5000,"oopFam":10000,"pcp":"Coins","spec":"Coins"},{"tier":"2","ded":5250,"dedFam":10500,"coins":"50%","oop":8500,"oopFam":17000,"pcp":"Coins","spec":"Coins"}]},"PriorityHSA HMO Gold G17 - West MI Partners (Kent)":{"metal":"Gold","family":"HSA","partners":"West MI Partners","isNew":false,"tiers":[{"tier":"1","ded":1750,"dedFam":3500,"coins":"20%","oop":5000,"oopFam":10000,"pcp":"Coins","spec":"Coins"},{"tier":"2","ded":5250,"dedFam":10500,"coins":"50%","oop":8500,"oopFam":17000,"pcp":"Coins","spec":"Coins"}]},"PriorityHSA HMO Silver S47":{"metal":"Silver","family":"HSA","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":4700,"dedFam":9400,"coins":"10%","oop":8700,"oopFam":17400,"pcp":"Coins","spec":"Coins"}]},"PriorityHMO Silver S38 - Southeast MI Partners":{"metal":"Silver","family":"Classic","partners":"Southeast MI Partners","isNew":false,"tiers":[{"tier":"1","ded":3800,"dedFam":7600,"coins":"30%","oop":10800,"oopFam":21600,"pcp":"$45","spec":"$95"},{"tier":"2","ded":9500,"dedFam":19000,"coins":"50%","oop":10800,"oopFam":21600,"pcp":"$135","spec":"$250"}]},"PriorityAssure HMO Silver S40":{"metal":"Silver","family":"Assure","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":4000,"dedFam":8000,"coins":"30%","oop":9500,"oopFam":19000,"pcp":"$30","spec":"Coins"}]},"PriorityHSA HMO Silver S35":{"metal":"Silver","family":"HSA","partners":null,"isNew":true,"tiers":[{"tier":null,"ded":3500,"dedFam":7000,"coins":"30%","oop":8700,"oopFam":17400,"pcp":"Coins","spec":"Coins"}]},"PriorityHMO Silver S38 - West MI Partners (Kent)":{"metal":"Silver","family":"Classic","partners":"West MI Partners","isNew":false,"tiers":[{"tier":"1","ded":3800,"dedFam":7600,"coins":"30%","oop":10800,"oopFam":21600,"pcp":"$45","spec":"$95"},{"tier":"2","ded":9500,"dedFam":19000,"coins":"50%","oop":10800,"oopFam":21600,"pcp":"$135","spec":"$250"}]},"PriorityHSA HMO Silver S571":{"metal":"Silver","family":"HSA","partners":null,"isNew":true,"tiers":[{"tier":null,"ded":5700,"dedFam":11400,"coins":"0%","oop":8700,"oopFam":17400,"pcp":"Coins","spec":"Coins"}]},"PriorityAssure HMO Silver S50":{"metal":"Silver","family":"Assure","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":5000,"dedFam":10000,"coins":"30%","oop":9500,"oopFam":19000,"pcp":"$20","spec":"Coins"}]},"PriorityHMO Silver S30 - Southeast MI Partners":{"metal":"Silver","family":"Classic","partners":"Southeast MI Partners","isNew":true,"tiers":[{"tier":"1","ded":3800,"dedFam":7600,"coins":"30%","oop":9800,"oopFam":19600,"pcp":"$45","spec":"$95"},{"tier":"2","ded":8500,"dedFam":17000,"coins":"50%","oop":9800,"oopFam":19600,"pcp":"$135","spec":"$210"}]},"PriorityHMO Bronze B85":{"metal":"Bronze","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":8500,"dedFam":17000,"coins":"30%","oop":11500,"oopFam":23000,"pcp":"$85","spec":"$115"}]},"PriorityHMO Silver S30 - West MI Partners (Kent)":{"metal":"Silver","family":"Classic","partners":"West MI Partners","isNew":true,"tiers":[{"tier":"1","ded":3800,"dedFam":7600,"coins":"30%","oop":9800,"oopFam":19600,"pcp":"$45","spec":"$95"},{"tier":"2","ded":8500,"dedFam":17000,"coins":"50%","oop":9800,"oopFam":19600,"pcp":"$135","spec":"$210"}]},"PriorityHSA HMO Silver S25 - Southeast MI Partners":{"metal":"Silver","family":"HSA","partners":"Southeast MI Partners","isNew":true,"tiers":[{"tier":"1","ded":2550,"dedFam":5100,"coins":"30%","oop":8700,"oopFam":17400,"pcp":"Coins","spec":"Coins"},{"tier":"2","ded":7650,"dedFam":15300,"coins":"50%","oop":8700,"oopFam":17400,"pcp":"Coins","spec":"Coins"}]},"PriorityHSA HMO Silver S25 - West MI Partners (Kent)":{"metal":"Silver","family":"HSA","partners":"West MI Partners","isNew":true,"tiers":[{"tier":"1","ded":2550,"dedFam":5100,"coins":"30%","oop":8700,"oopFam":17400,"pcp":"Coins","spec":"Coins"},{"tier":"2","ded":7650,"dedFam":15300,"coins":"50%","oop":8700,"oopFam":17400,"pcp":"Coins","spec":"Coins"}]},"PriorityHSA HMO Silver S40 - Southeast MI Partners":{"metal":"Silver","family":"HSA","partners":"Southeast MI Partners","isNew":false,"tiers":[{"tier":"1","ded":4000,"dedFam":8000,"coins":"10%","oop":8700,"oopFam":17400,"pcp":"Coins","spec":"Coins"},{"tier":"2","ded":8000,"dedFam":16000,"coins":"50%","oop":8700,"oopFam":17400,"pcp":"Coins","spec":"Coins"}]},"PriorityHSA HMO Silver S40 - West MI Partners (Kent)":{"metal":"Silver","family":"HSA","partners":"West MI Partners","isNew":false,"tiers":[{"tier":"1","ded":4000,"dedFam":8000,"coins":"10%","oop":8700,"oopFam":17400,"pcp":"Coins","spec":"Coins"},{"tier":"2","ded":8000,"dedFam":16000,"coins":"50%","oop":8700,"oopFam":17400,"pcp":"Coins","spec":"Coins"}]},"PriorityAssure HMO Bronze B99":{"metal":"Bronze","family":"Assure","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":9900,"dedFam":19800,"coins":"0%","oop":9900,"oopFam":19800,"pcp":"$40","spec":"Coins"}]},"PriorityHSA HMO Bronze B85":{"metal":"Bronze","family":"HSA","partners":null,"isNew":true,"tiers":[{"tier":null,"ded":8500,"dedFam":17000,"coins":"0%","oop":8500,"oopFam":17000,"pcp":"0%","spec":"0%"}]},"PriorityPOS Platinum P251":{"metal":"Platinum","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":250,"dedFam":500,"coins":"0%","oop":6500,"oopFam":13000,"pcp":"$15","spec":"$45"}]},"PriorityPOS Platinum P47":{"metal":"Platinum","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":475,"dedFam":950,"coins":"10%","oop":3750,"oopFam":7500,"pcp":"$15","spec":"$50"}]},"PriorityPOS Gold G121":{"metal":"Gold","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":1200,"dedFam":2400,"coins":"0%","oop":9100,"oopFam":18200,"pcp":"$30","spec":"$70"}]},"PriorityPOS Gold G50":{"metal":"Gold","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":500,"dedFam":1000,"coins":"20%","oop":9800,"oopFam":19600,"pcp":"$30","spec":"$60"}]},"PriorityPOS Gold G10":{"metal":"Gold","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":1000,"dedFam":2000,"coins":"20%","oop":9000,"oopFam":18000,"pcp":"$20","spec":"$60"}]},"PriorityPOS Gold G15":{"metal":"Gold","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":1500,"dedFam":3000,"coins":"20%","oop":9400,"oopFam":18800,"pcp":"$20","spec":"$60"}]},"PriorityPOS Gold G20":{"metal":"Gold","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":2000,"dedFam":4000,"coins":"20%","oop":9000,"oopFam":18000,"pcp":"$20","spec":"$60"}]},"PriorityPOS Gold G301":{"metal":"Gold","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":3000,"dedFam":6000,"coins":"0%","oop":9200,"oopFam":18400,"pcp":"$30","spec":"$65"}]},"PriorityPOS Gold G25":{"metal":"Gold","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":2500,"dedFam":5000,"coins":"20%","oop":9400,"oopFam":18800,"pcp":"$20","spec":"$60"}]},"PriorityPOS Gold G10 - Southeast MI Partners":{"metal":"Gold","family":"Classic","partners":"Southeast MI Partners","isNew":false,"tiers":[{"tier":"1","ded":1000,"dedFam":2000,"coins":"20%","oop":9000,"oopFam":18000,"pcp":"$20","spec":"$60"},{"tier":"2","ded":4000,"dedFam":8000,"coins":"40%","oop":9000,"oopFam":18000,"pcp":"$60","spec":"$180"}]},"PriorityPOS Gold G10 - West MI Partners (Kent)":{"metal":"Gold","family":"Classic","partners":"West MI Partners","isNew":false,"tiers":[{"tier":"1","ded":1000,"dedFam":2000,"coins":"20%","oop":9000,"oopFam":18000,"pcp":"$20","spec":"$60"},{"tier":"2","ded":4000,"dedFam":8000,"coins":"40%","oop":9000,"oopFam":18000,"pcp":"$60","spec":"$180"}]},"PriorityHSA POS Gold G17":{"metal":"Gold","family":"HSA","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":1750,"dedFam":3500,"coins":"20%","oop":5000,"oopFam":10000,"pcp":"Coins","spec":"Coins"}]},"PriorityHSA POS Gold G251":{"metal":"Gold","family":"HSA","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":2500,"dedFam":5000,"coins":"0%","oop":6500,"oopFam":13000,"pcp":"Coins","spec":"Coins"}]},"PriorityHRA POS Gold G2512":{"metal":"Gold","family":"HRA","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":2500,"dedFam":5000,"coins":"30%","oop":8900,"oopFam":17800,"pcp":"$30","spec":"$65"}]},"PriorityHSA POS Gold G351":{"metal":"Gold","family":"HSA","partners":null,"isNew":true,"tiers":[{"tier":null,"ded":3500,"dedFam":7000,"coins":"0%","oop":4000,"oopFam":8000,"pcp":"Coins","spec":"Coins"}]},"PriorityPOS Silver S30":{"metal":"Silver","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":3050,"dedFam":6100,"coins":"30%","oop":10700,"oopFam":21400,"pcp":"$45","spec":"$95"}]},"PriorityPOS Silver S38":{"metal":"Silver","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":3800,"dedFam":7600,"coins":"30%","oop":10800,"oopFam":21600,"pcp":"$45","spec":"$95"}]},"PriorityPOS Silver S50":{"metal":"Silver","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":5000,"dedFam":10000,"coins":"10%","oop":10950,"oopFam":21900,"pcp":"$45","spec":"$95"}]},"PriorityHSA POS Silver S40":{"metal":"Silver","family":"HSA","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":4000,"dedFam":8000,"coins":"10%","oop":8700,"oopFam":17400,"pcp":"Coins","spec":"Coins"}]},"PriorityPOS Silver S48":{"metal":"Silver","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":4800,"dedFam":9600,"coins":"30%","oop":10700,"oopFam":21400,"pcp":"$50","spec":"$95"}]},"PriorityHSA POS Silver S25":{"metal":"Silver","family":"HSA","partners":null,"isNew":true,"tiers":[{"tier":null,"ded":2550,"dedFam":5100,"coins":"30%","oop":8700,"oopFam":17400,"pcp":"Coins","spec":"Coins"}]},"PriorityHSA POS Silver S47":{"metal":"Silver","family":"HSA","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":4700,"dedFam":9400,"coins":"10%","oop":8700,"oopFam":17400,"pcp":"Coins","spec":"Coins"}]},"PriorityHSA POS Silver S35":{"metal":"Silver","family":"HSA","partners":null,"isNew":true,"tiers":[{"tier":null,"ded":3500,"dedFam":7000,"coins":"30%","oop":8700,"oopFam":17400,"pcp":"Coins","spec":"Coins"}]},"PriorityHSA POS Silver S571":{"metal":"Silver","family":"HSA","partners":null,"isNew":true,"tiers":[{"tier":null,"ded":5700,"dedFam":11400,"coins":"0%","oop":8700,"oopFam":17400,"pcp":"Coins","spec":"Coins"}]},"PriorityHSA POS Bronze B85":{"metal":"Bronze","family":"HSA","partners":null,"isNew":true,"tiers":[{"tier":null,"ded":8500,"dedFam":17000,"coins":"0%","oop":8500,"oopFam":17000,"pcp":"0%","spec":"0%"}]},"PriorityPPO Platinum P251":{"metal":"Platinum","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":250,"dedFam":500,"coins":"0%","oop":6500,"oopFam":13000,"pcp":"$15","spec":"$45"}]},"PriorityPPO Platinum P47":{"metal":"Platinum","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":475,"dedFam":950,"coins":"10%","oop":3750,"oopFam":7500,"pcp":"$15","spec":"$50"}]},"PriorityPPO Gold G121":{"metal":"Gold","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":1200,"dedFam":2400,"coins":"0%","oop":9100,"oopFam":18200,"pcp":"$30","spec":"$70"}]},"PriorityPPO Gold G50":{"metal":"Gold","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":500,"dedFam":1000,"coins":"20%","oop":9800,"oopFam":19600,"pcp":"$30","spec":"$60"}]},"PriorityPPO Gold G10":{"metal":"Gold","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":1000,"dedFam":2000,"coins":"20%","oop":9000,"oopFam":18000,"pcp":"$20","spec":"$60"}]},"PriorityPPO Gold G15":{"metal":"Gold","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":1500,"dedFam":3000,"coins":"20%","oop":9400,"oopFam":18800,"pcp":"$20","spec":"$60"}]},"PriorityPPO Gold G20":{"metal":"Gold","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":2000,"dedFam":4000,"coins":"20%","oop":9000,"oopFam":18000,"pcp":"$20","spec":"$60"}]},"PriorityHSA PPO Gold G17":{"metal":"Gold","family":"HSA","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":1750,"dedFam":3500,"coins":"20%","oop":5000,"oopFam":10000,"pcp":"Coins","spec":"Coins"}]},"PriorityHSA PPO Gold G251":{"metal":"Gold","family":"HSA","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":2500,"dedFam":5000,"coins":"0%","oop":6500,"oopFam":13000,"pcp":"Coins","spec":"Coins"}]},"PriorityPPO Silver S30":{"metal":"Silver","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":3050,"dedFam":6100,"coins":"30%","oop":10700,"oopFam":21400,"pcp":"$45","spec":"$95"}]},"PriorityPPO Silver S38":{"metal":"Silver","family":"Classic","partners":null,"isNew":false,"tiers":[{"tier":null,"ded":3800,"dedFam":7600,"coins":"30%","oop":10800,"oopFam":21600,"pcp":"$45","spec":"$95"}]},"PriorityHSA PPO Silver S25":{"metal":"Silver","family":"HSA","partners":null,"isNew":true,"tiers":[{"tier":null,"ded":2550,"dedFam":5100,"coins":"30%","oop":8700,"oopFam":17400,"pcp":"Coins","spec":"Coins"}]},"PriorityHSA PPO Silver S35":{"metal":"Silver","family":"HSA","partners":null,"isNew":true,"tiers":[{"tier":null,"ded":3500,"dedFam":7000,"coins":"30%","oop":8700,"oopFam":17400,"pcp":"Coins","spec":"Coins"}]},"PriorityHSA PPO Bronze B85":{"metal":"Bronze","family":"HSA","partners":null,"isNew":true,"tiers":[{"tier":null,"ded":8500,"dedFam":17000,"coins":"0%","oop":8500,"oopFam":17000,"pcp":"0%","spec":"0%"}]}},"posFactor":{"PriorityPOS Platinum P251":1.08432,"PriorityPOS Platinum P47":1.08981,"PriorityPOS Gold G121":1.08144,"PriorityPOS Gold G50":1.08932,"PriorityPOS Gold G10":1.08761,"PriorityPOS Gold G15":1.08592,"PriorityPOS Gold G20":1.08443,"PriorityPOS Gold G301":1.07816,"PriorityPOS Gold G25":1.08295,"PriorityPOS Gold G10 - Southeast MI Partners":1.09599,"PriorityPOS Gold G10 - West MI Partners (Kent)":1.08959,"PriorityHSA POS Gold G17":1.09067,"PriorityHSA POS Gold G251":1.08449,"PriorityHRA POS Gold G2512":1.08318,"PriorityHSA POS Gold G351":1.09319,"PriorityPOS Silver S30":1.08227,"PriorityPOS Silver S38":1.08087,"PriorityPOS Silver S50":1.07761,"PriorityHSA POS Silver S40":1.08195,"PriorityPOS Silver S48":1.07932,"PriorityHSA POS Silver S25":1.0879,"PriorityHSA POS Silver S47":1.08245,"PriorityHSA POS Silver S35":1.08669,"PriorityHSA POS Silver S571":1.08197,"PriorityHSA POS Bronze B85":1.08692}};
 const NETS = ['HMO', 'POS', 'PPO'];
@@ -412,22 +416,26 @@ let state; // loaded at the bottom, once every helper load() relies on exists
 const MINUS = '−';
 const LOGO_PNG = 'data:image/png;base64,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'; // Link Benefits logo, from the Team Portal (400 x 111)
 const GRID_NAME = 'Priority Health 2027 Small Group Relativity Grids';
-// PH posts the 2027 grids only in its agent resources library (agent login); no public PDF exists
-const GRID_URL = 'https://www.priorityhealth.com/agent/center/group/small/agent-resources-library/resources-to-help-you-sell';
-const ESTIMATE_NOTE = `Estimates only, not a quote. Every change is an estimate based on the ${GRID_NAME}, the carrier's published percentage change in premium when a group switches plans, applied to the renewal premium entered. The grid rounds to whole percents, so dollar amounts are approximate. Actual premiums come only from a Priority Health quote.`;
-const SOURCE_NOTE = `Source: ${GRID_NAME} (Priority Health agent resources library; agent login)`;
-function usd(n, d = 2) {
+// PH posts the 2027 grids only behind its agent login, so a copy of the PDF sits on our public site (David, 2026-10-12)
+const GRID_URL = 'https://home.link-benefits.com/renewal-alternatives/2027-small-group-relativity-grids.pdf';
+const ESTIMATE_HEAD = 'Estimates only. Not a quote.';
+// Every surface carries this. Plain words, deliberately repetitive: these numbers must never read as a quote.
+const DISCLAIMER = `${ESTIMATE_HEAD} These figures are rounded estimates for discussion only. They are not a quote, an offer of coverage, or a guarantee of rates or benefits. Each percentage comes from the ${GRID_NAME}, the carrier's published change in premium when a group switches plans, and is applied to the renewal premium entered; percentages are rounded to whole numbers and dollars to the nearest dollar. Actual premiums, plan availability and eligibility are set only by Priority Health through a formal quote, underwriting and final enrollment, and can differ from these estimates. Plan designs shown are summaries; each plan's Summary of Benefits and Coverage and plan documents govern. Link Benefits does not guarantee that actual premiums or benefits will match these estimates.`;
+const ESTIMATE_NOTE = DISCLAIMER;
+const SOURCE_NOTE = `Source: ${GRID_NAME} (PDF)`;
+function usd(n, d = 0) {
   return n.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: d, maximumFractionDigits: d });
 }
-function sUsd(n, minus = MINUS, d = 2) {
-  if (Math.round(n * 100) === 0) return usd(0, d);
+function sUsd(n, minus = MINUS, d = 0) {
+  if (Math.round(n * 10 ** d) === 0) return usd(0, d);
   return (n < 0 ? minus : '+') + usd(Math.abs(n), d);
 }
+// Everything shown is rounded: whole percents, whole dollars (David, 2026-10-12).
 function sPct(p, minus = MINUS) {
-  if (p === 0) return '0%';
-  return (p < 0 ? minus : '+') + (Number.isInteger(p) ? Math.abs(p) : Math.abs(p).toFixed(1)) + '%';
+  const r = Math.round(p);
+  return r === 0 ? '0%' : (r < 0 ? minus : '+') + Math.abs(r) + '%';
 }
-function sPct1(p, minus = MINUS) { const r = Math.round(p * 10) / 10; return r === 0 ? '0.0%' : (r < 0 ? minus : '+') + Math.abs(r).toFixed(1) + '%'; }
+const sPct1 = sPct; // blended scenario changes round to whole percents too
 const round2 = n => Math.round(n * 100) / 100;
 const monthlyOf = s => (state.period === 'yr' ? s.premium / 12 : s.premium) || 0;
 const NET_OF = {};
@@ -448,13 +456,34 @@ function pctFor(s, name) {
   }
   const a = hmoTwin(s.base), b = hmoTwin(name), H = DATA.grids.HMO;
   const v = H.matrix[H.plans.indexOf(a.h)][H.plans.indexOf(b.h)];
-  return Math.round(((1 + v / 100) * b.k / a.k - 1) * 1000) / 10;
+  return Math.round(((1 + v / 100) * b.k / a.k - 1) * 100);
 }
+// Whole-dollar estimates, so every sum and difference shown adds up exactly.
 function quote(s, name) {
   const p = name === s.base ? 0 : pctFor(s, name);
-  const base = monthlyOf(s);
-  const m = base * (1 + p / 100);
+  const raw = monthlyOf(s), base = Math.round(raw);
+  const m = Math.round(raw * (1 + p / 100));
   return { p, m, y: m * 12, dm: m - base, dy: (m - base) * 12 };
+}
+// "Suggest options": nearest buy-down, a bigger buy-down (~12%), an HSA switch (or out of HSA), nearest
+// buy-up, then the closest others. Stays in the current plan's network; Partners plans only from its own region.
+function suggestOptions(s, count = 4) {
+  const region = DATA.designs[s.base].partners;
+  const pool = DATA.grids[s.net].plans
+    .filter(p => p !== s.base && (!DATA.designs[p].partners || DATA.designs[p].partners === region))
+    .map(p => ({ p, v: pctFor(s, p), hsa: DATA.designs[p].family === 'HSA' }));
+  const picks = [];
+  const take = c => { if (c && !picks.includes(c.p) && picks.length < count) picks.push(c.p); };
+  const byNear = list => list.slice().sort((a, b) => Math.abs(a.v) - Math.abs(b.v));
+  const downs = pool.filter(c => c.v < 0).sort((a, b) => b.v - a.v);
+  take(downs[0]);
+  const near = downs[0] ? downs[0].v : 0;
+  take(downs.filter(c => c.v <= near - 3).sort((a, b) => Math.abs(a.v + 12) - Math.abs(b.v + 12))[0]);
+  const baseHsa = DATA.designs[s.base].family === 'HSA';
+  take(byNear(pool.filter(c => c.hsa !== baseHsa && !picks.includes(c.p)))[0]);
+  take(pool.filter(c => c.v > 0).sort((a, b) => a.v - b.v)[0]);
+  for (const c of byNear(pool)) take(c);
+  return picks.sort((a, b) => pctFor(s, b) - pctFor(s, a)); // richest first, like a menu
 }
 const d0 = n => (n == null ? 'n/a' : usd(n, 0));
 function copay(v) {
@@ -503,7 +532,7 @@ function scenarioCalc(sc) {
     return {
       n: k + 1, net: s.net, base: s.base, pick, name,
       role: pick ? 'Option ' + (s.options.indexOf(pick) + 1) : 'Renew',
-      q: quote(s, name), renewal: monthlyOf(s), d: DATA.designs[name]
+      q: quote(s, name), renewal: Math.round(monthlyOf(s)), d: DATA.designs[name]
     };
   });
   const renewal = rows.reduce((a, r) => a + r.renewal, 0);
@@ -513,7 +542,7 @@ function scenarioCalc(sc) {
 const lowestOf = calcs => (calcs.length > 1 ? calcs.reduce((b, c) => (c.total < b.total ? c : b)) : null);
 function exportModel() {
   const sets = state.sets.map((s, k) => ({
-    n: k + 1, net: s.net, base: s.base, monthly: monthlyOf(s),
+    n: k + 1, net: s.net, base: s.base, raw: monthlyOf(s), monthly: Math.round(monthlyOf(s)),
     cols: [s.base, ...s.options].map((name, i) => ({
       name, role: i === 0 ? 'Current plan' : 'Option ' + i, net: NET_OF[name], cross: NET_OF[name] !== s.net,
       q: quote(s, name), d: DATA.designs[name], design: designRows(name), badges: badges(name)
@@ -535,7 +564,7 @@ function exportModel() {
 function exportFilename(m, ext) {
   const who = (m.group || 'Priority Health').replace(/[\\/:*?"<>|]+/g, ' ').replace(/\s+/g, ' ').trim();
   const net = m.nets.length === 1 ? m.nets[0] + ' ' : '';
-  return `${who} - 2027 ${net}renewal alternatives.${ext}`;
+  return `${who} - 2027 ${net}renewal alternatives (estimates).${ext}`;
 }
 
 function buildPdf(m, jsPDF) {
@@ -544,7 +573,7 @@ function buildPdf(m, jsPDF) {
   const C = {  // the brand theme (CSS for jotform): green #088f32 / #055d20, slate neutrals
     ink: [30, 41, 59], muted: [100, 116, 139], line: [226, 232, 240], rule: [51, 65, 85],
     accent: [8, 143, 50], tint: [241, 245, 249], best: [240, 253, 244], save: [5, 93, 32], rise: [220, 38, 38],
-    white: [255, 255, 255]
+    white: [255, 255, 255], warnTint: [254, 242, 242], mark: [148, 163, 184]
   };
   const MET = { Platinum: [142, 155, 168], Gold: [195, 151, 43], Silver: [182, 192, 201], Bronze: [165, 100, 58] };
   const fill = c => doc.setFillColor(c[0], c[1], c[2]);
@@ -555,10 +584,10 @@ function buildPdf(m, jsPDF) {
   const hy = '-';
   const DOT = '  ·  ';
   const multi = m.sets.length > 1;
-  const NOTE_HEAD = 'ESTIMATES ONLY, NOT A QUOTE';
+  const NOTE_HEAD = 'ESTIMATES ONLY. NOT A QUOTE.';
   const NOTES = [
-    `Every change shown is an estimate based on the ${GRID_NAME}, the carrier's published percentage change in premium when a group switches from one plan to another, applied to the renewal premium shown. The grid rounds to whole percents, so dollar amounts are approximate; actual premiums come only from a Priority Health quote.` +
-      (m.cross ? " HMO-to-POS and POS-to-HMO changes (shown to one decimal) combine the HMO grid with each POS plan's filed 2027 POS-to-HMO rate factor, which is the same in every rating area." : ''),
+    DISCLAIMER.slice(ESTIMATE_HEAD.length + 1) +
+      (m.cross ? " HMO-to-POS and POS-to-HMO changes combine the HMO grid with each POS plan's filed 2027 POS-to-HMO rate factor." : ''),
     "Plan design is in-network, shown single / family. Coinsurance is the member's share. Partners plans show Tier 1 first, with Tier 2 beneath where it differs."
   ];
   font('normal', 7.3);
@@ -575,6 +604,13 @@ function buildPdf(m, jsPDF) {
     doc.text(eyebrow, M, 32, { charSpace: 1.1 });
     font('bold', 21); color(C.ink);
     doc.text('2027 Renewal Plan Alternatives', M, 56);
+    // a red "estimate" tag right after the title, on every page
+    const tx0 = M + doc.getTextWidth('2027 Renewal Plan Alternatives') + 10;
+    font('bold', 7.5);
+    const tag = 'ESTIMATE  \u00B7  NOT A QUOTE', tw = doc.getTextWidth(tag) + 4 + 14;
+    fill(C.warnTint); stroke(C.rise); doc.setLineWidth(0.6);
+    doc.roundedRect(tx0, 43, tw, 15, 3, 3, 'FD');
+    color(C.rise); doc.text(tag, tx0 + 7, 53.2, { charSpace: 0.4 });
     font('normal', 9.5); color(C.muted);
     doc.text(m.eff ? `Effective ${m.eff}` : 'Plan year 2027', M, 72);
     const right = W - M;
@@ -617,7 +653,7 @@ function buildPdf(m, jsPDF) {
       ['RENEWAL PREMIUM', `${usd(s.monthly)} / month`, 144],
       ['ANNUAL', `${usd(s.monthly * 12)} / year`, 144],
     ];
-    if (best) f.push([`LARGEST SAVINGS${DOT}${best.role.toUpperCase()}`, `${sUsd(best.q.dm, hy)} / month`, 150, C.save]);
+    if (best) f.push([`EST. LARGEST SAVINGS${DOT}${best.role.toUpperCase()}`, `${sUsd(best.q.dm, hy)} / month`, 150, C.save]);
     facts(f);
 
     const n = cols.length;
@@ -647,11 +683,11 @@ function buildPdf(m, jsPDF) {
     const L = (t, o = {}) => ({ t, s: o.s || 9.5, b: !!o.b, c: o.c || C.ink });
     const rows = [
       { section: 'PREMIUM' },
-      { label: 'Monthly premium', cells: cols.map(c => [L(usd(c.q.m), { s: 11.5, b: true })]) },
-      { label: 'Annual premium', cells: cols.map(c => [L(usd(c.q.y))]) },
-      { label: 'Change vs. current', cells: cols.map((c, i) => [i === 0 ? L('Renewal', { c: C.muted }) : L(sPct(c.q.p, hy), { s: 11.5, b: true, c: tone(c.q.p) })]) },
-      { label: 'Monthly change', cells: cols.map((c, i) => [i === 0 ? L('Baseline', { c: C.muted }) : L(sUsd(c.q.dm, hy), { b: true, c: tone(c.q.dm) })]) },
-      { label: 'Annual change', cells: cols.map((c, i) => [i === 0 ? L('Baseline', { c: C.muted }) : L(sUsd(c.q.dy, hy), { b: true, c: tone(c.q.dy) })]) },
+      { label: 'Est. monthly premium', cells: cols.map(c => [L(usd(c.q.m), { s: 11.5, b: true })]) },
+      { label: 'Est. annual premium', cells: cols.map(c => [L(usd(c.q.y))]) },
+      { label: 'Est. change vs. current', cells: cols.map((c, i) => [i === 0 ? L('Renewal', { c: C.muted }) : L(sPct(c.q.p, hy), { s: 11.5, b: true, c: tone(c.q.p) })]) },
+      { label: 'Est. monthly change', cells: cols.map((c, i) => [i === 0 ? L('Baseline', { c: C.muted }) : L(sUsd(c.q.dm, hy), { b: true, c: tone(c.q.dm) })]) },
+      { label: 'Est. annual change', cells: cols.map((c, i) => [i === 0 ? L('Baseline', { c: C.muted }) : L(sUsd(c.q.dy, hy), { b: true, c: tone(c.q.dy) })]) },
       { section: `PLAN DESIGN${DOT}IN-NETWORK` },
       ...DESIGN_FIELDS.map((fd, k) => ({
         label: fd[1],
@@ -745,7 +781,7 @@ function buildPdf(m, jsPDF) {
       else doc.text(t, c.x + (c === TC[0] ? 0 : 6), y);
     };
     font('normal', 7.3); color(C.muted);
-    doc.text('Each current plan is compared only with its own alternatives. Deductible and out-of-pocket max are in-network, single coverage; full plan design for each current plan follows on its own page.', M, 152);
+    doc.text('All premiums and changes below are rounded estimates, not quotes. Each current plan is compared only with its own alternatives. Deductible and out-of-pocket max are in-network, single coverage.', M, 152);
 
     const top = 166;
     const headH = 20;
@@ -835,11 +871,11 @@ function buildPdf(m, jsPDF) {
     ];
     if (low) {
       const nm = low.name.length > 26 ? low.name.slice(0, 25) + '.' : low.name;
-      f.push([`LARGEST SAVINGS${DOT}${nm.toUpperCase()}`, `${sUsd(low.dm, hy)} / month  (${sPct1(low.pct, hy)})`, 270, C.save]);
+      f.push([`EST. LARGEST SAVINGS${DOT}${nm.toUpperCase()}`, `${sUsd(low.dm, hy)} / month  (${sPct1(low.pct, hy)})`, 270, C.save]);
     }
     facts(f);
     font('normal', 7.3); color(C.muted);
-    doc.text("Each current plan's members move together to the plan chosen for it in a scenario. Scenario totals add those projected premiums; the scenario percent is the blended change against the total renewal.", M, 152);
+    doc.text("Rounded estimates, not quotes. Each current plan's members move together to the plan chosen for it; scenario totals add those estimated premiums against the total renewal.", M, 152);
 
     const labelW = 200, renW = 92;
     const n = sc.length;
@@ -867,11 +903,11 @@ function buildPdf(m, jsPDF) {
       return { s, k, label, cells, inner: Math.max(label.length * 11 + 12, cellH) };
     });
     const footRows = [
-      ['Total monthly premium', usd(m.totalMonthly), c => [usd(c.total), { b: true, s: 11, c: C.ink }]],
-      ['Total annual premium', usd(m.totalMonthly * 12), c => [usd(c.total * 12), { s: 9.5, c: C.ink }]],
-      ['Monthly change', 'Baseline', c => [sUsd(c.dm, hy), { b: true, s: 9.5, c: tone(c.dm) }]],
-      ['Annual change', 'Baseline', c => [sUsd(c.dm * 12, hy), { b: true, s: 9.5, c: tone(c.dm) }]],
-      ['Change vs. renewal', 'Baseline', c => [sPct1(c.pct, hy), { b: true, s: 11, c: tone(c.dm) }]],
+      ['Est. total monthly premium', usd(m.totalMonthly), c => [usd(c.total), { b: true, s: 11, c: C.ink }]],
+      ['Est. total annual premium', usd(m.totalMonthly * 12), c => [usd(c.total * 12), { s: 9.5, c: C.ink }]],
+      ['Est. monthly change', 'Baseline', c => [sUsd(c.dm, hy), { b: true, s: 9.5, c: tone(c.dm) }]],
+      ['Est. annual change', 'Baseline', c => [sUsd(c.dm * 12, hy), { b: true, s: 9.5, c: tone(c.dm) }]],
+      ['Est. change vs. renewal', 'Baseline', c => [sPct1(c.pct, hy), { b: true, s: 11, c: tone(c.dm) }]],
     ];
     let footH, bottom;
     for (const [pad, fh] of [[14, 24], [10, 21], [6, 18], [3, 16]]) {
@@ -965,7 +1001,18 @@ function buildPdf(m, jsPDF) {
     doc.setPage(p);
     stroke(C.line); doc.setLineWidth(0.5); doc.line(M, H - 28, W - M, H - 28);
     font('normal', 7.3); color(C.muted);
-    doc.text(m.prep ? `Prepared by ${m.prep}` : 'Priority Health 2027 small group alternatives', M, H - 16);
+    font('bold', 7.3); color(C.rise);
+    doc.text('ESTIMATE ONLY. NOT A QUOTE.', M, H - 16);
+    const lw = doc.getTextWidth('ESTIMATE ONLY. NOT A QUOTE.');
+    font('normal', 7.3); color(C.muted);
+    if (m.prep) doc.text(`${DOT}Prepared by ${m.prep}`, M + lw, H - 16);
+    // watermark, rotated around the page centre
+    doc.saveGraphicsState();
+    doc.setGState(new doc.GState({ opacity: 0.07 }));
+    font('bold', 64); color(C.mark);
+    const wm = 'ESTIMATE ONLY', ww = doc.getTextWidth(wm), ang = 24 * Math.PI / 180;
+    doc.text(wm, W / 2 - (ww / 2) * Math.cos(ang), H / 2 + 20 + (ww / 2) * Math.sin(ang), { angle: 24 });
+    doc.restoreGraphicsState();
     const src = `Source: ${GRID_NAME}`;
     const pg = pages > 1 ? `${DOT}Page ${p} of ${pages}` : '';
     const wPg = pg ? doc.getTextWidth(pg) : 0;
@@ -976,120 +1023,283 @@ function buildPdf(m, jsPDF) {
   return doc.output('arraybuffer');
 }
 
-function buildXlsx(m, XLSX) {
-  const CUR = '"$"#,##0.00', SCUR = '+"$"#,##0.00;-"$"#,##0.00;"$"0.00', SPCT = '+0%;-0%;0%', SPCT1 = '+0.0%;-0.0%;0.0%';
-  const wb = XLSX.utils.book_new();
+// The workbook is a live model: each plan's renewal premium is a named input (Renewal_1 ...) and every
+// premium, change, scenario and total is a formula. Cached results ride along so viewers that do not
+// recalculate (previews, phones) still show the numbers; Excel recalculates on open.
+async function buildXlsx(m, ExcelJS) {
+  const wb = new ExcelJS.Workbook();
+  wb.creator = m.prep || 'PH Renewal Alternatives';
+  wb.title = '2027 renewal alternatives (estimates only, not a quote)';
+  wb.subject = 'Estimates only. Not a quote.';
+  wb.created = new Date();
+  wb.calcProperties.fullCalcOnLoad = true;
   const multi = m.sets.length > 1;
-  const fmt = (ws, r, c, z) => {
-    const cell = ws[XLSX.utils.encode_cell({ r, c })];
-    if (!cell || cell.t !== 'n') return;
-    // cross-network changes carry one decimal; grid changes are whole percents
-    cell.z = z === SPCT && !Number.isInteger(Math.round(cell.v * 10000) / 100) ? SPCT1 : z;
+  const K = { green: 'FF088F32', deep: 'FF055D20', tint: 'FFF0FDF4', ink: 'FF1E293B', body: 'FF334155', muted: 'FF64748B',
+    line: 'FFE2E8F0', cur: 'FFF1F5F9', red: 'FFDC2626', redTint: 'FFFEE2E2', input: 'FFFFF7D1', inputLine: 'FFE0B43A', white: 'FFFFFFFF' };
+  // Whole dollars and whole percents (estimates); only the input keeps cents, as the renewal package prints it.
+  const NF = { cur: '"$"#,##0', curIn: '"$"#,##0.00', scur: '+"$"#,##0;-"$"#,##0;"$"0', base: '+"$"#,##0;-"$"#,##0;"Baseline"',
+    pct: '+0%;-0%;0%', pct1: '+0%;-0%;0%', pctCur: '+0%;-0%;"Current plan"' };
+  const pctNF = () => NF.pct;
+  const L = i => { let t = ''; i += 1; while (i) { const r = (i - 1) % 26; t = String.fromCharCode(65 + r) + t; i = Math.floor((i - 1) / 26); } return t; };
+  const font = (o = {}) => ({ name: 'Calibri', size: o.size || 11, bold: !!o.bold, italic: !!o.italic, underline: !!o.underline, color: { argb: o.color || K.body } });
+  const solid = argb => ({ type: 'pattern', pattern: 'solid', fgColor: { argb } });
+  const thin = argb => ({ style: 'thin', color: { argb } });
+  const boxed = argb => ({ top: thin(argb), left: thin(argb), bottom: thin(argb), right: thin(argb) });
+  const fx = (formula, result) => ({ formula, result: typeof result === 'number' ? round2(result) : result });
+  const logoId = /link benefits/i.test(m.prep || '') ? wb.addImage({ base64: LOGO_PNG, extension: 'png' }) : null;
+  const put = (ws, ref, value, o = {}) => {
+    const c = ws.getCell(ref);
+    c.value = value;
+    c.font = font(o);
+    if (o.nf) c.numFmt = o.nf;
+    if (o.fill) c.fill = solid(o.fill);
+    if (o.border) c.border = o.border;
+    c.alignment = { vertical: 'middle', horizontal: o.align || 'left', wrapText: !!o.wrap, indent: o.indent || 0 };
+    return c;
   };
-  const intro = sub => [['2027 Renewal Plan Alternatives'], [`Priority Health Small Group · ${sub}`], [],
-    ['Group', m.group], ['Effective', m.eff], ['Prepared by', m.prep], ['Generated', m.generated], []];
-  const typeOf = c => [c.d.metal, ...c.badges].join(' · ');
-  const linkSource = (ws, r) => { const cell = ws[XLSX.utils.encode_cell({ r, c: 0 })]; if (cell) cell.l = { Target: GRID_URL, Tooltip: GRID_NAME }; };
-
-  if (multi && m.scenarios.length) {
-    const sc = m.scenarios;
-    const S = intro(`${m.nets.join(' + ')} plans · proposed scenarios`);
-    const zs = [];
-    const add = (cells, z, from = 1) => { if (z) zs.push([S.length, z, from]); S.push(cells); };
-    add(['', 'Renewal', ...sc.map(c => c.name)]);
-    add(['What each current plan moves to']);
-    m.sets.forEach((s, k) => add([`Current plan ${s.n}: ${s.base}`, 'Renew', ...sc.map(c => c.rows[k].pick ? `${c.rows[k].role}: ${c.rows[k].name}` : 'Renew current plan')]));
-    add([]);
-    add(['Monthly premium by current plan']);
-    m.sets.forEach((s, k) => add([`Current plan ${s.n}: ${s.base}`, round2(s.monthly), ...sc.map(c => round2(c.rows[k].q.m))], CUR));
-    add([]);
-    add(['Total monthly premium', round2(m.totalMonthly), ...sc.map(c => round2(c.total))], CUR);
-    add(['Total annual premium', round2(m.totalMonthly * 12), ...sc.map(c => round2(c.total * 12))], CUR);
-    add(['Monthly change vs. renewal', '', ...sc.map(c => round2(c.dm))], SCUR, 2);
-    add(['Annual change vs. renewal', '', ...sc.map(c => round2(c.dm * 12))], SCUR, 2);
-    add(['Change vs. renewal (%)', '', ...sc.map(c => c.pct / 100)], '+0.0%;-0.0%;0.0%', 2);
-    add([]);
-    add([ESTIMATE_NOTE]);
-    add(["Each current plan's members move together to the plan chosen for it; scenario totals add those projected premiums."]);
-    const srcRow = S.length;
-    add([SOURCE_NOTE]);
-    const ws = XLSX.utils.aoa_to_sheet(S);
-    linkSource(ws, srcRow);
-    zs.forEach(([r, z, from]) => { for (let c = from; c <= sc.length + 1; c++) fmt(ws, r, c, z); });
-    ws['!cols'] = [{ wch: 58 }, { wch: 16 }, ...sc.map(() => ({ wch: 46 }))];
-    XLSX.utils.book_append_sheet(wb, ws, 'Scenarios');
-  }
-
-  if (multi) {
-    const A = intro(`${m.nets.join(' + ')} plans · summary`);
-    A.push(['Current plan', 'Role', 'Plan', 'Network', 'Metal / type', 'Change vs. current', 'Monthly premium', 'Annual premium', 'Monthly change', 'Annual change', 'Deductible (single / family)', 'Out-of-pocket max (single / family)']);
-    const numRows = [];
-    m.sets.forEach(s => {
-      s.cols.forEach(c => {
-        numRows.push(A.length);
-        A.push([s.n, c.role, c.name, c.net, typeOf(c), c.q.p / 100, round2(c.q.m), round2(c.q.y), round2(c.q.dm), round2(c.q.dy), c.design[0].v1, c.design[2].v1]);
-      });
-      A.push([]);
+  const input = (c, note) => {
+    c.fill = solid(K.input); c.border = boxed(K.inputLine);
+    c.font = font({ bold: true, color: K.ink, size: c.font && c.font.size });
+    if (note) c.note = note;
+  };
+  const changeColors = (ws, ref) => ws.addConditionalFormatting({ ref, rules: [
+    { type: 'cellIs', operator: 'lessThan', formulae: ['0'], priority: 1, style: { font: { bold: true, color: { argb: K.deep } }, fill: { type: 'pattern', pattern: 'solid', bgColor: { argb: K.tint } } } },
+    { type: 'cellIs', operator: 'greaterThan', formulae: ['0'], priority: 2, style: { font: { bold: true, color: { argb: K.red } }, fill: { type: 'pattern', pattern: 'solid', bgColor: { argb: K.redTint } } } },
+  ] });
+  const sheetSetup = ws => {
+    ws.views = [{ showGridLines: false }];
+    ws.pageSetup = { orientation: 'landscape', paperSize: 1, fitToPage: true, fitToWidth: 1, fitToHeight: 0,
+      margins: { left: 0.4, right: 0.4, top: 0.5, bottom: 0.5, header: 0.2, footer: 0.2 } };
+    ws.headerFooter.oddFooter = '&L&8' + 'Estimates only, not a quote' + '&R&8Page &P of &N';
+  };
+  // Title, meta and (for Link Benefits) the logo, rows 1-7; returns the first free row.
+  const header = (ws, subtitle, width) => {
+    sheetSetup(ws);
+    put(ws, 'A1', '2027 Renewal Plan Alternatives', { size: 18, bold: true, color: K.ink });
+    ws.getRow(1).height = 30;
+    put(ws, 'A2', subtitle, { size: 10, bold: true, color: K.green });
+    banner(ws, 3, width);
+    [['Group', m.group || '—'], ['Effective', m.eff || 'Plan year 2027'], ['Prepared by', m.prep || '—'], ['Generated', m.generated]]
+      .forEach(([k, v], i) => { put(ws, `A${4 + i}`, k, { size: 10, bold: true, color: K.muted }); put(ws, `B${4 + i}`, v, { bold: i === 0, color: K.ink }); });
+    if (logoId != null) ws.addImage(logoId, { tl: { col: Math.max(2.2, width - 1.7), row: 0.25 }, ext: { width: 150, height: 42 } });
+    return 9;
+  };
+  const BANNER = 'ESTIMATES ONLY. NOT A QUOTE. Rounded estimates from Priority Health\'s 2027 relativity grid, for discussion only; see the disclaimer at the bottom of this sheet.';
+  const banner = (ws, row, width) => {
+    ws.mergeCells(row, 1, row, width);
+    put(ws, `A${row}`, BANNER, { size: 10, bold: true, color: K.red, fill: K.redTint, wrap: true, border: boxed('FFF3B4B4') });
+    ws.getRow(row).height = 30;
+  };
+  const widthChars = ws => ws.columns.reduce((t, c) => t + (c.width || 10), 0);
+  // The estimate wording (bold lead), any extra lines, and the linked source; returns the next free row.
+  const notes = (ws, row, width, extra = []) => {
+    const span = widthChars(ws) * 1.05;
+    const lead = ESTIMATE_HEAD + ' ';
+    [ESTIMATE_NOTE, ...extra].forEach((t, i) => {
+      ws.mergeCells(row, 1, row, width);
+      const c = ws.getCell(row, 1);
+      c.value = i === 0 ? { richText: [{ text: lead, font: font({ size: 9.5, bold: true, color: K.ink }) }, { text: t.slice(lead.length), font: font({ size: 9.5, color: K.muted }) }] } : t;
+      if (i) c.font = font({ size: 9.5, color: K.muted });
+      c.alignment = { vertical: 'top', wrapText: true };
+      ws.getRow(row).height = Math.max(15, Math.ceil(t.length / span) * 13 + 3);
+      row++;
     });
-    const totalRow = A.length;
-    A.push(['Total current renewal', '', '', '', '', '', round2(m.totalMonthly), round2(m.totalMonthly * 12)]);
-    A.push([]);
-    A.push([ESTIMATE_NOTE]);
-    A.push(["Each current plan is compared only with its own alternatives. HMO-to-POS changes (one decimal) add each POS plan's filed POS-to-HMO factor."]);
-    const srcRow = A.length;
-    A.push([SOURCE_NOTE]);
-    const ws = XLSX.utils.aoa_to_sheet(A);
-    linkSource(ws, srcRow);
-    numRows.forEach(r => { fmt(ws, r, 5, SPCT); fmt(ws, r, 6, CUR); fmt(ws, r, 7, CUR); fmt(ws, r, 8, SCUR); fmt(ws, r, 9, SCUR); });
-    fmt(ws, totalRow, 6, CUR); fmt(ws, totalRow, 7, CUR);
-    ws['!cols'] = [{ wch: 13 }, { wch: 13 }, { wch: 50 }, { wch: 9 }, { wch: 26 }, { wch: 16 }, { wch: 16 }, { wch: 16 }, { wch: 15 }, { wch: 15 }, { wch: 26 }, { wch: 30 }];
-    XLSX.utils.book_append_sheet(wb, ws, 'Summary');
-  }
+    ws.mergeCells(row, 1, row, width);
+    const src = ws.getCell(row, 1);
+    src.value = { text: SOURCE_NOTE, hyperlink: GRID_URL };
+    src.font = font({ size: 9.5, color: K.green, underline: true });
+    return row + 2;
+  };
+  const legend = (ws, row, width, text) => {
+    ws.mergeCells(row, 1, row, width);
+    const c = put(ws, `A${row}`, text, { size: 9.5, italic: true, color: K.muted, wrap: true });
+    c.value = { richText: [{ text: '■ ', font: font({ size: 11, color: K.inputLine }) }, { text, font: font({ size: 9.5, italic: true, color: K.muted }) }] };
+    return row + 1;
+  };
 
-  m.sets.forEach(s => {
-    const n = s.cols.length;
-    const A = intro(`${s.nets.join(' + ')} plans${multi ? ` · current plan ${s.n} of ${m.sets.length}` : ''}`);
-    const fmts = [];
-    const row = (cells, z) => { if (z) fmts.push([A.length, z]); A.push(cells); };
-    row(['', ...s.cols.map(c => c.role)]);
-    row(['Plan', ...s.cols.map(c => c.name)]);
-    row(['Metal / type', ...s.cols.map(typeOf)]);
-    row(['Monthly premium', ...s.cols.map(c => round2(c.q.m))], CUR);
-    row(['Annual premium', ...s.cols.map(c => round2(c.q.y))], CUR);
-    row(['Change vs. current', ...s.cols.map(c => c.q.p / 100)], SPCT);
-    row(['Monthly change', ...s.cols.map(c => round2(c.q.dm))], SCUR);
-    row(['Annual change', ...s.cols.map(c => round2(c.q.dy))], SCUR);
-    row([]);
-    row(['Plan design (in-network)']);
-    DESIGN_FIELDS.forEach((f, k) => {
-      row([f[1], ...s.cols.map(c => c.design[k].v1)]);
-      if (s.cols.some(c => c.design[k].v2)) row([`   Tier 2 · ${f[0]}`, ...s.cols.map(c => c.design[k].v2 || '')]);
+  const sumWs = multi ? wb.addWorksheet('Summary', { properties: { tabColor: { argb: K.green } } }) : null;
+  const scenWs = multi ? wb.addWorksheet('Scenarios', { properties: { tabColor: { argb: K.green } } }) : null;
+
+  // ---------- one sheet per current plan (+ its full plan list) ----------
+  const R = { role: 13, name: 14, type: 15, pct: 16, m: 17, y: 18, dm: 19, dy: 20, design: 22 };
+  const plans = m.sets.map(s => {
+    const sheet = `Plan ${s.n}`, NAME = `Renewal_${s.n}`;
+    const n = s.cols.length, W = n + 1, last = L(n);
+    const ws = wb.addWorksheet(sheet);
+    ws.columns = [{ width: 36 }, ...Array(n).fill({ width: 30 })];
+    header(ws, `Priority Health small group · ${s.nets.join(' + ')} plans${multi ? ` · current plan ${s.n} of ${m.sets.length}` : ''}`, W);
+    put(ws, 'A9', 'Current plan', { size: 10, bold: true, color: K.muted });
+    put(ws, 'B9', s.base, { size: 12, bold: true, color: K.ink });
+    put(ws, 'A10', 'Renewal premium (monthly)', { bold: true, color: K.ink });
+    const inp = put(ws, 'B10', round2(s.raw), { nf: NF.curIn, align: 'right', size: 12 });
+    input(inp, 'Input: this plan\'s renewal premium. Change it and every premium, scenario and total recalculates.');
+    inp.name = NAME;
+    put(ws, 'C10', '← input: change it and the workbook recalculates', { size: 9.5, italic: true, color: K.muted });
+    put(ws, 'A11', 'Renewal premium (annual)', { color: K.muted });
+    put(ws, 'B11', fx(`ROUND(${NAME},0)*12`, s.monthly * 12), { nf: NF.cur, align: 'right' });
+
+    const labels = [[R.name, 'Plan'], [R.type, 'Metal / type'], [R.pct, 'Est. change vs. current (relativity grid)'],
+      [R.m, 'Est. monthly premium'], [R.y, 'Est. annual premium'], [R.dm, 'Est. monthly change'], [R.dy, 'Est. annual change']];
+    put(ws, `A${R.role}`, '', { fill: K.green });
+    labels.forEach(([r, t]) => put(ws, `A${r}`, t, { color: K.muted, bold: r === R.m, border: { bottom: thin(K.line) } }));
+    ws.getCell(`A${R.pct}`).note = 'From Priority Health\'s 2027 Small Group Relativity Grids, rounded to whole percents. HMO-to-POS changes combine the HMO grid with each POS plan\'s filed POS-to-HMO rate factor. Estimates only, not a quote.';
+    s.cols.forEach((c, i) => {
+      const col = L(i + 1), cur = i === 0, f = cur ? K.cur : undefined, b = { bottom: thin(K.line) };
+      put(ws, `${col}${R.role}`, c.role.toUpperCase(), { size: 10, bold: true, color: K.white, fill: K.green, align: 'center' });
+      put(ws, `${col}${R.name}`, c.name, { bold: true, color: K.ink, wrap: true, align: 'center', fill: f, border: b });
+      put(ws, `${col}${R.type}`, [c.d.metal, ...c.badges].join(' · '), { size: 10, color: K.muted, wrap: true, align: 'center', fill: f, border: b });
+      put(ws, `${col}${R.pct}`, c.q.p / 100, { nf: cur ? NF.pctCur : pctNF(c.q.p), italic: true, align: 'center', fill: f, border: b });
+      put(ws, `${col}${R.m}`, fx(`ROUND(${NAME}*(1+${col}${R.pct}),0)`, c.q.m), { nf: NF.cur, size: 12, bold: true, color: K.ink, align: 'center', fill: f, border: b });
+      put(ws, `${col}${R.y}`, fx(`${col}${R.m}*12`, c.q.y), { nf: NF.cur, align: 'center', fill: f, border: b });
+      put(ws, `${col}${R.dm}`, fx(`${col}${R.m}-ROUND(${NAME},0)`, c.q.dm), { nf: NF.base, bold: true, align: 'center', fill: f, border: b });
+      put(ws, `${col}${R.dy}`, fx(`${col}${R.dm}*12`, c.q.dy), { nf: NF.base, bold: true, align: 'center', fill: f, border: b });
     });
-    row([]);
-    row([ESTIMATE_NOTE]);
-    row(["Plan design is in-network. Coinsurance is the member's share. Partners plans show Tier 1, with Tier 2 on the following line where it differs."]);
-    const srcRow = A.length;
-    row([SOURCE_NOTE]);
-    const ws = XLSX.utils.aoa_to_sheet(A);
-    linkSource(ws, srcRow);
-    fmts.forEach(([r, z]) => { for (let c = 1; c <= n; c++) fmt(ws, r, c, z); });
-    ws['!cols'] = [{ wch: 36 }, ...Array(n).fill({ wch: 34 })];
-    XLSX.utils.book_append_sheet(wb, ws, multi ? `Plan ${s.n} - Comparison` : 'Comparison');
+    if (s.cols.some(c => c.name.length > 26)) ws.getRow(R.name).height = 32;
+    if (n > 1) { changeColors(ws, `B${R.pct}:${last}${R.pct}`); changeColors(ws, `B${R.dm}:${last}${R.dy}`); }
 
-    const head = ['Plan', 'Network', 'Metal', 'Type', 'New for 2027', 'Change vs. current', 'Est. monthly premium', 'Monthly change', 'Annual change', 'Deductible (single / family)', 'Coinsurance', 'Out-of-pocket max (single / family)', 'Primary care', 'Specialist'];
-    const B = [[`Every ${s.allNets.join(' and ')} plan vs. ${s.base} · renewal ${usd(s.monthly)} / month`], [ESTIMATE_NOTE], head];
-    for (const p of s.all) {
+    let row = R.design;
+    ws.mergeCells(row, 1, row, W);
+    put(ws, `A${row}`, 'PLAN DESIGN · IN-NETWORK (SINGLE / FAMILY)', { size: 10, bold: true, color: K.green, border: { bottom: thin(K.green) } });
+    row++;
+    DESIGN_FIELDS.forEach((fd, k) => {
+      const tier2 = s.cols.some(c => c.design[k].v2);
+      put(ws, `A${row}`, fd[1], { color: K.muted, border: { bottom: thin(K.line) } });
+      s.cols.forEach((c, i) => put(ws, `${L(i + 1)}${row}`, c.design[k].v1, { align: 'center', fill: i === 0 ? K.cur : undefined, border: { bottom: thin(K.line) } }));
+      row++;
+      if (tier2) {
+        put(ws, `A${row}`, `   Tier 2 · ${fd[0]}`, { size: 10, italic: true, color: K.muted, border: { bottom: thin(K.line) } });
+        s.cols.forEach((c, i) => put(ws, `${L(i + 1)}${row}`, c.design[k].v2 || '', { size: 10, italic: true, color: K.muted, align: 'center', fill: i === 0 ? K.cur : undefined, border: { bottom: thin(K.line) } }));
+        row++;
+      }
+    });
+    row = legend(ws, row + 1, W, 'Yellow cell = input: the renewal premium from the renewal package. Every premium and change on this sheet is a rounded estimate calculated from it and the grid percentages.');
+    notes(ws, row + 1, W, ["Plan design is in-network. Coinsurance is the member's share. Partners plans show Tier 1, with Tier 2 on the line below where it differs."]);
+
+    // Every plan this current plan can move to, priced off the same input
+    const wa = wb.addWorksheet(`Plan ${s.n} - all plans`);
+    sheetSetup(wa);
+    const head = ['Plan', 'Network', 'Metal', 'Type', 'New for 2027', 'Est. change vs. current', 'Est. monthly premium', 'Est. monthly change', 'Est. annual change',
+      'Deductible (single / family)', 'Coinsurance', 'Out-of-pocket max (single / family)', 'Primary care', 'Specialist'];
+    wa.columns = [52, 9, 10, 22, 11, 13, 17, 15, 15, 22, 12, 24, 13, 13].map(width => ({ width }));
+    put(wa, 'A1', `Every ${s.allNets.join(' and ')} plan vs. ${s.base}`, { size: 14, bold: true, color: K.ink });
+    put(wa, 'A2', `Renewal premium (monthly), from the ${sheet} sheet`, { color: K.muted });
+    wa.mergeCells('B2:C2');
+    put(wa, 'B2', fx(`ROUND(${NAME},0)`, s.monthly), { nf: NF.cur, bold: true, color: K.ink, align: 'right' });
+    banner(wa, 3, 14);
+    head.forEach((h, i) => put(wa, `${L(i)}4`, h, { size: 10, bold: true, color: K.white, fill: K.green, wrap: true, align: i ? 'center' : 'left' }));
+    wa.getRow(4).height = 30;
+    s.all.forEach((p, j) => {
+      const r = 5 + j, isCur = p.name === s.base, f = isCur ? K.cur : undefined, b = { bottom: thin(K.line) };
       const typ = [p.d.family === 'Classic' ? 'Standard' : p.d.family, p.d.partners].filter(Boolean).join(' · ');
-      B.push([p.name + (p.name === s.base ? '  (current)' : ''), p.net, p.d.metal, typ, p.d.isNew ? 'Yes' : '', p.q.p / 100, round2(p.q.m), round2(p.q.dm), round2(p.q.dy), ...p.design.map(r => r.v1)]);
-    }
-    const ws2 = XLSX.utils.aoa_to_sheet(B);
-    linkSource(ws2, 1);
-    for (let r = 3; r < B.length; r++) { fmt(ws2, r, 5, SPCT); fmt(ws2, r, 6, CUR); fmt(ws2, r, 7, SCUR); fmt(ws2, r, 8, SCUR); }
-    ws2['!cols'] = [{ wch: 50 }, { wch: 9 }, { wch: 10 }, { wch: 26 }, { wch: 12 }, { wch: 16 }, { wch: 20 }, { wch: 16 }, { wch: 16 }, { wch: 26 }, { wch: 12 }, { wch: 30 }, { wch: 14 }, { wch: 14 }];
-    XLSX.utils.book_append_sheet(wb, ws2, `${multi ? `Plan ${s.n} - ` : ''}All ${s.allNets.join(' + ')} plans`);
+      const cells = [[p.name + (isCur ? '  (current)' : ''), {}], [p.net, { align: 'center' }], [p.d.metal, {}], [typ, {}], [p.d.isNew ? 'Yes' : '', { align: 'center' }],
+        [p.q.p / 100, { nf: isCur ? NF.pctCur : pctNF(p.q.p), align: 'right' }],
+        [fx(`ROUND(${NAME}*(1+F${r}),0)`, p.q.m), { nf: NF.cur, align: 'right' }],
+        [fx(`G${r}-ROUND(${NAME},0)`, p.q.dm), { nf: NF.base, align: 'right' }],
+        [fx(`H${r}*12`, p.q.dy), { nf: NF.base, align: 'right' }],
+        ...p.design.map(d => [d.v1, { align: 'center' }])];
+      cells.forEach(([v, o], i) => put(wa, `${L(i)}${r}`, v, { ...o, bold: isCur, color: isCur ? K.ink : K.body, fill: f, border: b }));
+    });
+    const lastRow = 4 + s.all.length;
+    changeColors(wa, `F5:F${lastRow}`); changeColors(wa, `H5:I${lastRow}`);
+    wa.autoFilter = { from: 'A4', to: `N${lastRow}` };
+    wa.views = [{ state: 'frozen', xSplit: 1, ySplit: 4, showGridLines: false }];
+    notes(wa, lastRow + 2, 9, []);
+    return { s, sheet, NAME, n, last };
   });
-  return XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+
+  // ---------- scenarios: dropdowns per current plan, totals as formulas ----------
+  if (scenWs) {
+    const ws = scenWs;
+    const scen = m.scenarios.length ? m.scenarios : ['Scenario A', 'Scenario B'].map(name => ({
+      name, renewal: m.totalMonthly, total: m.totalMonthly, dm: 0, pct: 0,
+      rows: m.sets.map(st => ({ pick: '', name: st.base, q: { m: st.monthly } })) }));
+    const W = 2 + scen.length;
+    ws.columns = [{ width: 46 }, { width: 18 }, ...scen.map(() => ({ width: 34 }))];
+    header(ws, 'Proposed scenarios · pick what each current plan moves to', W);
+    put(ws, 'A9', 'Current plan', { size: 10, bold: true, color: K.white, fill: K.green });
+    put(ws, 'B9', 'Renewal (monthly)', { size: 10, bold: true, color: K.white, fill: K.green, align: 'right' });
+    scen.forEach((c, i) => put(ws, `${L(i + 2)}9`, c.name, { size: 11, bold: true, color: K.white, fill: K.green, align: 'center', wrap: true }));
+    const premRows = [];
+    plans.forEach((pl, k) => {
+      const r = 10 + k * 3, b = { bottom: thin(K.line) };
+      const names = `'${pl.sheet}'!$B$${R.name}:$${pl.last}$${R.name}`, pcts = `'${pl.sheet}'!$B$${R.pct}:$${pl.last}$${R.pct}`;
+      put(ws, `A${r}`, `${pl.s.n}. ${pl.s.base}`, { bold: true, color: K.ink, wrap: true });
+      put(ws, `A${r + 1}`, 'Est. monthly premium', { color: K.muted, indent: 2 });
+      put(ws, `A${r + 2}`, 'Est. monthly change', { color: K.muted, indent: 2, border: b });
+      put(ws, `B${r + 1}`, fx(`ROUND(${pl.NAME},0)`, pl.s.monthly), { nf: NF.cur, align: 'right', bold: true, color: K.ink });
+      put(ws, `B${r + 2}`, '', { border: b });
+      scen.forEach((c, i) => {
+        const col = L(i + 2), row = c.rows[k];
+        const pick = put(ws, `${col}${r}`, row.name, { wrap: true, align: 'center' });
+        input(pick);
+        pick.dataValidation = { type: 'list', allowBlank: false, formulae: [names], showErrorMessage: true, errorStyle: 'stop',
+          errorTitle: 'Pick a plan', error: 'Choose one of this current plan\'s options, or the current plan itself to renew.' };
+        put(ws, `${col}${r + 1}`, fx(`ROUND(${pl.NAME}*(1+INDEX(${pcts},1,MATCH(${col}${r},${names},0))),0)`, row.q.m), { nf: NF.cur, align: 'center', bold: true, color: K.ink });
+        put(ws, `${col}${r + 2}`, fx(`${col}${r + 1}-$B$${r + 1}`, row.q.m - pl.s.monthly), { nf: NF.scur, align: 'center', border: b });
+      });
+      if (pl.s.base.length > 40 || scen.some(c => c.rows[k].name.length > 30)) ws.getRow(r).height = 32;
+      premRows.push(r + 1);
+    });
+    const t = 10 + plans.length * 3 + 1;
+    const lastCol = L(scen.length + 1);
+    const tot = [['Est. total monthly premium', NF.cur], ['Est. total annual premium', NF.cur], ['Est. monthly change vs. renewal', NF.scur], ['Est. annual change vs. renewal', NF.scur], ['Est. change vs. renewal (%)', NF.pct1]];
+    tot.forEach(([label], j) => put(ws, `A${t + j}`, label, { bold: j === 0, color: j === 0 ? K.ink : K.muted, fill: K.cur, border: { top: thin(j ? K.line : K.body) } }));
+    put(ws, `B${t}`, fx(`SUM(${premRows.map(r => `B${r}`).join(',')})`, m.totalMonthly), { nf: NF.cur, bold: true, align: 'right', fill: K.cur, border: { top: thin(K.body) } });
+    put(ws, `B${t + 1}`, fx(`B${t}*12`, m.totalMonthly * 12), { nf: NF.cur, align: 'right', fill: K.cur, border: { top: thin(K.line) } });
+    [2, 3, 4].forEach(j => put(ws, `B${t + j}`, '', { fill: K.cur, border: { top: thin(K.line) } }));
+    scen.forEach((c, i) => {
+      const col = L(i + 2), top = { top: thin(K.body) }, line = { top: thin(K.line) };
+      put(ws, `${col}${t}`, fx(`SUM(${premRows.map(r => `${col}${r}`).join(',')})`, c.total), { nf: NF.cur, size: 12, bold: true, color: K.ink, align: 'center', fill: K.cur, border: top });
+      put(ws, `${col}${t + 1}`, fx(`${col}${t}*12`, c.total * 12), { nf: NF.cur, align: 'center', fill: K.cur, border: line });
+      put(ws, `${col}${t + 2}`, fx(`${col}${t}-$B$${t}`, c.dm), { nf: NF.scur, bold: true, align: 'center', fill: K.cur, border: line });
+      put(ws, `${col}${t + 3}`, fx(`${col}${t + 2}*12`, c.dm * 12), { nf: NF.scur, bold: true, align: 'center', fill: K.cur, border: line });
+      put(ws, `${col}${t + 4}`, fx(`IF($B$${t}=0,0,${col}${t}/$B$${t}-1)`, c.pct / 100), { nf: NF.pct1, bold: true, align: 'center', fill: K.cur, border: line });
+    });
+    premRows.forEach(r => changeColors(ws, `C${r + 1}:${lastCol}${r + 1}`));
+    changeColors(ws, `C${t + 2}:${lastCol}${t + 4}`);
+    if (scen.length > 1) ws.addConditionalFormatting({ ref: `C${t}:${lastCol}${t}`, rules: [{ type: 'expression', priority: 1,
+      formulae: [`C${t}=MIN($C$${t}:$${lastCol}$${t})`], style: { fill: { type: 'pattern', pattern: 'solid', bgColor: { argb: K.tint } }, font: { bold: true, color: { argb: K.deep } } } }] });
+    ws.views = [{ state: 'frozen', xSplit: 2, ySplit: 9, showGridLines: false }];
+    let row = legend(ws, t + 6, W, 'Yellow cells are dropdowns: pick what each current plan moves to (pick the current plan itself to renew). The lowest estimated total is shaded green. All figures are rounded estimates, not quotes.');
+    notes(ws, row + 1, W, ["Each current plan's members move together to the plan chosen for it. Scenario totals add those projected premiums; the % is the blended change against the total renewal."]);
+  }
+
+  // ---------- summary: every current plan and its options, linked to the plan sheets ----------
+  if (sumWs) {
+    const ws = sumWs;
+    const head = ['Current plan', 'Role', 'Plan', 'Network', 'Metal / type', 'Est. change vs. current', 'Est. monthly premium', 'Est. annual premium', 'Est. monthly change', 'Est. annual change', 'Deductible (single / family)', 'Out-of-pocket max (single / family)'];
+    ws.columns = [12, 13, 48, 10, 22, 14, 16, 16, 15, 15, 22, 24].map(width => ({ width }));
+    header(ws, `Priority Health small group · ${m.nets.join(' + ')} plans · summary`, 12);
+    put(ws, 'A9', 'Current plans', { size: 10, bold: true, color: K.muted });
+    put(ws, 'C9', m.sets.length, { bold: true, color: K.ink, align: 'left' });
+    put(ws, 'A10', 'Total renewal (monthly)', { size: 10, bold: true, color: K.muted });
+    put(ws, 'C10', fx(plans.map(pl => `ROUND(${pl.NAME},0)`).join('+'), m.totalMonthly), { nf: NF.cur, bold: true, color: K.ink, align: 'left' });
+    put(ws, 'A11', 'Total renewal (annual)', { size: 10, bold: true, color: K.muted });
+    put(ws, 'C11', fx('C10*12', m.totalMonthly * 12), { nf: NF.cur, color: K.ink, align: 'left' });
+    head.forEach((h, i) => put(ws, `${L(i)}13`, h, { size: 10, bold: true, color: K.white, fill: K.green, wrap: true, align: i > 4 ? 'center' : 'left' }));
+    ws.getRow(13).height = 30;
+    let r = 14;
+    plans.forEach(pl => {
+      pl.s.cols.forEach((c, i) => {
+        const src = `'${pl.sheet}'!${L(i + 1)}`, isCur = i === 0, f = isCur ? K.cur : undefined;
+        const b = { bottom: thin(K.line), top: isCur ? thin(K.body) : undefined };
+        const vals = [[pl.s.n, { align: 'center' }], [c.role, {}], [fx(`${src}${R.name}`, c.name), {}], [c.net, { align: 'center' }], [[c.d.metal, ...c.badges].join(' · '), {}],
+          [fx(`${src}${R.pct}`, c.q.p / 100), { nf: isCur ? NF.pctCur : pctNF(c.q.p), align: 'center' }],
+          [fx(`${src}${R.m}`, c.q.m), { nf: NF.cur, align: 'center' }], [fx(`${src}${R.y}`, c.q.y), { nf: NF.cur, align: 'center' }],
+          [fx(`${src}${R.dm}`, c.q.dm), { nf: NF.base, align: 'center' }], [fx(`${src}${R.dy}`, c.q.dy), { nf: NF.base, align: 'center' }],
+          [c.design[0].v1, { align: 'center' }], [c.design[2].v1, { align: 'center' }]];
+        vals.forEach(([v, o], j) => put(ws, `${L(j)}${r}`, v, { ...o, bold: isCur, color: isCur ? K.ink : K.body, fill: f, border: b }));
+        r++;
+      });
+    });
+    changeColors(ws, `F14:F${r - 1}`); changeColors(ws, `I14:J${r - 1}`);
+    ws.autoFilter = { from: 'A13', to: `L${r - 1}` };
+    ws.views = [{ state: 'frozen', xSplit: 0, ySplit: 13, showGridLines: false }];
+    notes(ws, r + 1, 12, ['Each current plan is compared only with its own alternatives. Every number here links to that plan\'s sheet, where the renewal premium is the input.']);
+  }
+  return wb.xlsx.writeBuffer();
 }
+
 // ---- renewal package reader: pdf.js text items in, renewal plans out (no DOM) ----
 // Grid names match whatever spelling the package uses: same words in any order, "(Kent)" optional.
 const planKey = n => String(n).toLowerCase().replace(/\(kent\)/g, '').split(/[^a-z0-9]+/).filter(Boolean).sort().join(' ');
@@ -1262,7 +1472,7 @@ function cardHtml(s, name, i) {
     `<div><dt>${r.short}</dt><dd>${esc(r.v1)}${r.v2 ? `<span class="t2">Tier 2: ${esc(r.v2)}</span>` : ''}</dd></div>`).join('');
   return `<article class="col${i === 0 ? ' cur' : ''}">
     <header class="c-head"><p class="tag">${i === 0 ? 'Current plan' : 'Option ' + i}</p><h3 class="pname">${esc(name)}</h3><p class="chips">${NET_OF[name] !== s.net ? `<span class="chip net" title="Compared across networks using the filed POS-to-HMO factor">${NET_OF[name]}</span>` : ''}${chipsHtml(name)}</p></header>
-    <div class="c-prem">${has ? `<span class="big">${usd(q.m)}</span><span class="per">/ mo</span><span class="yr">${usd(q.y)} / yr</span>` : `<span class="big" style="color:var(--muted)">$ —</span><span class="yr">Enter the renewal premium</span>`}</div>
+    <div class="c-prem"><span class="plabel">${i === 0 ? 'Renewal premium' : 'Estimated premium'}</span>${has ? `<span class="big">${usd(q.m)}</span><span class="per">/ mo</span><span class="yr">${usd(q.y)} / yr</span>` : `<span class="big" style="color:var(--muted)">$ —</span><span class="yr">Enter the renewal premium</span>`}</div>
     ${chg}
     <dl class="c-design"${state.showDesign ? '' : ' hidden'}>${design}</dl>
     <footer class="c-foot">${i === 0 ? '' : `<button type="button" class="x" data-set="${s.id}" data-remove="${esc(name)}" aria-label="Remove ${esc(name)}">Remove</button>`}</footer>
@@ -1300,6 +1510,7 @@ function setHtml(s, k) {
       </div>
       <div class="set-actions">
         <button type="button" class="linkbtn" data-toggle-design="">${state.showDesign ? 'Hide' : 'Show'} plan design</button>
+        <button type="button" class="linkbtn" data-suggest="${s.id}">Suggest options</button>
         <button type="button" class="linkbtn" data-browse="${s.id}">Browse all ${bridges(s.net) ? 'HMO and POS' : 'PPO'} plans</button>
         ${multi ? `<button type="button" class="x" data-drop="${s.id}">Remove current plan</button>` : ''}
       </div>
@@ -1324,10 +1535,10 @@ function renderTotals() {
   const el = $('#totals');
   el.hidden = state.sets.length < 2;
   if (el.hidden) return;
-  const total = state.sets.reduce((a, s) => a + monthlyOf(s), 0);
+  const total = state.sets.reduce((a, s) => a + Math.round(monthlyOf(s)), 0);
   const low = state.scenarios.map(scenarioCalc).reduce((b, c) => (c.dm < (b ? b.dm : 0) ? c : b), null);
   el.innerHTML = `<b>${state.sets.length} current plans</b><span>Total renewal ${usd(total)} / mo</span><span>${usd(total * 12)} / yr</span>` +
-    (low && total > 0 ? `<span>Largest scenario savings: ${esc(low.name)}, ${sUsd(low.dm)} / mo (${sPct1(low.pct)})</span>` : '');
+    (low && total > 0 ? `<span>Largest estimated scenario savings: ${esc(low.name)}, ${sUsd(low.dm)} / mo (${sPct1(low.pct)})</span>` : '');
 }
 function renderScenarios() {
   const panel = $('#scenPanel');
@@ -1342,7 +1553,7 @@ function renderScenarios() {
   }
   const calcs = state.scenarios.map(scenarioCalc);
   const best = lowestOf(calcs);
-  const renewal = state.sets.reduce((a, s) => a + monthlyOf(s), 0);
+  const renewal = state.sets.reduce((a, s) => a + Math.round(monthlyOf(s)), 0);
   const has = renewal > 0;
   const bc = i => (best && best.id === calcs[i].id ? ' best-col' : '');
   const head = `<tr><th scope="col">Current plan</th><th scope="col" class="num">Renewal</th>${state.scenarios.map((sc, i) => `
@@ -1365,9 +1576,9 @@ function renderScenarios() {
     }).join('')}
   </tr>`).join('');
   const foot = `
-    <tr class="tot"><th scope="row">Total monthly</th><td class="num">${has ? usd(renewal) : '—'}</td>${calcs.map((c, i) => `<td class="sc${bc(i)}"><span class="big2">${has ? usd(c.total) : '—'}</span></td>`).join('')}</tr>
-    <tr><th scope="row">Total annual</th><td class="num">${has ? usd(renewal * 12) : '—'}</td>${calcs.map((c, i) => `<td class="sc${bc(i)}">${has ? usd(c.total * 12) : '—'}</td>`).join('')}</tr>
-    <tr class="chg"><th scope="row">Change vs. renewal</th><td class="num flat-t">Baseline</td>${calcs.map((c, i) => {
+    <tr class="tot"><th scope="row">Est. total monthly</th><td class="num">${has ? usd(renewal) : '—'}</td>${calcs.map((c, i) => `<td class="sc${bc(i)}"><span class="big2">${has ? usd(c.total) : '—'}</span></td>`).join('')}</tr>
+    <tr><th scope="row">Est. total annual</th><td class="num">${has ? usd(renewal * 12) : '—'}</td>${calcs.map((c, i) => `<td class="sc${bc(i)}">${has ? usd(c.total * 12) : '—'}</td>`).join('')}</tr>
+    <tr class="chg"><th scope="row">Est. change vs. renewal</th><td class="num flat-t">Baseline</td>${calcs.map((c, i) => {
       const t = c.dm < -0.005 ? 'save' : c.dm > 0.005 ? 'rise' : 'flat';
       return `<td class="sc ${t}-t${bc(i)}">${has ? `<b>${sUsd(c.dm)} / mo</b><span>${sUsd(c.dm * 12)} / yr · ${sPct1(c.pct)}</span>` : '—'}</td>`;
     }).join('')}</tr>`;
@@ -1518,12 +1729,19 @@ function newGroup() {
   const b = document.getElementById('base-1');
   if (b) { b.scrollIntoView({ block: 'center' }); b.focus(); }
 }
+function suggestFor(s) {
+  undoSnap = clone(state);
+  const k = state.sets.indexOf(s);
+  s.options = suggestOptions(s, MAX_OPTIONS);
+  touched(); render();
+  say(`Suggested for current plan ${k + 1}: ${s.options.map(o => `${shortName(o)} (${sPct(pctFor(s, o))})`).join(', ')}. Swap any of them.`, false, true);
+}
 function undoNewGroup() {
   if (!undoSnap) return;
   state = undoSnap; undoSnap = null;
   render();
   $('#upResult').hidden = true;
-  say('Restored the previous group.');
+  say('Undone.');
 }
 function toggleOption(s, name) {
   const i = s.options.indexOf(name);
@@ -1580,6 +1798,7 @@ document.addEventListener('click', e => {
   }
   else if (t.id === 'clearExample' || t.id === 'newGroup') newGroup();
   else if (t.id === 'undoBtn' || t.id === 'upUndo') undoNewGroup();
+  else if (t.dataset.suggest) { const st = setById(t.dataset.suggest); if (st) suggestFor(st); }
   else if ('toggleDesign' in t.dataset) { state.showDesign = !state.showDesign; render(); }
   else if (t.id === 'pdfBtn') doExport('pdf');
   else if (t.id === 'xlsBtn') doExport('xlsx');
@@ -1752,6 +1971,19 @@ document.addEventListener('keydown', e => {
 });
 
 /* ---------- start from a renewal ---------- */
+let excelReady = null;
+function loadExcelJs() {
+  if (window.ExcelJS) return Promise.resolve(window.ExcelJS);
+  excelReady = excelReady || new Promise((ok, bad) => {
+    const el = document.createElement('script');
+    el.src = 'https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.4.0/exceljs.min.js';
+    el.onload = () => (window.ExcelJS ? ok(window.ExcelJS) : bad(new Error('lib')));
+    el.onerror = () => bad(new Error('lib'));
+    document.head.append(el);
+  });
+  excelReady.catch(() => { excelReady = null; });
+  return excelReady;
+}
 const PDFJS = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/';
 let pdfjsReady = null;
 function loadPdfJs() {
@@ -1843,7 +2075,7 @@ function applyRenewal(res, fileName, how) {
     .filter(Boolean).map(w => `<p class="up-warn">${esc(w)}</p>`).join('');
   upShow(`<p><b>${esc(fileName)}</b>${res.group ? ` · ${esc(res.group)}` : ''}${res.eff ? ` · effective ${esc(res.eff)}` : ''}</p>
     <ul class="up-list">${items}</ul>${warn}
-    <p class="from">${how === 'claude' ? 'Claude read the plan pages; the census pages were not sent.' : 'Read in your browser; nothing was uploaded.'} Filled in below, so check the premiums against the package. <button type="button" class="linkbtn" id="upUndo">Undo</button></p>`);
+    <p class="from">${how === 'claude' ? 'Claude read the plan pages; the census pages were not sent.' : 'Read in your browser; nothing was uploaded.'} Filled in below, so check the premiums against the package, then use Suggest options or type the alternatives. <button type="button" class="linkbtn" id="upUndo">Undo</button></p>`);
   say(`Filled in ${plans.length} renewal plan${plans.length > 1 ? 's' : ''} from ${fileName}.`, false, true);
   const next = document.querySelector('#board-1 input[data-kind="slot"]');
   if (next) { next.closest('.set').scrollIntoView({ block: 'start', behavior: 'smooth' }); next.focus({ preventScroll: true }); }
@@ -1884,8 +2116,7 @@ async function doExport(kind) {
       if (!window.jspdf) throw new Error('lib');
       bytes = buildPdf(m, window.jspdf.jsPDF);
     } else {
-      if (!window.XLSX) throw new Error('lib');
-      bytes = buildXlsx(m, window.XLSX);
+      bytes = await buildXlsx(m, await loadExcelJs());
     }
   } catch (err) {
     say(err && err.message === 'lib' ? 'The export library did not load. Check your connection and reload the page.' : 'Could not build the file. Reload the page and try again.');
