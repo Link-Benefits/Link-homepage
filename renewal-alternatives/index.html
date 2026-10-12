@@ -9,6 +9,7 @@
   --line:#e2e8f0; --line-strong:#cbd5e1;
   --accent:#088f32; --accent-strong:#055d20; --grad-end:#055d20; --accent-ink:#ffffff; --accent-soft:#f0fdf4; --accent-tint:#dcfce7; --glow:rgba(8,143,50,.20);
   --save:#055d20; --save-fill:#088f32; --save-soft:#f0fdf4; --rise:#dc2626; --rise-fill:#ef4444; --rise-soft:#fee2e2; --rise-line:#f3b4b4;
+  --warn:#92400e; --warn-bar:#f59e0b; --warn-soft:#fef3c7; --warn-line:#fcd34d;
   --platinum:#8E9BA8; --gold:#C3972B; --silver:#B6C0C9; --bronze:#A5643A;
   --logo-bg:#ffffff;
   --card-shadow:0 4px 12px -2px rgba(0,0,0,.08),0 2px 4px -2px rgba(0,0,0,.05);
@@ -25,6 +26,7 @@
     --line:#334155; --line-strong:#475569;
     --accent:#22a352; --accent-strong:#4ade80; --grad-end:#15803d; --accent-ink:#ffffff; --accent-soft:rgba(8,143,50,.16); --accent-tint:rgba(8,143,50,.28); --glow:rgba(34,163,82,.30);
     --save:#4ade80; --save-fill:#22a352; --save-soft:rgba(8,143,50,.16); --rise:#f87171; --rise-fill:#ef4444; --rise-soft:rgba(239,68,68,.16); --rise-line:rgba(239,68,68,.4);
+    --warn:#fcd34d; --warn-bar:#f59e0b; --warn-soft:rgba(245,158,11,.14); --warn-line:rgba(245,158,11,.4);
     --platinum:#AEB9C4; --gold:#D8AE45; --silver:#8995A1; --bronze:#C47F4F;
     --logo-bg:#ffffff;
     --card-shadow:0 4px 12px -2px rgba(0,0,0,.4); --pop-shadow:0 8px 20px -4px rgba(0,0,0,.55);
@@ -37,6 +39,7 @@
   --line:#334155; --line-strong:#475569;
   --accent:#22a352; --accent-strong:#4ade80; --grad-end:#15803d; --accent-ink:#ffffff; --accent-soft:rgba(8,143,50,.16); --accent-tint:rgba(8,143,50,.28); --glow:rgba(34,163,82,.30);
   --save:#4ade80; --save-fill:#22a352; --save-soft:rgba(8,143,50,.16); --rise:#f87171; --rise-fill:#ef4444; --rise-soft:rgba(239,68,68,.16); --rise-line:rgba(239,68,68,.4);
+  --warn:#fcd34d; --warn-bar:#f59e0b; --warn-soft:rgba(245,158,11,.14); --warn-line:rgba(245,158,11,.4);
   --platinum:#AEB9C4; --gold:#D8AE45; --silver:#8995A1; --bronze:#C47F4F;
   --logo-bg:#ffffff;
   --card-shadow:0 4px 12px -2px rgba(0,0,0,.4); --pop-shadow:0 8px 20px -4px rgba(0,0,0,.55);
@@ -62,6 +65,10 @@ button,input,select{font:inherit;color:inherit}
 .btn{display:inline-flex;align-items:center;gap:8px;height:42px;padding:0 20px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--muted);font-family:var(--font-display);font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 1px 2px rgba(0,0,0,.05);transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
 .btn:hover:not(:disabled){transform:translateY(-2px);border-color:var(--line-strong);box-shadow:0 6px 12px -4px rgba(0,0,0,.1)}
 .btn svg{width:16px;height:16px;flex:none}
+.btn.icon{width:42px;padding:0;justify-content:center}
+.btn.icon svg{width:18px;height:18px}
+#themeBtn .i-sun,:root[data-theme="dark"] #themeBtn .i-moon{display:none}
+:root[data-theme="dark"] #themeBtn .i-sun{display:block}
 .btn.primary{background:linear-gradient(135deg,var(--accent) 0%,var(--grad-end) 100%);border-color:transparent;color:var(--accent-ink);box-shadow:var(--btn-shadow)}
 .btn.primary:hover:not(:disabled){box-shadow:0 8px 14px -4px rgba(8,143,50,.35)}
 .btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
@@ -130,8 +137,8 @@ select.ctl{padding-right:8px}
 .metal::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--m);margin-right:5px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.18)}
 .c-prem{padding-block:14px 10px}
 .plabel{display:block;margin-bottom:2px;font-family:var(--font-display);font-size:10.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
-.est-banner{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline;padding:12px 16px;border-radius:var(--r);background:var(--rise-soft);border:1px solid var(--rise-line);border-left:5px solid var(--rise);color:var(--ink);font-size:14px}
-.est-banner b{font-family:var(--font-display);font-weight:700;color:var(--rise);letter-spacing:.01em}
+.est-banner{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline;padding:12px 16px;border-radius:var(--r);background:var(--warn-soft);border:1px solid var(--warn-line);border-left:5px solid var(--warn-bar);color:var(--ink);font-size:14px}
+.est-banner b{font-family:var(--font-display);font-weight:700;color:var(--warn);letter-spacing:.01em}
 .big{font-family:var(--font-display);color:var(--ink-strong);font-size:25px;font-weight:600;font-variant-numeric:tabular-nums;letter-spacing:-.01em;line-height:1.1}
 .per{font-size:13px;color:var(--muted);margin-left:3px}
 .yr{display:block;margin-top:2px;font-size:13.5px;color:var(--muted);font-variant-numeric:tabular-nums}
@@ -263,6 +270,16 @@ select.sm{height:36px;font-size:14px}
 @media (prefers-reduced-motion:no-preference){.fill{transition:left .25s ease,width .25s ease}}
 </style>
 
+<script>
+(function () {
+  var t = null, root = document.documentElement;
+  try { t = localStorage.getItem('ph27-renewal-alternatives-theme'); } catch (e) { /* storage blocked */ }
+  if (t !== 'light' && t !== 'dark') t = root.getAttribute('data-theme');
+  if (t !== 'light' && t !== 'dark') t = window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  root.setAttribute('data-theme', t);
+})();
+</script>
+
 <div class="wrap">
   <header class="mast">
     <div class="brand">
@@ -274,6 +291,10 @@ select.sm{height:36px;font-size:14px}
       </div>
     </div>
     <div class="actions">
+      <button class="btn icon" id="themeBtn" type="button" aria-label="Switch to dark mode" title="Switch to dark mode">
+        <svg class="i-moon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M13.5 9.6A5.6 5.6 0 0 1 6.4 2.5a5.6 5.6 0 1 0 7.1 7.1z"/></svg>
+        <svg class="i-sun" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="8" cy="8" r="2.9"/><path d="M8 1.3v1.5M8 13.2v1.5M1.3 8h1.5M13.2 8h1.5M3.3 3.3l1 1M11.7 11.7l1 1M3.3 12.7l1-1M11.7 4.3l1-1"/></svg>
+      </button>
       <button class="btn" id="newGroup" type="button">New group</button>
       <button class="btn primary" id="pdfBtn" type="button">
         <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M8 2v8m0 0 3-3m-3 3L5 7M3 13h10"/></svg>
@@ -573,7 +594,7 @@ function buildPdf(m, jsPDF) {
   const C = {  // the brand theme (CSS for jotform): green #088f32 / #055d20, slate neutrals
     ink: [30, 41, 59], muted: [100, 116, 139], line: [226, 232, 240], rule: [51, 65, 85],
     accent: [8, 143, 50], tint: [241, 245, 249], best: [240, 253, 244], save: [5, 93, 32], rise: [220, 38, 38],
-    white: [255, 255, 255], warnTint: [254, 242, 242], mark: [148, 163, 184]
+    white: [255, 255, 255], warn: [146, 64, 14], warnLine: [245, 158, 11], warnTint: [254, 243, 199], mark: [148, 163, 184]
   };
   const MET = { Platinum: [142, 155, 168], Gold: [195, 151, 43], Silver: [182, 192, 201], Bronze: [165, 100, 58] };
   const fill = c => doc.setFillColor(c[0], c[1], c[2]);
@@ -604,13 +625,13 @@ function buildPdf(m, jsPDF) {
     doc.text(eyebrow, M, 32, { charSpace: 1.1 });
     font('bold', 21); color(C.ink);
     doc.text('2027 Renewal Plan Alternatives', M, 56);
-    // a red "estimate" tag right after the title, on every page
+    // a caution-yellow "estimate" tag right after the title, on every page (yellow = caution; red would read as "wrong")
     const tx0 = M + doc.getTextWidth('2027 Renewal Plan Alternatives') + 10;
     font('bold', 7.5);
-    const tag = 'ESTIMATE  \u00B7  NOT A QUOTE', tw = doc.getTextWidth(tag) + 4 + 14;
-    fill(C.warnTint); stroke(C.rise); doc.setLineWidth(0.6);
+    const tag = 'ESTIMATE  \u00B7  NOT A QUOTE', tw = doc.getTextWidth(tag) + (tag.length - 1) * 0.4 + 14;
+    fill(C.warnTint); stroke(C.warnLine); doc.setLineWidth(0.6);
     doc.roundedRect(tx0, 43, tw, 15, 3, 3, 'FD');
-    color(C.rise); doc.text(tag, tx0 + 7, 53.2, { charSpace: 0.4 });
+    color(C.warn); doc.text(tag, tx0 + 7, 53.2, { charSpace: 0.4 });
     font('normal', 9.5); color(C.muted);
     doc.text(m.eff ? `Effective ${m.eff}` : 'Plan year 2027', M, 72);
     const right = W - M;
@@ -1000,8 +1021,7 @@ function buildPdf(m, jsPDF) {
   for (let p = 1; p <= pages; p++) {
     doc.setPage(p);
     stroke(C.line); doc.setLineWidth(0.5); doc.line(M, H - 28, W - M, H - 28);
-    font('normal', 7.3); color(C.muted);
-    font('bold', 7.3); color(C.rise);
+    font('bold', 7.3); color(C.warn);
     doc.text('ESTIMATE ONLY. NOT A QUOTE.', M, H - 16);
     const lw = doc.getTextWidth('ESTIMATE ONLY. NOT A QUOTE.');
     font('normal', 7.3); color(C.muted);
@@ -1035,7 +1055,7 @@ async function buildXlsx(m, ExcelJS) {
   wb.calcProperties.fullCalcOnLoad = true;
   const multi = m.sets.length > 1;
   const K = { green: 'FF088F32', deep: 'FF055D20', tint: 'FFF0FDF4', ink: 'FF1E293B', body: 'FF334155', muted: 'FF64748B',
-    line: 'FFE2E8F0', cur: 'FFF1F5F9', red: 'FFDC2626', redTint: 'FFFEE2E2', input: 'FFFFF7D1', inputLine: 'FFE0B43A', white: 'FFFFFFFF' };
+    line: 'FFE2E8F0', cur: 'FFF1F5F9', red: 'FFDC2626', redTint: 'FFFEE2E2', warn: 'FF92400E', warnTint: 'FFFEF3C7', warnLine: 'FFF59E0B', input: 'FFFFF7D1', inputLine: 'FFE0B43A', white: 'FFFFFFFF' };
   // Whole dollars and whole percents (estimates); only the input keeps cents, as the renewal package prints it.
   const NF = { cur: '"$"#,##0', curIn: '"$"#,##0.00', scur: '+"$"#,##0;-"$"#,##0;"$"0', base: '+"$"#,##0;-"$"#,##0;"Baseline"',
     pct: '+0%;-0%;0%', pct1: '+0%;-0%;0%', pctCur: '+0%;-0%;"Current plan"' };
@@ -1087,7 +1107,7 @@ async function buildXlsx(m, ExcelJS) {
   const BANNER = 'ESTIMATES ONLY. NOT A QUOTE. Rounded estimates from Priority Health\'s 2027 relativity grid, for discussion only; see the disclaimer at the bottom of this sheet.';
   const banner = (ws, row, width) => {
     ws.mergeCells(row, 1, row, width);
-    put(ws, `A${row}`, BANNER, { size: 10, bold: true, color: K.red, fill: K.redTint, wrap: true, border: boxed('FFF3B4B4') });
+    put(ws, `A${row}`, BANNER, { size: 10, bold: true, color: K.warn, fill: K.warnTint, wrap: true, border: boxed(K.warnLine) });
     ws.getRow(row).height = 30;
   };
   const widthChars = ws => ws.columns.reduce((t, c) => t + (c.width || 10), 0);
@@ -1800,6 +1820,7 @@ document.addEventListener('click', e => {
   else if (t.id === 'undoBtn' || t.id === 'upUndo') undoNewGroup();
   else if (t.dataset.suggest) { const st = setById(t.dataset.suggest); if (st) suggestFor(st); }
   else if ('toggleDesign' in t.dataset) { state.showDesign = !state.showDesign; render(); }
+  else if (t.id === 'themeBtn') setTheme(isDark() ? 'light' : 'dark', true);
   else if (t.id === 'pdfBtn') doExport('pdf');
   else if (t.id === 'xlsBtn') doExport('xlsx');
 });
@@ -2146,6 +2167,21 @@ async function doExport(kind) {
   }
 }
 downloadsCap().then(cap => { if (cap === null) say('Downloads are not available in this view.'); });
+
+// Light / dark: the masthead button picks one and the browser remembers it; until then follow the OS.
+const THEME_KEY = 'ph27-renewal-alternatives-theme';
+const isDark = () => document.documentElement.getAttribute('data-theme') === 'dark';
+function setTheme(t, remember) {
+  document.documentElement.setAttribute('data-theme', t);
+  if (remember) { try { localStorage.setItem(THEME_KEY, t); } catch (e) { /* storage blocked */ } }
+  const label = t === 'dark' ? 'Switch to light mode' : 'Switch to dark mode';
+  const b = $('#themeBtn'); b.setAttribute('aria-label', label); b.title = label;
+}
+setTheme(isDark() ? 'dark' : 'light', false);
+if (window.matchMedia) matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+  let saved = null; try { saved = localStorage.getItem(THEME_KEY); } catch (err) { /* storage blocked */ }
+  if (!saved) setTheme(e.matches ? 'dark' : 'light', false);
+});
 
 state = load() || clone(EXAMPLE);
 render();
