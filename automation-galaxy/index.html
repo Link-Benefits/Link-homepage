@@ -66,6 +66,18 @@ h1 em { font-style: italic; font-weight: 500; color: var(--gas); }
 .key ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 4px; font-size: 13px; }
 .key .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 12px; }
 .key .hint { margin: 0; font-size: 12px; color: var(--ink-faint); }
+.key-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.link-btn { border: 0; background: transparent; padding: 2px 0; font-size: 12px; color: var(--ink-dim); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(163,172,194,.4); }
+.link-btn:hover { color: var(--ink); }
+/* desktop: the key and log can be put away; a pill in their corner brings them back (remembered per browser) */
+#show-panels { position: absolute; top: 14px; right: 14px; display: none; padding: 7px 14px; }
+@media (min-width: 861px) {
+  body.panels-hidden .side { display: none; }
+  body.panels-hidden .zoom { right: 14px; }
+  body.panels-hidden #show-panels { display: inline-flex; }
+  body.panels-hidden .masthead { right: 200px; }
+}
+@media (max-width: 860px) { .link-btn#hide-panels { display: none; } }
 .sym { display: inline-block; width: 22px; text-align: center; margin-right: 4px; font-family: var(--mono); }
 .ring { display: inline-block; width: 9px; height: 9px; border-radius: 50%; border: 1.5px solid var(--ai); background: var(--ai); box-shadow: 0 0 0 2px rgba(255,134,184,.25); margin-right: 6px; vertical-align: 0; }
 .off { display: inline-block; width: 7px; height: 7px; border-radius: 50%; border: 1px solid var(--off); margin-right: 7px; vertical-align: 1px; }
@@ -141,7 +153,7 @@ details.about p { margin: 8px 0 0; font-size: 12.5px; color: var(--ink-dim); lin
 /* presentation mode: only the sky, the title, the clock and the counters */
 body.presenting .side, body.presenting .zoom, body.presenting #mobile-tabs, body.presenting #card,
 body.presenting .dek, body.presenting .tally, body.presenting .eyebrow, body.presenting .speed,
-body.presenting .speed-label, body.presenting .switch, body.presenting #rebuild, body.presenting #play,
+body.presenting .speed-label, body.presenting .switch, body.presenting #rebuild, body.presenting #play, body.presenting #show-panels,
 body.presenting .track { display: none !important; }
 body.presenting .masthead { right: 20px; }
 body.presenting h1 { font-size: 30px; opacity: .85; }
@@ -201,7 +213,7 @@ body.presenting .controls { justify-content: flex-end; }
 
   <div class="side" id="side">
     <section class="key glass" aria-labelledby="key-h">
-      <h2 id="key-h">Key</h2>
+      <div class="key-head"><h2 id="key-h">Key</h2><button class="link-btn" id="hide-panels" aria-controls="side">Hide key and log</button></div>
       <ul class="cols">
         <li><span class="dot" style="color:var(--wf)"></span>HubSpot workflow</li>
         <li><span class="dot" style="color:var(--gas)"></span>Apps Script agent</li>
@@ -229,6 +241,8 @@ body.presenting .controls { justify-content: flex-end; }
       <ol id="log-list"></ol>
     </section>
   </div>
+
+  <button class="glass pill" id="show-panels" aria-controls="side">Show key and log</button>
 
   <div class="zoom">
     <button class="glass" id="zoom-in" aria-label="Zoom in">+</button>
@@ -394,12 +408,15 @@ body.presenting .controls { justify-content: flex-end; }
   var open = { x0: 0, x1: 0, y0: 0, y1: 0 };
   var bgLayer = document.createElement('canvas');
   var presenting = false;
+  var panelsHidden = false;
+  try { panelsHidden = localStorage.getItem('galaxy-panels') === 'hidden'; } catch (e) {}
+  document.body.classList.toggle('panels-hidden', panelsHidden);
 
   function measureOpen() {
     var deck = document.querySelector('.deck').getBoundingClientRect();
     var mast = document.querySelector('.masthead').getBoundingClientRect();
     var wide = W > 860;
-    open.x0 = 12; open.x1 = wide && !presenting ? W - 390 : W - 12;
+    open.x0 = 12; open.x1 = wide && !presenting && !panelsHidden ? W - 390 : W - 12;
     open.y0 = mast.bottom + 6; open.y1 = deck.top - (wide || presenting ? 10 : 46);
     document.documentElement.style.setProperty('--deck-h', Math.round(H - deck.top) + 'px');
     document.documentElement.style.setProperty('--cap-top', Math.round(open.y0 + 6) + 'px');
@@ -1023,6 +1040,17 @@ body.presenting .controls { justify-content: flex-end; }
   }
   tabLog.addEventListener('click', function () { openPanel('log'); });
   tabKey.addEventListener('click', function () { openPanel('key'); });
+
+  // desktop: hide or show the key and log; the galaxy widens into the freed space
+  function setPanelsHidden(h) {
+    panelsHidden = h;
+    document.body.classList.toggle('panels-hidden', h);
+    try { localStorage.setItem('galaxy-panels', h ? 'hidden' : 'shown'); } catch (e) {}
+    resize();
+    (h ? document.getElementById('show-panels') : document.getElementById('hide-panels')).focus();
+  }
+  document.getElementById('hide-panels').addEventListener('click', function () { setPanelsHidden(true); });
+  document.getElementById('show-panels').addEventListener('click', function () { setPanelsHidden(false); });
 
   // ---------- main loop ----------
   var last = performance.now();
