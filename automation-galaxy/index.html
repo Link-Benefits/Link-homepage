@@ -78,6 +78,12 @@ h1 em { font-style: italic; font-weight: 500; color: var(--gas); }
   body.panels-hidden .masthead { right: 200px; }
 }
 @media (max-width: 860px) { .link-btn#hide-panels { display: none; } }
+/* immersive view: only the sky, the title and captions; one faint button brings the controls back */
+#show-bar { position: absolute; right: 14px; bottom: calc(14px + env(safe-area-inset-bottom, 0px)); display: none; padding: 7px 14px; opacity: .5; transition: opacity .3s ease; }
+#show-bar:hover, #show-bar:focus-visible { opacity: 1; }
+body.immersive .deck, body.immersive .side, body.immersive .zoom, body.immersive #mobile-tabs, body.immersive #card,
+body.immersive #show-panels, body.immersive .dek, body.immersive .tally { display: none !important; }
+body.immersive #show-bar { display: inline-flex; }
 .sym { display: inline-block; width: 22px; text-align: center; margin-right: 4px; font-family: var(--mono); }
 .ring { display: inline-block; width: 9px; height: 9px; border-radius: 50%; border: 1.5px solid var(--ai); background: var(--ai); box-shadow: 0 0 0 2px rgba(255,134,184,.25); margin-right: 6px; vertical-align: 0; }
 .off { display: inline-block; width: 7px; height: 7px; border-radius: 50%; border: 1px solid var(--off); margin-right: 7px; vertical-align: 1px; }
@@ -243,6 +249,7 @@ body.presenting .controls { justify-content: flex-end; }
   </div>
 
   <button class="glass pill" id="show-panels" aria-controls="side">Show key and log</button>
+  <button class="glass pill" id="show-bar" title="Bring back the bar and panels (H or Esc)">Show controls</button>
 
   <div class="zoom">
     <button class="glass" id="zoom-in" aria-label="Zoom in">+</button>
@@ -283,6 +290,7 @@ body.presenting .controls { justify-content: flex-end; }
       <label class="switch"><input type="checkbox" id="labels-toggle"> Name labels</label>
       <label class="switch"><input type="checkbox" id="sound-toggle"> Sound</label>
       <button class="pill" id="present">Present</button>
+      <button class="pill" id="immersive" title="Hide the bar and panels, leaving only the sky (H)">Immersive view</button>
     </div>
     <div class="track"><canvas id="timeline" aria-label="Timeline of the day. Drag to move through the day."></canvas></div>
   </footer>
@@ -407,7 +415,7 @@ body.presenting .controls { justify-content: flex-end; }
   var cam = { az: 0.55, el: 0.82, zoom: 1, lx: 0, lz: 0, ca: 1, sa: 0, ce: 1, se: 0, S: 1, CX: 0, CY: 0 };
   var open = { x0: 0, x1: 0, y0: 0, y1: 0 };
   var bgLayer = document.createElement('canvas');
-  var presenting = false;
+  var presenting = false, immersive = false;
   var panelsHidden = false;
   try { panelsHidden = localStorage.getItem('galaxy-panels') === 'hidden'; } catch (e) {}
   document.body.classList.toggle('panels-hidden', panelsHidden);
@@ -416,9 +424,10 @@ body.presenting .controls { justify-content: flex-end; }
     var deck = document.querySelector('.deck').getBoundingClientRect();
     var mast = document.querySelector('.masthead').getBoundingClientRect();
     var wide = W > 860;
-    open.x0 = 12; open.x1 = wide && !presenting && !panelsHidden ? W - 390 : W - 12;
-    open.y0 = mast.bottom + 6; open.y1 = deck.top - (wide || presenting ? 10 : 46);
-    document.documentElement.style.setProperty('--deck-h', Math.round(H - deck.top) + 'px');
+    open.x0 = 12; open.x1 = wide && !presenting && !panelsHidden && !immersive ? W - 390 : W - 12;
+    open.y0 = mast.bottom + 6;
+    open.y1 = immersive ? H - 24 : deck.top - (wide || presenting ? 10 : 46);
+    document.documentElement.style.setProperty('--deck-h', (immersive ? 0 : Math.round(H - deck.top)) + 'px');
     document.documentElement.style.setProperty('--cap-top', Math.round(open.y0 + 6) + 'px');
   }
   // fit the whole disc into the open area for the current tilt, then apply zoom
@@ -980,7 +989,8 @@ body.presenting .controls { justify-content: flex-end; }
     else if (e.key === 'ArrowRight' && mode === 'day') seek(simT + 15);
     else if (e.key === 'ArrowLeft' && mode === 'day') seek(simT - 15);
     else if (e.key === 'p' || e.key === 'P') setPresent(!presenting);
-    else if (e.key === 'Escape') { if (presenting) setPresent(false); else select(null); }
+    else if (e.key === 'h' || e.key === 'H') setImmersive(!immersive);
+    else if (e.key === 'Escape') { if (immersive) setImmersive(false); else if (presenting) setPresent(false); else select(null); }
   });
 
   // turning and zooming the galaxy
@@ -1051,6 +1061,19 @@ body.presenting .controls { justify-content: flex-end; }
   }
   document.getElementById('hide-panels').addEventListener('click', function () { setPanelsHidden(true); });
   document.getElementById('show-panels').addEventListener('click', function () { setPanelsHidden(false); });
+
+  // immersive view: hide the bar, the key and log, and the zoom buttons; the galaxy takes the whole window.
+  // The key and log come back as they were, since their own hide setting is untouched.
+  function setImmersive(on) {
+    if (on === immersive) return;
+    immersive = on;
+    document.body.classList.toggle('immersive', on);
+    if (on) { side.classList.remove('open'); tabLog.setAttribute('aria-pressed', 'false'); tabKey.setAttribute('aria-pressed', 'false'); select(null); }
+    resize();
+    (on ? document.getElementById('show-bar') : document.getElementById('immersive')).focus();
+  }
+  document.getElementById('immersive').addEventListener('click', function () { setImmersive(true); });
+  document.getElementById('show-bar').addEventListener('click', function () { setImmersive(false); });
 
   // ---------- main loop ----------
   var last = performance.now();
