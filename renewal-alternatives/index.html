@@ -316,6 +316,11 @@ select.sm{height:36px;font-size:14px}
     <button class="linkbtn" id="clearExample" type="button">Start a new group</button>
   </div>
 
+  <div class="note" id="aiNote" hidden>
+    <b>Suggested</b>
+    <span>A starting point for each plan, based on the group's renewal (AI-assisted). Choose any options you want.</span>
+  </div>
+
   <section class="upload" id="uploadZone" aria-labelledby="uploadTitle">
     <div class="up-main">
       <div class="up-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M12 17v-6m0 0-2.5 2.5M12 11l2.5 2.5"/></svg></div>
@@ -1469,6 +1474,7 @@ function sanitize(s) {
   out.active = Math.min(Math.max(0, out.active | 0), out.sets.length - 1);
   out.period = out.period === 'yr' ? 'yr' : 'mo';
   out.example = !!s.example;
+  out.viaLink = !!s.viaLink;
   out.showDesign = !!s.showDesign;
   return out;
 }
@@ -1575,6 +1581,7 @@ function renderShared() {
   $('#eff').value = state.eff || '';
   document.querySelectorAll('[data-period]').forEach(b => b.setAttribute('aria-pressed', b.dataset.period === state.period));
   $('#exampleNote').hidden = !state.example;
+  $('#aiNote').hidden = !state.viaLink;   // opened from a HubSpot policy link (David, 2026-10-27)
 }
 function renderTotals() {
   const el = $('#totals');
@@ -1765,7 +1772,7 @@ function newGroup() {
   undoSnap = clone(state);
   const base = state.sets[0].base;
   state = Object.assign(clone(state), {
-    group: '', example: false, active: 0, scenarios: [],
+    group: '', example: false, viaLink: false, active: 0, scenarios: [],
     sets: [{ id: 1, net: NET_OF[base], base, premium: 0, options: [] }]
   });
   ui.q = ''; $('#q').value = '';
@@ -2109,7 +2116,7 @@ function applyRenewal(res, fileName, how) {
   const plans = res.plans.slice(0, MAX_SETS);
   const extra = res.plans.length - plans.length;
   state = Object.assign(clone(state), {
-    group: res.group || state.group, eff: isoDate(res.eff) || state.eff, period: 'mo',
+    group: res.group || state.group, eff: isoDate(res.eff) || state.eff, period: 'mo', viaLink: how === 'link',
     example: false, active: 0, scenarios: [],
     sets: plans.map((p, i) => ({ id: i + 1, net: NET_OF[p.plan], base: p.plan, premium: round2(p.monthly), options: [],
       from: p.fromPlan ? { plan: p.fromPlan, monthly: p.fromMonthly } : null }))
