@@ -486,24 +486,31 @@ function quote(s, name) {
   const m = Math.round(raw * (1 + p / 100));
   return { p, m, y: m * 12, dm: m - base, dy: (m - base) * 12 };
 }
-// "Suggest options": nearest buy-down, a bigger buy-down (~12%), an HSA switch (or out of HSA), nearest
-// buy-up, then the closest others. Stays in the current plan's network; Partners plans only from its own region.
+// "Suggest options": nearest buy-down, a bigger buy-down (~12%), nearest buy-up, then the closest others. Stays in
+// the current plan's network; Partners plans only from its own region. Keeps the plan's KIND (David, 2026-10-27, same
+// rule as the auditor's Renewal Package Reader): an HSA plan gets HSA plans and a regular plan regular ones (Classic,
+// HRA, Assure each stay in their family). The buy-downs come from the closest kind that has one; the other slots widen
+// to another kind only when the plan's own kind runs out of plans.
 function suggestOptions(s, count = 4) {
-  const region = DATA.designs[s.base].partners;
-  const pool = DATA.grids[s.net].plans
+  const region = DATA.designs[s.base].partners, fam = DATA.designs[s.base].family, hsa = fam === 'HSA';
+  const all = DATA.grids[s.net].plans
     .filter(p => p !== s.base && (!DATA.designs[p].partners || DATA.designs[p].partners === region))
-    .map(p => ({ p, v: pctFor(s, p), hsa: DATA.designs[p].family === 'HSA' }));
+    .map(p => { const f = DATA.designs[p].family; return { p, v: pctFor(s, p), tier: f === fam ? 0 : (f === 'HSA') === hsa ? 1 : 2 }; });
   const picks = [];
   const take = c => { if (c && !picks.includes(c.p) && picks.length < count) picks.push(c.p); };
   const byNear = list => list.slice().sort((a, b) => Math.abs(a.v) - Math.abs(b.v));
-  const downs = pool.filter(c => c.v < 0).sort((a, b) => b.v - a.v);
-  take(downs[0]);
-  const near = downs[0] ? downs[0].v : 0;
-  take(downs.filter(c => c.v <= near - 3).sort((a, b) => Math.abs(a.v + 12) - Math.abs(b.v + 12))[0]);
-  const baseHsa = DATA.designs[s.base].family === 'HSA';
-  take(byNear(pool.filter(c => c.hsa !== baseHsa && !picks.includes(c.p)))[0]);
-  take(pool.filter(c => c.v > 0).sort((a, b) => a.v - b.v)[0]);
-  for (const c of byNear(pool)) take(c);
+  const downsIn = t => all.filter(c => c.tier <= t && c.v < 0).sort((a, b) => b.v - a.v);
+  const tDown = [0, 1, 2].find(t => downsIn(t).length);
+  if (tDown !== undefined) {
+    const downs = downsIn(tDown);
+    take(downs[0]);
+    take(downs.filter(c => c.v <= downs[0].v - 3).sort((a, b) => Math.abs(a.v + 12) - Math.abs(b.v + 12))[0]);
+  }
+  for (let t = 0; t <= 2 && picks.length < count; t++) {
+    const pool = all.filter(c => c.tier <= t);
+    take(pool.filter(c => c.v > 0).sort((a, b) => a.v - b.v)[0]);
+    for (const c of byNear(pool)) take(c);
+  }
   return picks.sort((a, b) => pctFor(s, b) - pctFor(s, a)); // richest first, like a menu
 }
 const d0 = n => (n == null ? 'n/a' : usd(n, 0));
@@ -1405,6 +1412,24 @@ function finishRenewal({ group, eff, rows, rates }) {
   if (unmatched.length) warnings.push(`Not in the 2027 grid, so left out: ${unmatched.join(', ')}.`);
   return { group, eff, plans, warnings };
 }
+// A policy's "Renewal alternatives link" (the auditor's Renewal Package Reader, 2026-10-27): "#r=" + base64url of the
+// JSON { v: 1, g: group, d: 'MM/DD/YYYY', p: [{ r: renewal plan, m: its monthly premium, c: current plan, cm: its
+// monthly premium, x: PH's rate change % }] }. The part after "#" is never sent to any server.
+// -> a renewal shaped like parseRenewal's, or null when the hash is not such a link.
+function parseLink(hash) {
+  const m = String(hash || '').match(/^#r=([A-Za-z0-9_-]+={0,2})$/);
+  if (!m) return null;
+  let o;
+  try {
+    const bin = atob(m[1].replace(/-/g, '+').replace(/_/g, '/'));
+    o = JSON.parse(new TextDecoder().decode(Uint8Array.from(bin, ch => ch.charCodeAt(0))));
+  } catch (e) { return null; }
+  if (!o || o.v !== 1 || !Array.isArray(o.p)) return null;
+  const ok = o.p.filter(p => p && p.r && +p.m > 0);
+  const rows = ok.map(p => ({ raw: String(p.r), monthly: +p.m, fromPlan: p.c ? String(p.c) : '', fromMonthly: +p.cm > 0 ? +p.cm : null }));
+  const rates = new Map(ok.filter(p => p.x != null && p.x !== '' && !isNaN(+p.x)).map(p => [planKey(p.r), +p.x]));
+  return finishRenewal({ group: String(o.g || ''), eff: String(o.d || ''), rows, rates });
+}
 async function pdfPages(pdf) {
   const pages = [];
   for (let i = 1; i <= pdf.numPages; i++) pages.push(textRows((await (await pdf.getPage(i)).getTextContent()).items));
@@ -2097,7 +2122,7 @@ function applyRenewal(res, fileName, how) {
     .filter(Boolean).map(w => `<p class="up-warn">${esc(w)}</p>`).join('');
   upShow(`<p><b>${esc(fileName)}</b>${res.group ? ` · ${esc(res.group)}` : ''}${res.eff ? ` · effective ${esc(res.eff)}` : ''}</p>
     <ul class="up-list">${items}</ul>${warn}
-    <p class="from">${how === 'claude' ? 'Claude read the plan pages; the census pages were not sent.' : 'Read in your browser; nothing was uploaded.'} Filled in below, so check the premiums against the package, then use Suggest options or type the alternatives. <button type="button" class="linkbtn" id="upUndo">Undo</button></p>`);
+    <p class="from">${how === 'link' ? 'From the renewal package as read for the HubSpot policy; options are suggested for every plan below, so swap any of them.' : `${how === 'claude' ? 'Claude read the plan pages; the census pages were not sent.' : 'Read in your browser; nothing was uploaded.'} Filled in below, so check the premiums against the package, then use Suggest options or type the alternatives.`} <button type="button" class="linkbtn" id="upUndo">Undo</button></p>`);
   say(`Filled in ${plans.length} renewal plan${plans.length > 1 ? 's' : ''} from ${fileName}.`, false, true);
   const next = document.querySelector('#board-1 input[data-kind="slot"]');
   if (next) { next.closest('.set').scrollIntoView({ block: 'start', behavior: 'smooth' }); next.focus({ preventScroll: true }); }
@@ -2186,5 +2211,21 @@ if (window.matchMedia) matchMedia('(prefers-color-scheme: dark)').addEventListen
 
 state = load() || clone(EXAMPLE);
 render();
+// Opened from a policy's "Renewal alternatives link": fill the group in like a dropped renewal, suggest options for
+// every plan, then drop the "#..." so a reload keeps the person's edits instead of starting over.
+function openFromLink() {
+  const res = parseLink(location.hash);
+  if (!res) return;
+  history.replaceState(null, '', location.pathname + location.search);
+  if (!res.plans.length) {
+    upShow(`<p class="up-warn">The HubSpot link has no plan this tool knows. ${res.warnings.map(esc).join(' ')} Enter the plans by hand below.</p>`);
+    return;
+  }
+  applyRenewal(res, 'the HubSpot policy link', 'link');
+  state.sets.forEach(s => { s.options = suggestOptions(s, MAX_OPTIONS); });
+  touched(); render();
+}
+openFromLink();
+window.addEventListener('hashchange', openFromLink);
 </script>
 </body></html>
